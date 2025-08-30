@@ -44,19 +44,18 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
     Hugging Face Dataset reposundan index dosyalarını indirir.
     Gerekli env'ler:
       - HUB_REPO_ID (örn: 'ymerta/netmerianbot-faiss')
-      - HUB_SUBFOLDER (default: 'faiss_store')
+      - HUB_SUBFOLDER (boşsa kökten okur)
       - HUB_REVISION (opsiyonel: tag/sha)
       - HF_HOME / HF_HUB_CACHE (opsiyonel, cache kökleri)
     """
     repo_id = os.getenv("HUB_REPO_ID")
-    subfolder = os.getenv("HUB_SUBFOLDER", "faiss_store")
+    subfolder = os.getenv("HUB_SUBFOLDER", "")  # <-- default boş
     revision = os.getenv("HUB_REVISION")  # optional
 
     if not repo_id:
         logger.info("HUB_REPO_ID tanımlı değil; Hub indirme adımı atlanıyor.")
         return False
 
-    # HF cache konumunu yazılabilir bir dizine al (Dockerfile'da /data/.cache/... set edildi)
     cache_root = Path(os.getenv("HF_HUB_CACHE") or os.getenv("HF_HOME") or "/data/.cache/huggingface/hub")
     try:
         cache_root.mkdir(parents=True, exist_ok=True)
@@ -65,7 +64,7 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
 
     logger.info(
         f"Hugging Face Hub'dan indirme denemesi: "
-        f"repo_id={repo_id}, subfolder={subfolder}, revision={revision or '(default)'} "
+        f"repo_id={repo_id}, subfolder='{subfolder}', revision={revision or '(default)'} "
         f"cache_root={cache_root}"
     )
 
@@ -74,21 +73,23 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
     ok = True
     for fname in want_files:
         try:
+            # subfolder boşsa kökten oku
+            path_in_repo = f"{subfolder}/{fname}" if subfolder else fname
             fpath = hf_hub_download(
                 repo_id=repo_id,
-                filename=f"{subfolder}/{fname}",
+                filename=path_in_repo,
                 repo_type="dataset",
                 revision=revision,
-                # cache'i açıkça ver → /.cache izin hatasını önler
                 local_dir=str(cache_root),
-                local_dir_use_symlinks=False,  # symlink yerine kopya
+                local_dir_use_symlinks=False,
             )
             shutil.copy2(fpath, target_dir / fname)
-            logger.info(f"Hub'dan indirildi: {fname}")
+            logger.info(f"Hub'dan indirildi: {path_in_repo}")
         except Exception as e:
             logger.error(f"Hub indirme başarısız: {fname}: {e}")
             ok = False
     return ok
+
 
 def load_or_build_faiss():
     """

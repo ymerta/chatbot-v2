@@ -13,7 +13,7 @@ ENV ENVIRONMENT=production
 ENV ALLOW_SCRAPE=0
 # Hugging Face dataset repo bilgileriniz
 ENV HUB_REPO_ID=ymerta/netmerianbot-faiss
-ENV HUB_SUBFOLDER=faiss_store
+ENV HUB_SUBFOLDER=
 # HF cache’i yazılabilir bir yere yönlendir (/.cache hatasını önler)
 ENV HF_HOME=/data/.cache/huggingface
 ENV HF_HUB_CACHE=/data/.cache/huggingface/hub
