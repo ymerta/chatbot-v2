@@ -1,0 +1,22 @@
+# venv & IDE
+venv/
+.env
+*.env
+.DS_Store
+.vscode/
+__pycache__/
+*.pyc
+
+# data (çıktılar / büyük dosyalar)
+
+data/chunks/
+data/dev/
+data/raw/
+data/embeddings/
+
+# streamlit cache
+.streamlit/
+**/.streamlit/
+
+# LangSmith local cache (varsa)
+.langchain/
