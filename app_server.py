@@ -8,6 +8,8 @@ import logging
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
@@ -25,6 +27,15 @@ load_dotenv()
 
 app = FastAPI(title="NetmerianBot API")
 
+# CORS (UI -> API çağrıları için)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ---------- Models ----------
 class ChatIn(BaseModel):
     query: str
 
@@ -32,6 +43,7 @@ class ChatOut(BaseModel):
     answer: str
     citations: List[str] = []
     suggestions: List[str] = []
+# ----------------------------
 
 def ensure_openai_key():
     if not os.getenv("OPENAI_API_KEY"):
@@ -49,13 +61,14 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
       - HF_HOME / HF_HUB_CACHE (opsiyonel, cache kökleri)
     """
     repo_id = os.getenv("HUB_REPO_ID")
-    subfolder = os.getenv("HUB_SUBFOLDER", "")  # <-- default boş
+    subfolder = os.getenv("HUB_SUBFOLDER", "")  # kök default
     revision = os.getenv("HUB_REVISION")  # optional
 
     if not repo_id:
         logger.info("HUB_REPO_ID tanımlı değil; Hub indirme adımı atlanıyor.")
         return False
 
+    # HF cache konumu (Dockerfile'da /data/.cache/... set edildi)
     cache_root = Path(os.getenv("HF_HUB_CACHE") or os.getenv("HF_HOME") or "/data/.cache/huggingface/hub")
     try:
         cache_root.mkdir(parents=True, exist_ok=True)
@@ -73,15 +86,13 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
     ok = True
     for fname in want_files:
         try:
-            # subfolder boşsa kökten oku
             path_in_repo = f"{subfolder}/{fname}" if subfolder else fname
             fpath = hf_hub_download(
                 repo_id=repo_id,
                 filename=path_in_repo,
                 repo_type="dataset",
                 revision=revision,
-                local_dir=str(cache_root),
-                local_dir_use_symlinks=False,
+                local_dir=str(cache_root),  # /.cache izin hatası yaşamamak için
             )
             shutil.copy2(fpath, target_dir / fname)
             logger.info(f"Hub'dan indirildi: {path_in_repo}")
@@ -89,7 +100,6 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
             logger.error(f"Hub indirme başarısız: {fname}: {e}")
             ok = False
     return ok
-
 
 def load_or_build_faiss():
     """
@@ -181,7 +191,7 @@ def load_or_build_faiss():
     logger.error(error_msg)
     raise RuntimeError(error_msg)
 
-# Application startup
+# ---------- Application startup ----------
 logger.info("Starting NetmerianBot API...")
 try:
     vs = load_or_build_faiss()
@@ -195,20 +205,17 @@ try:
     APP_READY = True
     APP_ERROR = None
     logger.info("Application ready!")
-
 except Exception as e:
     logger.error(f"Application startup failed: {e}")
     graph = None
     APP_READY = False
     APP_ERROR = str(e)
+# ----------------------------------------
 
-@app.get("/")
+# ---------- API endpoints ----------
+@app.get("/health")
 def health():
-    return {
-        "ok": APP_READY,
-        "service": "NetmerianBot API",
-        "error": APP_ERROR,
-    }
+    return {"ok": APP_READY, "service": "NetmerianBot API", "error": APP_ERROR}
 
 @app.get("/debug")
 def debug_info():
@@ -223,14 +230,13 @@ def debug_info():
         "faiss_exists": store_path.exists(),
         "faiss_index_exists": (store_path / "index.faiss").exists() if store_path.exists() else False,
         "repo_faiss_exists": repo_path.exists(),
-        "repo_index_exists": (repo_path / "index.faiss").exists() if repo_path.exists() else False,
+        "repo_index_exists": (repo_faiss_path := repo_path / "index.faiss") and repo_faiss_path.exists(),
         "hub_repo_id": os.getenv("HUB_REPO_ID"),
-        "hub_subfolder": os.getenv("HUB_SUBFOLDER", "faiss_store"),
+        "hub_subfolder": os.getenv("HUB_SUBFOLDER", ""),
         "allow_scrape": os.getenv("ALLOW_SCRAPE", "0"),
         "openai_key_set": bool(os.getenv("OPENAI_API_KEY")),
         "environment": os.getenv("ENVIRONMENT", "development"),
         "cwd": os.getcwd(),
-        # HF cache env’leri (izin/konum kontrolü için faydalı)
         "HF_HOME": os.getenv("HF_HOME"),
         "HF_HUB_CACHE": os.getenv("HF_HUB_CACHE"),
         "HOME": os.getenv("HOME"),
@@ -240,7 +246,6 @@ def debug_info():
 def chat(body: ChatIn):
     if not APP_READY or graph is None:
         raise HTTPException(status_code=503, detail=f"Service not ready: {APP_ERROR}")
-
     try:
         res = graph.invoke({"query": body.query}, config={"run_name": "ChatQuery"})
         return ChatOut(
@@ -251,3 +256,10 @@ def chat(body: ChatIn):
     except Exception as e:
         logger.error(f"Chat error: {e}")
         raise HTTPException(status_code=500, detail=f"Chat processing failed: {str(e)}")
+# -------------------------------------
+
+# ---------- Mount static UI at root ----------
+# / → static/index.html (modern HTML+JS arayüz)
+# /chat, /health, /debug endpoint'leri yukarıda tanımlı kaldı.
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
+# --------------------------------------------

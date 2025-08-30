@@ -35,6 +35,8 @@ COPY data/faq_answers.json ./data/faq_answers.json
 # data klasörünü kopyalıyoruz (FAISS dosyaları dahil olmayabilir ama sorun değil)
 COPY data ./data
 
+COPY static ./static
+
 # Kalıcı data ve HF cache klasörlerini oluştur + izin ver
 RUN mkdir -p /data/embeddings/faiss_store && \
     mkdir -p /data/.cache/huggingface/hub && \
