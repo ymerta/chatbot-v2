@@ -5,18 +5,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NetmerianBot</title>
+
+  <!-- Tema/CSS -->
   <style>
     :root{
       --bg:#0b1020; --panel:#121833; --muted:#9aa4bf; --text:#e7ecff;
       --brand1:#6d8cff; --brand2:#8e7dff; --user:#2b375f; --bot:#1a2347;
       --chip:#202a54; --chip-hover:#2a376b; --ring:#2d3a73;
+      --code-bg:#0c122b; --code-border:#243067;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0; background: radial-gradient(1200px 800px at 20% -10%, #1e2552 0%, var(--bg) 60%),
                            linear-gradient(135deg, #0b1020 0%, #0b1020 100%);
-      color:var(--text); font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text); font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial;
       display:flex; align-items:center; justify-content:center;
     }
     .shell{
@@ -25,55 +28,52 @@
       box-shadow:0 20px 60px rgba(10,12,32,.45), inset 0 0 0 1px rgba(255,255,255,.03);
       display:grid; grid-template-rows:64px 1fr 86px; overflow:hidden;
     }
-    header{
-      display:flex; align-items:center; gap:12px; padding:0 18px;
+    header{display:flex; align-items:center; gap:12px; padding:0 18px;
       background:linear-gradient(90deg, rgba(109,140,255,.18), rgba(142,125,255,.18));
-      border-bottom:1px solid #1d2753;
-    }
+      border-bottom:1px solid #1d2753}
     .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--brand1),var(--brand2));box-shadow:0 0 10px rgba(125,135,255,.8)}
     header h1{font-size:15px; letter-spacing:.4px; margin:0; color:#eaf0ff}
     header .spacer{flex:1}
     header a{color:var(--muted); text-decoration:none; font-size:13px}
-    #log{
-      padding:18px; overflow:auto; scroll-behavior:smooth;
-      background:
+    #log{padding:18px; overflow:auto; scroll-behavior:smooth; background:
         radial-gradient(900px 600px at 105% -10%, rgba(141,125,255,.08), transparent 50%),
-        radial-gradient(900px 600px at -5% 110%, rgba(109,140,255,.10), transparent 50%);
-    }
+        radial-gradient(900px 600px at -5% 110%, rgba(109,140,255,.10), transparent 50%);}
     .msg{display:flex; gap:10px; margin:12px 0; max-width:85%}
     .msg.user{margin-left:auto; flex-direction:row-reverse}
-    .bubble{
-      padding:12px 14px; border-radius:14px; border:1px solid var(--ring);
-      background:var(--bot); color:var(--text); box-shadow:0 8px 24px rgba(0,0,0,.25);
-      white-space:pre-wrap; word-break:break-word;
-    }
+    .bubble{padding:12px 14px; border-radius:14px; border:1px solid var(--ring);
+      background:var(--bot); color:var(--text); box-shadow:0 8px 24px rgba(0,0,0,.25)}
     .user .bubble{background:var(--user)}
     .msg small{color:var(--muted); align-self:flex-end}
-    .typing{display:inline-flex; gap:6px; padding:12px 14px}
-    .typing span{width:6px;height:6px;border-radius:50%;background:#cbd4ff;opacity:.45; animation:b 1.2s infinite}
-    .typing span:nth-child(2){animation-delay:.15s}
-    .typing span:nth-child(3){animation-delay:.3s}
-    @keyframes b{0%,80%,100%{transform:translateY(0);opacity:.35} 40%{transform:translateY(-6px);opacity:.9}}
     .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
     .chip{font-size:13px;color:#cfe0ff;background:var(--chip); padding:8px 10px; border-radius:999px; cursor:pointer; border:1px solid #2a376a}
     .chip:hover{background:var(--chip-hover)}
-    footer{
-      display:grid; grid-template-columns:1fr auto; gap:10px; padding:12px 14px; background:#0f1531; border-top:1px solid #1d2753;
-    }
-    textarea{
-      resize:none; height:58px; padding:14px 12px; border-radius:12px; background:#0b1230; color:var(--text);
-      border:1px solid #22306a; outline: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
-    }
+    footer{display:grid; grid-template-columns:1fr auto; gap:10px; padding:12px 14px; background:#0f1531; border-top:1px solid #1d2753}
+    textarea{resize:none; height:58px; padding:14px 12px; border-radius:12px; background:#0b1230; color:var(--text);
+      border:1px solid #22306a; outline: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.03)}
     textarea:focus{border-color:#3450ff}
-    button{
-      min-width:110px; border-radius:12px; border:1px solid #3a4cff; color:white;
-      background:linear-gradient(135deg,var(--brand1),var(--brand2));
-      font-weight:600; letter-spacing:.3px; cursor:pointer;
-    }
+    button{min-width:110px; border-radius:12px; border:1px solid #3a4cff; color:white;
+      background:linear-gradient(135deg,var(--brand1),var(--brand2)); font-weight:600; letter-spacing:.3px; cursor:pointer}
     button[disabled]{opacity:.6; cursor:not-allowed}
     .meta{font-size:12px;color:#b9c4eb;margin-top:6px}
     a.cite{color:#cbd6ff; font-size:12px; text-decoration:underline; margin-right:10px}
+
+    /* --- Kod blokları / terminal görünümü --- */
+    .bubble pre{background:var(--code-bg)!important; border:1px solid var(--code-border);
+      border-radius:12px; padding:14px; overflow:auto}
+    .code-wrap{position:relative; margin:10px 0}
+    .code-tools{position:absolute; top:6px; right:6px; display:flex; gap:6px}
+    .code-tools .lang{font:12px/1 monospace; color:#b9c4eb; background:#11193a; border:1px solid #2b3b7d; border-radius:8px; padding:4px 8px}
+    .code-tools .copy{font:12px/1 monospace; color:#e7ecff; background:#1a2550; border:1px solid #3353c7; border-radius:8px; padding:4px 8px; cursor:pointer}
+    .code-tools .copy.copied{background:#204a2a; border-color:#2a7a3a}
+    /* Bash prompt havası */
+    pre code.language-bash .hljs-meta{color:#9cdcfe}
   </style>
+
+  <!-- Markdown parser + XSS koruması + Syntax highlight -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark-dimmed.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
 </head>
 <body>
   <div class="shell">
@@ -99,29 +99,79 @@
     const inp = document.getElementById('inp');
     const btn = document.getElementById('send');
 
+    // Markdown -> HTML + highlight + copy button
+    function renderMarkdown(md){
+      // marked ayarları
+      marked.setOptions({
+        mangle:false, headerIds:false, breaks:true, gfm:true,
+        highlight: (code, lang) => {
+          try { return hljs.highlight(code, {language: lang}).value; }
+          catch { return hljs.highlightAuto(code).value; }
+        }
+      });
+      // HTML'e çevir ve güvenli hale getir
+      let html = marked.parse(md || "");
+      html = DOMPurify.sanitize(html);
+      // Code bloklarına araç çubuğu ekle
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      tmp.querySelectorAll('pre>code').forEach((codeEl) => {
+        const pre = codeEl.parentElement;
+        const wrap = document.createElement('div');
+        wrap.className = 'code-wrap';
+        pre.replaceWith(wrap);
+        wrap.appendChild(pre);
+        const tools = document.createElement('div');
+        tools.className = 'code-tools';
+        const lang = [...codeEl.classList].find(c=>c.startsWith('language-'));
+        const langLabel = document.createElement('span');
+        langLabel.className = 'lang';
+        langLabel.textContent = (lang ? lang.replace('language-','') : 'text');
+        const copy = document.createElement('button');
+        copy.className = 'copy';
+        copy.textContent = 'Copy';
+        copy.addEventListener('click', async () => {
+          try{
+            await navigator.clipboard.writeText(codeEl.textContent);
+            copy.textContent = 'Copied'; copy.classList.add('copied');
+            setTimeout(()=>{copy.textContent='Copy'; copy.classList.remove('copied')}, 1200);
+          }catch(e){ console.error(e); }
+        });
+        tools.appendChild(langLabel); tools.appendChild(copy);
+        wrap.appendChild(tools);
+      });
+      return tmp.innerHTML;
+    }
+
     function el(html){
       const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild;
     }
     function toLinkable(x){
-      try{
-        const u = new URL(x);
-        return `<a class="cite" href="${u.href}" target="_blank" rel="noopener">source</a>`;
-      }catch{ return `<span class="cite" title="${x}">ref</span>`; }
+      try { const u = new URL(x); return `<a class="cite" href="${u.href}" target="_blank" rel="noopener">source</a>`; }
+      catch { return `<span class="cite" title="${x}">ref</span>`; }
     }
-    function addMsg(text, who="bot", extras=null){
+
+    function addMsg(content, who="bot", extras=null, isMarkdown=false){
       const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
       const msg = el(`
         <div class="msg ${who}">
-          <div class="bubble">${text}</div>
+          <div class="bubble"></div>
           <small>${who === "user" ? "You" : "Bot"} · ${time}</small>
         </div>
       `);
+      const bubble = msg.querySelector('.bubble');
+      if(isMarkdown){
+        bubble.innerHTML = renderMarkdown(content);
+      }else{
+        bubble.textContent = content;
+      }
+
       log.appendChild(msg);
 
       if(extras?.citations?.length){
         const meta = el(`<div class="meta"></div>`);
         extras.citations.forEach(c => meta.insertAdjacentHTML('beforeend', toLinkable(c)));
-        msg.querySelector('.bubble').after(meta);
+        bubble.after(meta);
       }
       if(extras?.suggestions?.length){
         const wrap = el(`<div class="chips"></div>`);
@@ -135,14 +185,16 @@
       log.scrollTop = log.scrollHeight;
       return msg;
     }
+
     function addTyping(){
       const m = el(`
         <div class="msg">
-          <div class="bubble typing"><span></span><span></span><span></span></div>
-          <small>Bot · typing…</small>
+          <div class="bubble">typing…</div>
+          <small>Bot · …</small>
         </div>`);
       log.appendChild(m); log.scrollTop = log.scrollHeight; return m;
     }
+
     async function send(text){
       if(!text || !text.trim()) return;
       addMsg(text.trim(), "user");
@@ -157,7 +209,8 @@
         if(!r.ok) throw new Error(await r.text());
         const data = await r.json();
         typing.remove();
-        addMsg(data.answer || "(no answer)", "bot", {citations:data.citations||[], suggestions:data.suggestions||[]});
+        // cevap markdown olarak render edilsin
+        addMsg(data.answer || "(no answer)", "bot", {citations:data.citations||[], suggestions:data.suggestions||[]}, true);
       }catch(err){
         typing.remove();
         addMsg("⚠️ Error: " + (err.message || err), "bot");
@@ -166,14 +219,9 @@
       }
     }
 
-    // UX
     btn.addEventListener('click', () => send(inp.value));
-    inp.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(inp.value); }
-    });
-
-    // Giriş mesajı
-    addMsg("Hi! Ask me anything about Netmera docs. I’ll answer and cite sources when possible.", "bot");
+    inp.addEventListener('keydown', (e) => { if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(inp.value); }});
+    addMsg("Hi! Paste any code or ask questions. Code blocks like ```bash or ```python will render with copy buttons.", "bot", null, true);
   </script>
 </body>
 </html>
