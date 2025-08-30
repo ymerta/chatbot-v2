@@ -9,12 +9,15 @@ WORKDIR /app
 ENV DATA_DIR=/data
 ENV FAISS_STORE_PATH=/data/embeddings/faiss_store
 ENV ENVIRONMENT=production
-# Artık FAISS’i Hugging Face Hub’dan çekeceğiz → scrape kapalı
+# FAISS’i Hugging Face Hub’dan alacağız → scrape kapalı
 ENV ALLOW_SCRAPE=0
 # Hugging Face dataset repo bilgileriniz
 ENV HUB_REPO_ID=ymerta/netmerianbot-faiss
 ENV HUB_SUBFOLDER=faiss_store
-# Eğer dataset private ise HF_TOKEN secret’ını container’a inject etmen lazım (Space’de Settings → Secrets)
+# HF cache’i yazılabilir bir yere yönlendir (/.cache hatasını önler)
+ENV HF_HOME=/data/.cache/huggingface
+ENV HF_HUB_CACHE=/data/.cache/huggingface/hub
+ENV HOME=/root
 
 # Python bağımlılıkları
 COPY requirements.txt .
@@ -32,8 +35,10 @@ COPY data/faq_answers.json ./data/faq_answers.json
 # data klasörünü kopyalıyoruz (FAISS dosyaları dahil olmayabilir ama sorun değil)
 COPY data ./data
 
-# Kalıcı data klasörü oluştur
-RUN mkdir -p /data && chmod -R 777 /data
+# Kalıcı data ve HF cache klasörlerini oluştur + izin ver
+RUN mkdir -p /data/embeddings/faiss_store && \
+    mkdir -p /data/.cache/huggingface/hub && \
+    chmod -R 777 /data
 
 EXPOSE 7860
 

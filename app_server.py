@@ -46,6 +46,7 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
       - HUB_REPO_ID (örn: 'ymerta/netmerianbot-faiss')
       - HUB_SUBFOLDER (default: 'faiss_store')
       - HUB_REVISION (opsiyonel: tag/sha)
+      - HF_HOME / HF_HUB_CACHE (opsiyonel, cache kökleri)
     """
     repo_id = os.getenv("HUB_REPO_ID")
     subfolder = os.getenv("HUB_SUBFOLDER", "faiss_store")
@@ -55,7 +56,18 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
         logger.info("HUB_REPO_ID tanımlı değil; Hub indirme adımı atlanıyor.")
         return False
 
-    logger.info(f"Hugging Face Hub'dan indirme denemesi: repo_id={repo_id}, subfolder={subfolder}, revision={revision or '(default)'}")
+    # HF cache konumunu yazılabilir bir dizine al (Dockerfile'da /data/.cache/... set edildi)
+    cache_root = Path(os.getenv("HF_HUB_CACHE") or os.getenv("HF_HOME") or "/data/.cache/huggingface/hub")
+    try:
+        cache_root.mkdir(parents=True, exist_ok=True)
+    except Exception as e:
+        logger.warning(f"Cache klasörü oluşturulamadı ({cache_root}): {e}")
+
+    logger.info(
+        f"Hugging Face Hub'dan indirme denemesi: "
+        f"repo_id={repo_id}, subfolder={subfolder}, revision={revision or '(default)'} "
+        f"cache_root={cache_root}"
+    )
 
     target_dir.mkdir(parents=True, exist_ok=True)
     want_files = ["index.faiss", "index.pkl"]
@@ -67,6 +79,9 @@ def try_download_faiss_from_hub(target_dir: Path) -> bool:
                 filename=f"{subfolder}/{fname}",
                 repo_type="dataset",
                 revision=revision,
+                # cache'i açıkça ver → /.cache izin hatasını önler
+                local_dir=str(cache_root),
+                local_dir_use_symlinks=False,  # symlink yerine kopya
             )
             shutil.copy2(fpath, target_dir / fname)
             logger.info(f"Hub'dan indirildi: {fname}")
@@ -214,6 +229,10 @@ def debug_info():
         "openai_key_set": bool(os.getenv("OPENAI_API_KEY")),
         "environment": os.getenv("ENVIRONMENT", "development"),
         "cwd": os.getcwd(),
+        # HF cache env’leri (izin/konum kontrolü için faydalı)
+        "HF_HOME": os.getenv("HF_HOME"),
+        "HF_HUB_CACHE": os.getenv("HF_HUB_CACHE"),
+        "HOME": os.getenv("HOME"),
     }
 
 @app.post("/chat", response_model=ChatOut)
