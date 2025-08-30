@@ -1,83 +1,69 @@
-<!-- static/index.html -->
 <!doctype html>
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NetmerianBot</title>
-
   <style>
-    /* =======================
-       Netmera brand palette
-       (yaklaşık tonlar)
-       mavi  : #2EC3E0
-       yeşil : #8CCB3B
-       koyu  : #0B1224
-       ======================= */
     :root{
-      /* brand */
+      /* Netmera */
       --brand-blue:#2EC3E0;
       --brand-green:#8CCB3B;
 
-      /* backgrounds */
-      --bg:#0B1224;                 /* sayfa arkası (koyu lacivert) */
-      --panel:#121A36;              /* kart/panel */
-      --bot:#131C3C;                /* bot balonu */
-      --user:#0E2B3A;               /* kullanıcı balonu (maviye yakın) */
+      /* Zeminler */
+      --bg:#08132A;
+      --panel:#0E1733;
 
-      /* text & borders */
-      --text:#F1F5FF;
-      --muted:#A7B3D6;
-      --ring:#2A3A76;
+      /* Balonlar (kontrast artırıldı) */
+      --bot:#0F1C3F;   /* lacivert */
+      --user:#10364E;  /* maviye yakın */
 
-      /* chips */
+      --text:#F2F6FF;
+      --muted:#9FB1D8;
+      --ring:#2B3D83;
+
       --chip:#17224A;
       --chip-hover:#1E2C5D;
 
-      /* code */
-      --code-bg:#0D1634;
-      --code-border:#27408F;
+      --code-bg:#0B1536;
+      --code-border:#2C47A3;
 
-      /* links */
-      --link:#E0F7FF;
+      --link:#DDF6FF;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      background:
-        radial-gradient(1200px 800px at 20% -10%, rgba(46,195,224,.20) 0%, transparent 55%),
-        linear-gradient(135deg, var(--bg) 0%, #081024 100%);
+      background: radial-gradient(1200px 800px at 20% -10%, rgba(46,195,224,.15) 0%, transparent 55%),
+                  linear-gradient(135deg, var(--bg) 0%, #050D22 100%);
       color:var(--text);
       font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial;
       display:flex; align-items:center; justify-content:center;
     }
 
     .shell{
-      width:min(980px, 92vw); height:min(88vh, 920px);
+      width:min(1000px, 94vw);
+      height:min(90vh, 920px);
       background:var(--panel);
       border:1px solid rgba(255,255,255,.06);
       border-radius:18px;
-      box-shadow:0 22px 70px rgba(6,10,28,.55), inset 0 0 0 1px rgba(255,255,255,.03);
-      display:grid; grid-template-rows:auto 1fr 90px; overflow:hidden;
+      box-shadow:0 24px 70px rgba(6,10,28,.55), inset 0 0 0 1px rgba(255,255,255,.03);
+      display:grid; grid-template-rows:40px 56px 1fr 92px; overflow:hidden;
     }
 
-    /* üst brand bar (netmera sitesindeki gibi mavi→yeşil degrade) */
+    /* Üst marka şeridi */
     .brandbar{
-      height:36px;
       background:linear-gradient(90deg, var(--brand-blue), var(--brand-green));
       display:flex; align-items:center; justify-content:center;
-      color:#0B1224; font-weight:600; letter-spacing:.2px;
-      padding:0 14px;
+      color:#0B1224; font-weight:700; letter-spacing:.2px; font-size:14px;
     }
 
     header{
-      display:flex; align-items:center; gap:12px; padding:12px 18px;
-      background:linear-gradient(90deg, rgba(46,195,224,.18), rgba(140,203,59,.18));
+      display:flex; align-items:center; gap:12px; padding:0 18px;
+      background:#0F1B3A;
       border-bottom:1px solid rgba(255,255,255,.06);
     }
-
     .dot{width:10px;height:10px;border-radius:50%;
       background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));
       box-shadow:0 0 12px rgba(46,195,224,.9)}
@@ -85,24 +71,26 @@
     header .spacer{flex:1}
     header a{color:var(--link); text-decoration:none; font-size:13px}
 
+    /* Sade ve düz bir konuşma alanı */
     #log{
       padding:18px; overflow:auto; scroll-behavior:smooth;
-      background:
-        radial-gradient(900px 600px at 105% -10%, rgba(140,203,59,.10), transparent 55%),
-        radial-gradient(900px 600px at -5% 110%, rgba(46,195,224,.12), transparent 55%);
+      background: var(--panel);
+      display:flex; flex-direction:column;
     }
 
     .msg{display:flex; gap:10px; margin:12px 0; max-width:85%}
     .msg.user{margin-left:auto; flex-direction:row-reverse}
+
     .bubble{
-      padding:12px 14px; border-radius:14px; border:1px solid var(--ring);
+      padding:12px 14px; border-radius:14px;
       background:var(--bot); color:var(--text);
+      border:1px solid var(--ring);
       box-shadow:0 10px 28px rgba(0,0,0,.25);
       white-space:pre-wrap; word-break:break-word;
     }
     .user .bubble{
-      background:linear-gradient(180deg, rgba(46,195,224,.15), rgba(46,195,224,.05));
-      border-color:rgba(46,195,224,.45);
+      background:var(--user);
+      border-color:rgba(46,195,224,.55);
     }
     .msg small{color:var(--muted); align-self:flex-end}
 
@@ -136,7 +124,7 @@
     .meta{font-size:12px;color:#CFE4FF;margin-top:6px}
     a.cite{color:var(--link); text-decoration:underline; margin-right:10px}
 
-    /* --- Kod blokları (terminal/kopyalanabilir) --- */
+    /* Kod blokları */
     .bubble pre{
       background:var(--code-bg)!important; border:1px solid var(--code-border);
       border-radius:12px; padding:14px; overflow:auto
@@ -148,7 +136,8 @@
       border:1px solid #2E50C7; border-radius:8px; padding:4px 8px
     }
     .code-tools .copy{
-      font:12px/1 monospace; color:#061022; background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));
+      font:12px/1 monospace; color:#061022;
+      background:linear-gradient(135deg,var(--brand-blue),var(--brand-green));
       border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:4px 8px; cursor:pointer
     }
     .code-tools .copy.copied{background:#1C6C2C; color:#EFFFF1}
@@ -186,7 +175,6 @@
     const inp = document.getElementById('inp');
     const btn = document.getElementById('send');
 
-    // Markdown -> HTML + highlight + copy
     function renderMarkdown(md){
       marked.setOptions({
         mangle:false, headerIds:false, breaks:true, gfm:true,
