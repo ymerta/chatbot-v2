@@ -1,3 +1,12 @@
+try:
+    from typing import TypedDict
+except ImportError:
+    from typing_extensions import TypedDict
+
+from typing import List, Optional
+from langgraph.graph import StateGraph, END
+from langchain_openai import ChatOpenAI
+from langchain_core.documents import Document
 from src.config import CHAT_MODEL, SYSTEM_PROMPT, FAQ_URL
 from src.faq.faq import FAQMatcher
 from src.retrievers.hybrid import HybridRetriever
@@ -85,7 +94,7 @@ def retrieve_node(retriever: HybridRetriever):
         q = state["translated_query"]
         items = retriever.retrieve(q, k=6)
         state["docs"] = items
-        # Basit güven: ilk dokümanın skoru normalize edilmeden 0-1’e sıkıştırılmış gibi düşünelim
+        # Basit güven: ilk dokümanın skoru normalize edilmeden 0-1'e sıkıştırılmış gibi düşünelim
         conf = 0.6 if items else 0.0
         state["retrieval_conf"] = conf
         return state
@@ -168,3 +177,6 @@ def build_app_graph(corpus_texts, corpus_meta, faq_path: str):
     g.add_conditional_edges("faq", route_after_faq, {"finalize":"finalize","retrieve":"retrieve"})
     g.add_conditional_edges("retrieve", route_after_retrieve, {"generate":"generate","suggest":"suggest"})
     g.add_edge("generate", "finalize")
+    g.add_edge("suggest", "finalize")
+
+    return g.compile()
