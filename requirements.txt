@@ -16,3 +16,4 @@ fastapi
 uvicorn[standard]
 python-dotenv
 huggingface_hub
+typing_extensions
