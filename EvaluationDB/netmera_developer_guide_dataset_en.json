@@ -1,0 +1,302 @@
+[
+  {
+    "inputs": {
+      "question": "Which platforms does Netmera support?"
+    },
+    "outputs": {
+      "answer": "Netmera offers extensive platform support! You can use it on iOS, Android, Web, React Native, Flutter, Cordova, and Unity platforms. We have SDKs available for almost every development environment."
+    },
+    "metadata": {
+      "category": "platform_support",
+      "difficulty": "easy",
+      "topic": "supported_platforms",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How can I send SMS using REST API?"
+    },
+    "outputs": {
+      "answer": "You can use the REST API to send SMS. First, create a notification key from the panel. Then send a POST request to the sendNotification endpoint. In the body, specify notificationKey, target (user with extId), and message parameters. Select 'SMS' as the platform for SMS."
+    },
+    "metadata": {
+      "category": "rest_api",
+      "difficulty": "medium",
+      "topic": "sms_sending",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What format should phone numbers be in when adding them?"
+    },
+    "outputs": {
+      "answer": "Phone numbers must be in E164 format with country code! For Turkey, write it as '+90xxxxxxxx'. This format is mandatory when using the addMsisdn API, otherwise you'll get an error."
+    },
+    "metadata": {
+      "category": "user_management",
+      "difficulty": "medium",
+      "topic": "phone_number_format",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How can I upload email lists?"
+    },
+    "outputs": {
+      "answer": "There are three ways to upload emails: 1) Through SDK using Update User Methods 2) Using addEmail method in REST API 3) File upload in Netmera panel. For REST API, send emailList array to addEmail endpoint. If email already exists, no new user will be created."
+    },
+    "metadata": {
+      "category": "user_management",
+      "difficulty": "medium",
+      "topic": "email_import",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How is IYS integration set up?"
+    },
+    "outputs": {
+      "answer": "For IYS integration, go to Panel > Connectors. Select 'Data Security' > 'İleti Yönetim Sistemi' and click Install. Enter your Brand Code and IYS Code. Also verify settings from the IYS panel. After integration is complete, user data is automatically synchronized nightly."
+    },
+    "metadata": {
+      "category": "integrations",
+      "difficulty": "hard",
+      "topic": "iys_integration",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How to send consent request with VIA integration?"
+    },
+    "outputs": {
+      "answer": "For VIA consent request, use the /rest/via/consent endpoint. Specify ETK and KVK types in the consentTypes array. Choose 'SMS_SHORTURL' or 'EPOSTA_SHORTURL' as verificationType. Provide the recipient field in correct format - phone starting with +90 for SMS, valid email address for email."
+    },
+    "metadata": {
+      "category": "integrations",
+      "difficulty": "hard",
+      "topic": "via_consent",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "I'm getting API key invalid error, what should I do?"
+    },
+    "outputs": {
+      "answer": "When you get API key invalid error (error code 2010), first check your key. Make sure you copied the correct API key from the dashboard. Ensure you're sending it as 'X-netmera-api-key' in the request header. Check that there are no spaces or extra characters in the key."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "api_key_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "I'm getting push message size limit exceeded error"
+    },
+    "outputs": {
+      "answer": "When you exceed the push message size limit, you get error code 2101. Shorten your message content, especially check your custom payload. There are 4KB limits for iOS and larger limits for Android, but generally keep your message as short as possible. If using rich media, also check image size."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "message_size_limit",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How can I create email and SMS templates using REST API?"
+    },
+    "outputs": {
+      "answer": "Use the sendEmailAndSms endpoint. Specify msisdn or email in the target field. Select 'SMS' or 'EMAIL' in the platforms array. For SMS, add smsHeader (e.g., 'NETMERA'), smsIysMessageType ('N' for notification, 'C' for campaign), smsIysRecipientType ('B' for individual, 'T' for commercial) parameters."
+    },
+    "metadata": {
+      "category": "rest_api",
+      "difficulty": "hard",
+      "topic": "email_sms_template",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Which third-party integrations does Netmera support?"
+    },
+    "outputs": {
+      "answer": "Netmera can integrate with many popular services! Analytics platforms like Optimove, Adjust, Mixpanel are supported. You can meet Turkey's legal requirements with IYS Integration, and manage consent with VIA Integration. Detailed documentation is available for each integration."
+    },
+    "metadata": {
+      "category": "integrations",
+      "difficulty": "medium",
+      "topic": "third_party_integrations",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "I'm getting JSON invalid error, what am I doing wrong?"
+    },
+    "outputs": {
+      "answer": "When you get JSON invalid error (error code 2009), check that your request body is in valid JSON format. Check commas, quotes, and brackets. Make sure the Content-Type header is 'application/json'. You can check syntax with JSON validator tools."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "easy",
+      "topic": "json_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "My IP address is blocked, what can I do?"
+    },
+    "outputs": {
+      "answer": "When you get IP blocking error (error code 2021), check whitelist settings. Look at IP restriction settings in Dashboard > Settings > Security. If IP restriction is active, you need to add your IP address to the whitelist. If using VPN, you can try different IPs."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "ip_restriction",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What does message status is not draft error mean?"
+    },
+    "outputs": {
+      "answer": "Error code 2103 'Status of this message is not draft' indicates that the message has already been sent or is in scheduled status. You cannot edit messages that are not in draft status. You need to create a new message or duplicate the existing one and edit the new one."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "message_status_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Message cannot be sent due to time restriction"
+    },
+    "outputs": {
+      "answer": "Error code 2106 'Due to time restriction settings message can not be sent' indicates that your time restrictions are preventing message delivery. Check Settings > Time Restrictions settings in the dashboard. Your quiet hours or send time optimization settings might be blocking message delivery."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "time_restriction_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "I'm getting application name has been reserved error"
+    },
+    "outputs": {
+      "answer": "Error code 5000 'Application name has been reserved' indicates that the application name you chose has been reserved by the system. You need to choose a different application name. Usually common names (test, demo, app, etc.) are reserved."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "easy",
+      "topic": "application_name_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What does segment name must be unique error mean?"
+    },
+    "outputs": {
+      "answer": "Error code 5025 'Segment name must be unique' indicates that another segment with the same name already exists. Each segment must have a unique name. Change your existing segment name or choose a different name. You can check existing names from the Segments list in the dashboard."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "easy",
+      "topic": "segment_name_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How to resolve certificate password error?"
+    },
+    "outputs": {
+      "answer": "Error code 5027 'Certificate password error' indicates you entered the wrong password when uploading iOS push certificate. Make sure you enter the correct password you provided when exporting the .p12 certificate from Apple Developer Console. You can try re-exporting the certificate and try again."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "certificate_password_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "I'm getting event with same event code already exists error"
+    },
+    "outputs": {
+      "answer": "Error code 5030 'Event with same event code already exists' indicates that another event with the same event code is already defined. Event codes must be unique. Use a different event code or update the existing event."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "duplicate_event_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What does Android api key is not valid error mean?"
+    },
+    "outputs": {
+      "answer": "Error code 5031 'Android api key is not valid' indicates there's an issue with your Firebase Cloud Messaging settings. Check that your google-services.json file is correct. Re-copy the Server Key from Firebase Console and update it in the Netmera panel. Re-check your FCM settings."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "hard",
+      "topic": "android_api_key_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How to resolve web push domain not valid error?"
+    },
+    "outputs": {
+      "answer": "Error code 5037 'Web push domain not valid' indicates there's an issue with domain configuration in your web push settings. Make sure you entered your domain in the correct format in Dashboard > Web Push Settings. You need to use HTTPS protocol and the domain must be accessible."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "medium",
+      "topic": "web_push_domain_error",
+      "source": "developer_guide",
+      "language": "en"
+    }
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "inputs": {
+      "question": "What is Netmera and which channels does it support?"
+    },
+    "outputs": {
+      "answer": "Netmera is an all-in-one engagement platform that helps you connect with your customers at the right time, on the right channel, with the right message. It offers mobile and web push notifications, in-app messaging, email, SMS, automated customer journeys, advanced segmentation, AI-powered automation, and powerful analytics tools all in one platform."
+    },
+    "metadata": {
+      "category": "platform_overview",
+      "difficulty": "easy",
+      "topic": "general_introduction",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What is IYS integration and why is it important?"
+    },
+    "outputs": {
+      "answer": "IYS (İleti Yönetim Sistemi) is a legal requirement in Turkey! It manages user permissions for email and SMS campaigns. Netmera supports two modes: In IYS Sync Mode, Netmera automatically synchronizes permission data with IYS. In IYS Integrator Mode, all permission management is handled by IYS and Netmera only acts as an integrator."
+    },
+    "metadata": {
+      "category": "compliance",
+      "difficulty": "medium",
+      "topic": "iys_integration",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What should I pay attention to when uploading data for email and SMS campaigns?"
+    },
+    "outputs": {
+      "answer": "When uploading communication data, make sure to include: Consent status (opt-in/opt-out status), consent date (timestamp required by IYS), and consent type. Netmera validates the data you upload against IYS records. Missing or invalid permission data will be rejected for compliance."
+    },
+    "metadata": {
+      "category": "data_upload",
+      "difficulty": "medium",
+      "topic": "consent_management",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How can I distinguish Netmera's cookies?"
+    },
+    "outputs": {
+      "answer": "Netmera's cookies start with the letter 'n'! Also, Netmera now uses local storage instead of cookies. All cookies used are shared in detail on relevant pages, so you can see what each cookie is used for."
+    },
+    "metadata": {
+      "category": "technical_info",
+      "difficulty": "easy",
+      "topic": "cookies",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Scenarios don't appear when creating catalog message, what should I do?"
+    },
+    "outputs": {
+      "answer": "To access catalog scenarios, change the 'Category' setting to 'E-commerce' or 'Media' from Settings > General. After making this setting, you'll be able to see all scenarios when creating catalog messages."
+    },
+    "metadata": {
+      "category": "configuration",
+      "difficulty": "easy",
+      "topic": "catalog_settings",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What happens if user hasn't provided location data when I send time zone adjusted push notification?"
+    },
+    "outputs": {
+      "answer": "No problem at all! The SDK automatically gets timezone information from the user's device and processes accordingly. Whether the user provides location information or not doesn't affect this process. The system works correctly in the right timezone in all cases."
+    },
+    "metadata": {
+      "category": "push_notifications",
+      "difficulty": "medium",
+      "topic": "timezone_handling",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Turkish characters are corrupted when uploading files, how can I fix this?"
+    },
+    "outputs": {
+      "answer": "To ensure Turkish characters display correctly, make sure your files are encoded in UTF-8 format before uploading to the panel. This simple step solves all character display issues and your Turkish characters will appear perfectly."
+    },
+    "metadata": {
+      "category": "file_management",
+      "difficulty": "easy",
+      "topic": "encoding_issues",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What's the difference between IYS Sync Mode and IYS Integrator Mode?"
+    },
+    "outputs": {
+      "answer": "The main difference is who has control! In IYS Sync Mode, Netmera controls - permission changes (opt-in/opt-out) in Netmera are synchronized to IYS and IYS approvals are reflected to Netmera. In IYS Integrator Mode, IYS controls - all permission management is handled by IYS, Netmera only accepts permissions that match IYS records."
+    },
+    "metadata": {
+      "category": "compliance",
+      "difficulty": "hard",
+      "topic": "iys_modes",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What automatic actions can I use in customer journeys?"
+    },
+    "outputs": {
+      "answer": "You can create AI-powered automated customer journeys in Netmera! You can define automatic actions at every stage of the process from first touch to becoming a loyal customer. You can set up journeys that offer personalized, real-time experiences and strengthen customer relationships."
+    },
+    "metadata": {
+      "category": "automation",
+      "difficulty": "medium",
+      "topic": "customer_journeys",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What's the difference between in-app messaging and normal push notifications?"
+    },
+    "outputs": {
+      "answer": "Push notifications appear in the device's notification center and reach users even when the app is closed. In-app messaging are messages shown when the user is inside your application. In-app messages can be more interactive, in popup, banner, or full-screen format and are integrated without disrupting user experience."
+    },
+    "metadata": {
+      "category": "messaging_types",
+      "difficulty": "medium",
+      "topic": "inapp_vs_push",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What does advanced segmentation mean?"
+    },
+    "outputs": {
+      "answer": "With advanced segmentation, you can group your users according to very detailed criteria! You can combine dozens of criteria like demographic information, behavior patterns, app usage frequency, purchase history, location information. This way you can create very specific groups like 'Female users in Istanbul who were active in the last 7 days'."
+    },
+    "metadata": {
+      "category": "segmentation",
+      "difficulty": "medium",
+      "topic": "advanced_segmentation",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How does AI-powered automation work?"
+    },
+    "outputs": {
+      "answer": "Netmera's AI system analyzes user behaviors to determine optimal times and content. It uses machine learning to detect when to send which message to which user. It offers smart features like send time optimization, content recommendation, and churn prediction."
+    },
+    "metadata": {
+      "category": "ai_automation",
+      "difficulty": "hard",
+      "topic": "machine_learning",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What is omnichannel engagement and why is it important?"
+    },
+    "outputs": {
+      "answer": "Omnichannel engagement means providing consistent and seamless experiences with your customers across all channels. You can send the right message from the right channel at every point of the customer journey by using push, email, SMS, in-app messages in a coordinated way. This approach significantly increases engagement rates."
+    },
+    "metadata": {
+      "category": "omnichannel",
+      "difficulty": "medium",
+      "topic": "multichannel_strategy",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Which formats do you support for contact upload process?"
+    },
+    "outputs": {
+      "answer": "You can upload contacts in CSV format. Your file should contain email addresses, phone numbers, consent statuses, and required metadata. If you have IYS integration, consent date and consent type fields are mandatory. You can find file size and format requirements on the upload page."
+    },
+    "metadata": {
+      "category": "data_management",
+      "difficulty": "medium",
+      "topic": "contact_upload",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How does the geofence feature work?"
+    },
+    "outputs": {
+      "answer": "With geofence, you can define specific geographical areas and trigger automatic actions when users enter or exit these areas. You can define a 500-meter radius around your store and send special discount messages to customers passing nearby. Location permission is required, of course!"
+    },
+    "metadata": {
+      "category": "location_based",
+      "difficulty": "hard",
+      "topic": "geofencing",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Which metrics should I track in campaign analytics?"
+    },
+    "outputs": {
+      "answer": "You can track your campaign performance in detail with powerful analytics! Basic metrics: delivery rate, open rate, click rate, conversion rate. Also available are engagement timelines, retention analysis, cohort analysis, and revenue attribution."
+    },
+    "metadata": {
+      "category": "analytics",
+      "difficulty": "medium",
+      "topic": "campaign_metrics",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What do step-by-step instructions mean, how are guides organized?"
+    },
+    "outputs": {
+      "answer": "The User Guide is prepared with step-by-step instructions! You can find detailed guides, best practices, and proven tips for each feature. It's organized to help you make meaningful connections, run your campaigns confidently, and achieve your communication goals."
+    },
+    "metadata": {
+      "category": "documentation",
+      "difficulty": "easy",
+      "topic": "user_guide_structure",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What can I configure in panel settings?"
+    },
+    "outputs": {
+      "answer": "In panel settings, you can configure basic platform-wide settings. You can manage critical settings like category selection (E-commerce, Media, etc.), time zone settings, notification preferences, security settings, API configurations, and user permissions from here. Detailed explanations for each setting are available."
+    },
+    "metadata": {
+      "category": "configuration",
+      "difficulty": "medium",
+      "topic": "panel_settings",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "What is meant by real-time experiences?"
+    },
+    "outputs": {
+      "answer": "Real-time experiences mean experiences that instantly respond to user behaviors! You can set up reminders the moment a user adds a product to cart, send re-engagement messages when they haven't used the app for a certain period, send thank you messages when they make a purchase. You stay connected with your customer at all times."
+    },
+    "metadata": {
+      "category": "real_time",
+      "difficulty": "hard",
+      "topic": "instant_engagement",
+      "source": "user_guide",
+      "language": "en"
+    }
+  },
+  {
+    "inputs": {
+      "question": "How does Netmera help in the process of turning into loyal customers?"
+    },
+    "outputs": {
+      "answer": "Netmera supports the entire customer lifecycle from first touch to loyal advocacy! You can create onboarding journeys, engagement campaigns, retention strategies, and loyalty programs. AI-powered systems determine the most effective messages and timing at each stage."
+    },
+    "metadata": {
+      "category": "customer_lifecycle",
+      "difficulty": "hard",
+      "topic": "loyalty_building",
+      "source": "user_guide",
+      "language": "en"
+    }
+  }
+]

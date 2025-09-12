@@ -1,0 +1,282 @@
+[
+  {
+    "inputs": {
+      "question": "Netmera hangi platformları destekliyor?"
+    },
+    "outputs": {
+      "answer": "Netmera çok geniş bir platform desteği sunuyor! iOS, Android, Web, React Native, Flutter, Cordova ve Unity platformlarında kullanabilirsiniz. Hemen hemen her geliştirme ortamı için SDK'mız mevcut."
+    },
+    "metadata": {
+      "category": "platform_support",
+      "difficulty": "kolay",
+      "topic": "supported_platforms",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "REST API ile SMS nasıl gönderebilirim?"
+    },
+    "outputs": {
+      "answer": "SMS göndermek için REST API'yi kullanabilirsiniz. Önce panelden notification key oluşturun. Sonra sendNotification endpoint'ine POST request atın. Body'da notificationKey, target (extId ile kullanıcı), ve message parametrelerini belirtin. SMS için platform olarak 'SMS' seçin."
+    },
+    "metadata": {
+      "category": "rest_api",
+      "difficulty": "orta",
+      "topic": "sms_sending",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Türkiye Telefon numarası eklerken hangi formatta olmalı"
+    },
+    "outputs": {
+      "answer": "Türkiye içinTelefon numarası eklerken mutlaka ülke kodu ile birlikte E164 formatında olmalı! Türkiye için '+90xxxxxxxx' şeklinde yazın. addMsisdn API'sini kullanırken bu format zorunlu, yoksa hata alırsınız."
+    },
+    "metadata": {
+      "category": "user_management",
+      "difficulty": "orta",
+      "topic": "phone_number_format",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Email listesi nasıl yükleyebilirim?"
+    },
+    "outputs": {
+      "answer": "Email yüklemenin üç yolu var: 1) SDK üzerinden Update User Methods ile 2) REST API'de addEmail metodunu kullanarak 3) Netmera panelinde dosya upload ile. REST API için addEmail endpoint'ine emailList array'i gönderin. Eğer email zaten varsa yeni kullanıcı oluşturulmaz."
+    },
+    "metadata": {
+      "category": "user_management",
+      "difficulty": "orta",
+      "topic": "email_import",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "IYS entegrasyonu nasıl yapılır?"
+    },
+    "outputs": {
+      "answer": "IYS entegrasyonu için Panel > Connectors'a gidin. 'Data Security' > 'İleti Yönetim Sistemi' seçin ve Install'a tıklayın. Brand Code ve IYS Code'unuzu girin. IYS panelinden de ayarları doğrulayın. Entegrasyon tamamlandıktan sonra kullanıcı verileri geceleri otomatik senkronize edilir."
+    },
+    "metadata": {
+      "category": "integrations",
+      "difficulty": "zor",
+      "topic": "iys_integration",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "VIA entegrasyonu ile consent request nasıl gönderilir?"
+    },
+    "outputs": {
+      "answer": "VIA consent request için /rest/via/consent endpoint'ini kullanın. consentTypes array'inde ETK ve KVK tiplerini belirtin. verificationType olarak 'SMS_SHORTURL' veya 'EPOSTA_SHORTURL' seçin. recipient field'ını doğru formatta verin - SMS için +90 ile başlayan telefon, email için valid email adresi."
+    },
+    "metadata": {
+      "category": "integrations",
+      "difficulty": "zor",
+      "topic": "via_consent",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "API key invalid hatası alıyorum, ne yapmalıyım?"
+    },
+    "outputs": {
+      "answer": "API key invalid hatası (error code 2010) aldığınızda önce key'inizi kontrol edin. Dashboard'dan doğru API key'i kopyaladığınızdan emin olun. Request header'ında 'X-netmera-api-key' olarak gönderdiğinizden emin olun. Key'de boşluk veya ekstra karakter olmadığını kontrol edin."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "api_key_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Push mesaj boyutu limitini aştım hatası alıyorum"
+    },
+    "outputs": {
+      "answer": "Push mesaj boyutu limitini aştığınızda error code 2101 alırsınız. Mesaj içeriğinizi kısaltın, özellikle custom payload'ınızı kontrol edin. iOS için 4KB, Android için daha büyük limitler var ama genel olarak mesajınızı mümkün olduğunca kısa tutun. Rich media kullanıyorsanız resim boyutunu da kontrol edin."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "message_size_limit",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "REST API ile email ve SMS template nasıl oluşturabilirim?"
+    },
+    "outputs": {
+      "answer": "sendEmailAndSms endpoint'ini kullanın. target field'ında msisdn veya email belirtin. platforms array'inde 'SMS' veya 'EMAIL' seçin. SMS için smsHeader (örn: 'NETMERA'), smsIysMessageType ('N' notification, 'C' campaign), smsIysRecipientType ('B' bireysel, 'T' ticari) parametrelerini ekleyin."
+    },
+    "metadata": {
+      "category": "rest_api",
+      "difficulty": "zor",
+      "topic": "email_sms_template",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Netmera hangi third-party entegrasyonları destekliyor?"
+    },
+    "outputs": {
+      "answer": "Netmera birçok popüler servisle entegre olabiliyor! Optimove, Adjust, Mixpanel gibi analytics platformları destekleniyor. IYS Integration ile Türkiye'deki yasal gereklilikleri karşılayabilir, VIA Integration ile consent management yapabilirsiniz. Her entegrasyon için detaylı dokümantasyon mevcut."
+    },
+    "metadata": {
+      "category": "integrations",
+      "difficulty": "orta",
+      "topic": "third_party_integrations",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "JSON invalid hatası alıyorum, neyi yanlış yapıyorum?"
+    },
+    "outputs": {
+      "answer": "JSON invalid hatası (error code 2009) aldığınızda request body'nizin valid JSON formatında olduğunu kontrol edin. Virgül, tırnak işaretleri ve parantezleri kontrol edin. Content-Type header'ının 'application/json' olduğundan emin olun. JSON validator tool'larıyla syntax'ı kontrol edebilirsiniz."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "kolay",
+      "topic": "json_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "IP adresim engellenmiş, ne yapabilirim?"
+    },
+    "outputs": {
+      "answer": "IP engellenme hatası (error code 2021) aldığınızda whitelist ayarlarını kontrol edin. Dashboard'da Settings > Security bölümünden IP restriction ayarlarına bakın. Eğer IP restriction aktifse, kullandığınız IP adresini whitelist'e eklemeniz gerekiyor. VPN kullanıyorsanız farklı IP'ler deneyebilirsiniz."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "ip_restriction",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Mesaj draft durumda değil hatası ne demek?"
+    },
+    "outputs": {
+      "answer": "Error code 2103 'Status of this message is not draft' hatası, mesajın zaten gönderilmiş veya scheduled durumda olduğunu gösterir. Draft durumda olmayan mesajları edit edemezsiniz. Yeni bir mesaj oluşturmanız veya mevcut mesajı duplicate edip yenisini edit etmeniz gerekiyor."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "message_status_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Zaman kısıtlaması sebebiyle mesaj gönderilemiyor"
+    },
+    "outputs": {
+      "answer": "Error code 2106 'Due to time restriction settings message can not be sent' hatası, zaman kısıtlamalarınızın mesaj gönderimini engellediğini gösterir. Dashboard'da Settings > Time Restrictions ayarlarını kontrol edin. Quiet hours veya send time optimization ayarlarınız mesaj gönderimini engelliyor olabilir."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "time_restriction_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Application name zaten rezerve edilmiş hatası alıyorum"
+    },
+    "outputs": {
+      "answer": "Error code 5000 'Application name has been reserved' hatası, seçtiğiniz uygulama adının sistem tarafından rezerve edildiğini gösterir. Farklı bir uygulama adı seçmeniz gerekiyor. Genellikle çok yaygın isimler (test, demo, app gibi) rezerve edilmiştir."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "kolay",
+      "topic": "application_name_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Segment adı unique olmalı hatası ne anlama geliyor?"
+    },
+    "outputs": {
+      "answer": "Error code 5025 'Segment name must be unique' hatası, aynı isimde başka bir segment'in zaten var olduğunu gösterir. Her segment'in benzersiz bir adı olmalı. Mevcut segment'inizin adını değiştirin veya farklı bir isim seçin. Dashboard'da Segments listesinden mevcut isimleri kontrol edebilirsiniz."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "kolay",
+      "topic": "segment_name_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Certificate password hatası nasıl çözülür?"
+    },
+    "outputs": {
+      "answer": "Error code 5027 'Certificate password error' iOS push certificate yüklerken yanlış parola girdiğinizi gösterir. Apple Developer Console'dan .p12 certificate'i export ederken verdiğiniz parolayı doğru girdiğinizden emin olun. Certificate'i yeniden export edip tekrar deneyebilirsiniz."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "certificate_password_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Event aynı koda sahip hatası alıyorum"
+    },
+    "outputs": {
+      "answer": "Error code 5030 'Event with same event code already exists' hatası, aynı event code'una sahip başka bir event'in zaten tanımlı olduğunu gösterir. Event code'ları unique olmalı. Farklı bir event code kullanın veya mevcut event'i güncelleyin."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "duplicate_event_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Android API key valid değil hatası ne anlama geliyor?"
+    },
+    "outputs": {
+      "answer": "Error code 5031 'Android api key is not valid' Firebase Cloud Messaging ayarlarınızda sorun olduğunu gösterir. google-services.json dosyanızın doğru olduğunu kontrol edin. Firebase Console'dan Server Key'i tekrar kopyalayıp Netmera panel'de güncelleyin. FCM ayarlarınızı yeniden kontrol edin."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "zor",
+      "topic": "android_api_key_error",
+      "source": "developer_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Web push domain geçersiz hatası nasıl çözülür?"
+    },
+    "outputs": {
+      "answer": "Error code 5037 'Web push domain not valid' hatası, web push ayarlarınızda domain konfigürasyonunda sorun olduğunu gösterir. Dashboard'da Web Push Settings'den domain'inizi doğru formatta girdiğinizden emin olun. HTTPS protokolü kullanmanız ve domain'in erişilebilir olması gerekiyor."
+    },
+    "metadata": {
+      "category": "troubleshooting",
+      "difficulty": "orta",
+      "topic": "web_push_domain_error",
+      "source": "developer_guide"
+    }
+  }
+]

@@ -3,7 +3,7 @@ import streamlit as st
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
 
-from src.config import FAISS_STORE_PATH, FAQ_URL
+from src.config import FAISS_STORE_PATH
 from src.graph.app_graph import build_app_graph
 
 st.set_page_config(page_title="NetmerianBot (LangGraph)", layout="centered")
@@ -20,7 +20,7 @@ for _id, d in docs.items():
     corpus_meta.append(d.metadata)  # {"source":..., "url":...}
 
 # 2) Graph compile
-graph = build_app_graph(corpus_texts, corpus_meta, faq_path="data/faq_answers.json")
+graph = build_app_graph(corpus_texts, corpus_meta)
 
 # --- yardımcı: URL'i okunur başlığa çevir
 def prettify(u: str) -> str:

@@ -1,0 +1,282 @@
+[
+  {
+    "inputs": {
+      "question": "Netmera nedir ve hangi kanalları destekler?"
+    },
+    "outputs": {
+      "answer": "Netmera, müşterilerinizle doğru zamanda, doğru kanalda, doğru mesajla bağlantı kurmanıza yardımcı olan all-in-one engagement platformu. Mobil ve web push bildirimleri, in-app mesajlaşma, email, SMS, otomatik customer journey'ler, gelişmiş segmentasyon, AI destekli otomasyon ve güçlü analitik araçları tek platformda sunuyor."
+    },
+    "metadata": {
+      "category": "platform_overview",
+      "difficulty": "kolay",
+      "topic": "genel_tanıtım",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "İYS entegrasyonu nedir ve neden önemli?"
+    },
+    "outputs": {
+      "answer": "İYS (İleti Yönetim Sistemi) Türkiye'deki yasal gereklilik! Email ve SMS kampanyaları için kullanıcı izinlerini yönetir. Netmera iki mod destekler: İYS Sync Mode'da Netmera otomatik olarak izin verilerini İYS ile senkronize eder. İYS Integrator Mode'da ise tüm izin yönetimi İYS tarafından yapılır ve Netmera sadece entegratör görevi görür."
+    },
+    "metadata": {
+      "category": "compliance",
+      "difficulty": "orta",
+      "topic": "iys_integration",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Email ve SMS kampanyası için veri yüklerken nelere dikkat etmeliyim?"
+    },
+    "outputs": {
+      "answer": "İletişim verisi yüklerken mutlaka şunları dahil edin: Consent status (opt-in/opt-out durumu), consent date (İYS'nin gerektirdiği zaman damgası) ve consent type. Netmera yüklediğiniz veriyi İYS kayıtlarıyla doğrular. Eksik veya geçersiz izin verileri compliance için reddedilir."
+    },
+    "metadata": {
+      "category": "data_upload",
+      "difficulty": "orta",
+      "topic": "consent_management",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Netmera'nın cookie'lerini nasıl ayırt edebilirim?"
+    },
+    "outputs": {
+      "answer": "Netmera'nın cookie'leri 'n' harfi ile başlar! Ayrıca Netmera artık cookie'ler yerine local storage kullanıyor. Tüm kullanılan cookie'ler ilgili sayfalarda detaylı olarak paylaşılıyor, böylece hangi cookie'nin ne işe yaradığını görebilirsiniz."
+    },
+    "metadata": {
+      "category": "technical_info",
+      "difficulty": "kolay",
+      "topic": "cookies",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Catalog message oluştururken senaryolar görünmüyor, ne yapmalıyım?"
+    },
+    "outputs": {
+      "answer": "Catalog senaryolarına erişmek için Settings > General bölümünden 'Category' ayarını 'E-commerce' veya 'Media' olarak değiştirin. Bu ayarı yaptıktan sonra catalog message oluştururken tüm senaryoları görebileceksiniz."
+    },
+    "metadata": {
+      "category": "configuration",
+      "difficulty": "kolay",
+      "topic": "catalog_settings",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Time Zone ayarlı push bildirimi gönderdiğimde kullanıcı konum vermiş olmasa ne olur?"
+    },
+    "outputs": {
+      "answer": "Hiç sorun yok! SDK timezone bilgisini kullanıcının cihazından otomatik alır ve buna göre işlem yapar. Kullanıcının konum bilgisi verip vermemesi bu süreci etkilemez. Sistem her durumda doğru zaman diliminde çalışır."
+    },
+    "metadata": {
+      "category": "push_notifications",
+      "difficulty": "orta",
+      "topic": "timezone_handling",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Dosya yüklerken Türkçe karakterler bozuluyor, nasıl çözebilirim?"
+    },
+    "outputs": {
+      "answer": "Türkçe karakterlerin doğru görünmesi için dosyalarınızı panele yüklemeden önce UTF-8 formatında encode ettiğinizden emin olun. Bu basit adım tüm karakter görüntüleme sorunlarını çözer ve Türkçe karakterleriniz mükemmel görünür."
+    },
+    "metadata": {
+      "category": "file_management",
+      "difficulty": "kolay",
+      "topic": "encoding_issues",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "İYS Sync Mode ile İYS Integrator Mode arasındaki fark nedir?"
+    },
+    "outputs": {
+      "answer": "Temel fark kontrolün kimde olduğu! İYS Sync Mode'da Netmera kontrol eder - Netmera'daki izin değişiklikleri (opt-in/opt-out) İYS'ye senkronize edilir ve İYS onayları Netmera'ya yansır. İYS Integrator Mode'da ise İYS kontrol eder - tüm izin yönetimi İYS tarafından yapılır, Netmera sadece İYS kayıtlarıyla eşleşen izinleri kabul eder."
+    },
+    "metadata": {
+      "category": "compliance",
+      "difficulty": "zor",
+      "topic": "iys_modes",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Müşteri journey'lerinde hangi otomatik aksiyonları kullanabilirim?"
+    },
+    "outputs": {
+      "answer": "Netmera'da AI destekli otomatik customer journey'ler oluşturabilirsiniz! İlk dokunuştan sadık müşteri haline gelme sürecinin her aşamasında otomatik aksiyonlar tanımlayabilirsiniz. Kişiselleştirilmiş, gerçek zamanlı deneyimler sunan ve müşteri ilişkilerini güçlendiren journey'ler kurabilirsiniz."
+    },
+    "metadata": {
+      "category": "automation",
+      "difficulty": "orta",
+      "topic": "customer_journeys",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "In-app messaging ile normal push notification arasındaki fark nedir?"
+    },
+    "outputs": {
+      "answer": "Push notification cihazın notification center'ında görünür ve uygulama kapalıyken de ulaşır. In-app messaging ise kullanıcı uygulamanızın içindeyken gösterilen mesajlardır. In-app mesajlar daha interaktif olabilir, popup, banner veya full-screen formatında olabilir ve kullanıcı deneyimini bozmadan entegre edilir."
+    },
+    "metadata": {
+      "category": "messaging_types",
+      "difficulty": "orta",
+      "topic": "inapp_vs_push",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Gelişmiş segmentasyon ne anlama geliyor?"
+    },
+    "outputs": {
+      "answer": "Gelişmiş segmentasyon sayesinde kullanıcılarınızı çok detaylı kriterlere göre gruplandırabilirsiniz! Demografik bilgiler, davranış pattern'leri, uygulama kullanım sıklığı, satın alma geçmişi, konum bilgileri gibi onlarca kriterii kombinleyebilirsiniz. Böylece 'Son 7 günde aktif olan İstanbul'daki kadın kullanıcılar' gibi çok spesifik gruplar oluşturabilirsiniz."
+    },
+    "metadata": {
+      "category": "segmentation",
+      "difficulty": "orta",
+      "topic": "advanced_segmentation",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "AI destekli otomasyon nasıl çalışır?"
+    },
+    "outputs": {
+      "answer": "Netmera'nın AI sistemi kullanıcı davranışlarını analiz ederek en optimal zamanları ve içerikleri belirler. Hangi kullanıcıya ne zaman hangi mesajın gönderilmesi gerektiğini makine öğrenmesi ile tespit eder. Send time optimization, content recommendation ve churn prediction gibi akıllı özellikler sunar."
+    },
+    "metadata": {
+      "category": "ai_automation",
+      "difficulty": "zor",
+      "topic": "machine_learning",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Omnichannel engagement nedir ve neden önemli?"
+    },
+    "outputs": {
+      "answer": "Omnichannel engagement, müşterilerinizle tüm kanallar boyunca tutarlı ve kesintisiz deneyim sunmak demek. Push, email, SMS, in-app mesajları koordineli şekilde kullanarak müşteri journey'sinin her noktasında doğru mesajı doğru kanaldan gönderebilirsiniz. Bu yaklaşım engagement oranlarını ciddi şekilde artırır."
+    },
+    "metadata": {
+      "category": "omnichannel",
+      "difficulty": "orta",
+      "topic": "multichannel_strategy",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Contact upload işleminde hangi formatları destekliyorsunuz?"
+    },
+    "outputs": {
+      "answer": "CSV formatında contact upload yapabilirsiniz. Dosyanızda email adresleri, telefon numaraları, consent durumları ve gerekli meta datalar bulunmalı. İYS entegrasyonu varsa consent date ve consent type alanları zorunlu. Dosya boyutu ve format gereksinimlerini upload sayfasında bulabilirsiniz."
+    },
+    "metadata": {
+      "category": "data_management",
+      "difficulty": "orta",
+      "topic": "contact_upload",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Geofence özelliği nasıl çalışır?"
+    },
+    "outputs": {
+      "answer": "Geofence ile belirli coğrafi alanlar tanımlayıp kullanıcılar bu alanlara girdiğinde veya çıktığında otomatik aksiyonlar tetikleyebilirsiniz. Mağaza çevresinde 500 metre yarıçap tanımlayıp yakınlarından geçen müşterilere özel indirim mesajları gönderebilirsiniz. Konum izni gerekiyor tabii ki!"
+    },
+    "metadata": {
+      "category": "location_based",
+      "difficulty": "zor",
+      "topic": "geofencing",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Campaign analytics'te hangi metrikleri takip etmeliyim?"
+    },
+    "outputs": {
+      "answer": "Güçlü analytics ile kampanya performansınızı detaylı takip edebilirsiniz! Temel metrikler: delivery rate (ulaşma oranı), open rate (açılma oranı), click rate (tıklama oranı), conversion rate (dönüşüm oranı). Ayrıca engagement timelineları, retention analizi, cohort analysis ve revenue attribution da mevcut."
+    },
+    "metadata": {
+      "category": "analytics",
+      "difficulty": "orta",
+      "topic": "campaign_metrics",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Step-by-step instructions ne demek, rehberler nasıl organize edilmiş?"
+    },
+    "outputs": {
+      "answer": "User Guide adım adım talimatlarla hazırlanmış! Her özellik için detaylı rehberler, best practice'ler ve kanıtlanmış ipuçları bulabilirsiniz. Anlamlı bağlantılar kurmanıza, kampanyalarınızı güvenle yürütmenize ve iletişim hedeflerinize ulaşmanıza yardımcı olacak şekilde organize edilmiş."
+    },
+    "metadata": {
+      "category": "documentation",
+      "difficulty": "kolay",
+      "topic": "user_guide_structure",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Panel settings'te neleri yapılandırabilirim?"
+    },
+    "outputs": {
+      "answer": "Panel settings'te platform genelindeki temel ayarları yapabilirsiniz. Category seçimi (E-commerce, Media vb.), time zone ayarları, notification preferences, security settings, API configurations ve user permissions gibi kritik ayarları buradan yönetebilirsiniz. Her ayarın detaylı açıklaması mevcut."
+    },
+    "metadata": {
+      "category": "configuration",
+      "difficulty": "orta",
+      "topic": "panel_settings",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Real-time experiences ile ne kastediliyor?"
+    },
+    "outputs": {
+      "answer": "Real-time experiences, kullanıcı davranışlarına anında tepki veren deneyimler demek! Kullanıcı sepete ürün eklediği anda reminder kurabilir, app'i belirli süre kullanmadığında re-engagement mesajı gönderebilir, satın alma yaptığında teşekkür mesajı iletebilirsiniz. Her an müşterinizle bağlantıda kalırsınız."
+    },
+    "metadata": {
+      "category": "real_time",
+      "difficulty": "zor",
+      "topic": "instant_engagement",
+      "source": "user_guide"
+    }
+  },
+  {
+    "inputs": {
+      "question": "Sadık müşteri haline getirme sürecinde Netmera nasıl yardımcı olur?"
+    },
+    "outputs": {
+      "answer": "Netmera, ilk dokunuştan (first touch) sadık müşteri savunuculuğuna (loyal advocacy) kadar tüm customer lifecycle'ı destekler! Onboarding journey'leri, engagement campaigns, retention strategies ve loyalty programs oluşturabilirsiniz. AI destekli sistemler her aşamada en etkili mesajları ve zamanlamaları belirler."
+    },
+    "metadata": {
+      "category": "customer_lifecycle",
+      "difficulty": "zor",
+      "topic": "loyalty_building",
+      "source": "user_guide"
+    }
+  }
+]

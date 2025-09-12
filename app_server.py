@@ -201,7 +201,7 @@ try:
 
     logger.info(f"{len(corpus_texts)} doküman yüklendi.")
 
-    graph = build_app_graph(corpus_texts, corpus_meta, faq_path="data/faq_answers.json")
+    graph = build_app_graph(corpus_texts, corpus_meta)
     APP_READY = True
     APP_ERROR = None
     logger.info("Application ready!")

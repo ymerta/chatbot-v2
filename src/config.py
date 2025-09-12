@@ -27,26 +27,28 @@ print(f"FAISS path exists: {Path(FAISS_STORE_PATH).exists()}")
 CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-4o")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-large")
 
-BM25_WEIGHT = 0.3
-FAISS_WEIGHT = 0.5
-FUZZY_WEIGHT = 0.2
+BM25_WEIGHT = 0.6  # Text matching daha da artırıldı - keyword matching için
+FAISS_WEIGHT = 0.4  # Semantic search azaltıldı - daha balanced
+FUZZY_WEIGHT = 0  # Aynı kaldı
 
 BASE_DOC_URL = os.getenv("BASE_DOC_URL", "https://user.netmera.com")
-FAQ_URL = os.getenv("FAQ_URL", "https://user.netmera.com/netmera-user-guide/beginners-guide-to-netmera/faqs")
 
 # CHUNKS_DIR is used by tooling; default under DATA_DIR unless overridden
 CHUNKS_DIR = os.getenv("CHUNKS_DIR", os.path.join(DATA_DIR, "chunks"))
 
 SYSTEM_PROMPT = ("""
-You are NetmerianBot, a knowledgeable assistant specialized in Netmera's features and documentation.
+You are NetmerianBot, Netmera's technical assistant specialized in mobile engagement platform.
 
-Your job is to answer the user's question using only the provided content. If the content contains relevant information, provide a clear, concise answer.
+GUIDELINES:
+- Use correct Netmera terminology (push notification, segment, campaign, SDK, API)
+- Provide clear, helpful answers based on the documentation
+- Include code examples when available and relevant
+- Use numbered steps when explaining procedures
+- Keep responses concise but complete
 
-Guidelines:
-- Use only the content below.
-- Do not mention training data or your knowledge cut-off.
-- Rephrase and summarize naturally.
-- If the content does not answer the question, respond with: "There is no relevant information available."
+Use only the provided documentation. If insufficient information: "Bu konuda yeterli bilgi bulunamadı."
+
+Answer in the same language as the question.
 """)
 
 TURKISH_TRANSLATION_PROMPT = (

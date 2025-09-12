@@ -7,22 +7,20 @@ from typing import List, Optional
 from langgraph.graph import StateGraph, END
 from langchain_openai import ChatOpenAI
 from langchain_core.documents import Document
-from src.config import CHAT_MODEL, SYSTEM_PROMPT, FAQ_URL
-from src.faq.faq import FAQMatcher
+from src.config import CHAT_MODEL, SYSTEM_PROMPT
 from src.retrievers.hybrid import HybridRetriever
-import re
 
 class BotState(TypedDict, total=False):
     query: str
     lang: str
     translated_query: str
-    faq_answer: Optional[str]
     docs: List[Document]            # burada string tutacağız (uyum için)
     citations: List[str]
     answer: Optional[str]
-    suggestions: List[str]
     retrieval_conf: float
     conversational_response: Optional[str]  # Yeni alan: selamlama ve genel konuşma için
+    clarifying_question: Optional[str]  # Yeni alan: açıklayıcı sorular için
+    needs_clarification: bool  # Açıklayıcı soru gerekip gerekmediğini belirler
 
 def detect_lang_and_passthrough(state: BotState) -> BotState:
     q = state["query"].strip()
@@ -32,70 +30,107 @@ def detect_lang_and_passthrough(state: BotState) -> BotState:
     return state
 
 def detect_conversational_intent(state: BotState) -> BotState:
-    """Selamlama ve genel konuşma tespiti"""
-    q = state["translated_query"].lower().strip()
-    lang = state["lang"]
-    
-    # Selamlama kalıpları
-    greeting_patterns_tr = [
-        r'\b(merhaba|selam|selamlar|iyi günler|iyi akşamlar|günaydın|hoş geldin|hey)\b',
-        r'\b(merhaba|selam).*bot\b',
-        r'\b(merhaba|selam).*asistan\b'
-    ]
-    
-    greeting_patterns_en = [
-        r'\b(hello|hi|hey|good morning|good afternoon|good evening|greetings)\b',
-        r'\b(hello|hi).*bot\b',
-        r'\b(hello|hi).*assistant\b'
-    ]
-    
-    # Yardım teklifi kalıpları
-    help_patterns_tr = [
-        r'\b(yardım|help|nasıl yardımcı|ne yapabilirsin|ne yapıyorsun)\b',
-        r'\b(hangi belgeler|hangi dokümanlar|hangi kaynaklar)\b',
-        r'\b(nasıl çalışıyor|ne işe yarar)\b'
-    ]
-    
-    help_patterns_en = [
-        r'\b(help|how can you help|what can you do|what do you do)\b',
-        r'\b(which documents|which sources|what documents)\b',
-        r'\b(how does it work|what is it for)\b'
-    ]
-    
-    patterns = greeting_patterns_tr + help_patterns_tr if lang == "Türkçe" else greeting_patterns_en + help_patterns_en
-    
-    for pattern in patterns:
-        if re.search(pattern, q):
-            if lang == "Türkçe":
-                if any(re.search(p, q) for p in greeting_patterns_tr):
-                    state["conversational_response"] = "Merhaba! 👋 Ben NetmerianBot, Netmera'nın dijital asistanıyım. Size Netmera ile ilgili sorularınızda yardımcı olabilirim. Hangi konuda bilgi almak istiyorsunuz?"
-                elif any(re.search(p, q) for p in help_patterns_tr):
-                    state["conversational_response"] = "Ben Netmera'nın resmi dokümantasyonu ve SSS'lerini kullanarak size yardımcı oluyorum. Netmera'nın kullanıcı kılavuzu ve geliştirici dokümantasyonundan bilgileri çekiyorum. Hangi konuda yardıma ihtiyacınız var?"
-            else:
-                if any(re.search(p, q) for p in greeting_patterns_en):
-                    state["conversational_response"] = "Hello! 👋 I'm NetmerianBot, Netmera's digital assistant. I can help you with questions about Netmera. What would you like to know about?"
-                elif any(re.search(p, q) for p in help_patterns_en):
-                    state["conversational_response"] = "I help you by using Netmera's official documentation and FAQs. I retrieve information from Netmera's user guide and developer documentation. What do you need help with?"
-            break
-    
+    """Conversational intent detection - disabled for direct Q&A only"""
+    # Selamlama fonksiyonu devre dışı - sadece sorulara cevap ver
+    # state["conversational_response"] artık set edilmeyecek
     return state
 
-def faq_check_node(faq: FAQMatcher):
-    def _inner(state: BotState) -> BotState:
-        q = state["translated_query"]
-        res = faq.check(q, threshold=70)
-        if res:
-            state["faq_answer"] = f"{res['answer']}\n\n📄 **Kaynak**: [FAQ]({res.get('source') or FAQ_URL})"
-        return state
-    return _inner
+
+def preprocess_query(query: str, lang: str) -> str:
+    """Enhanced query preprocessing - Better Turkish-English mapping + error handling"""
+    q_lower = query.lower()
+    
+    # Enhanced Turkish -> English term mapping
+    if lang == "Türkçe":
+        term_mapping = {
+            # Existing terms
+            "güncellenir": "update",
+            "güncelleme": "update", 
+            "kullanıcı": "user",
+            "özellik": "attribute",
+            "özellikler": "attributes",
+            "nasıl": "how",
+            "kurulum": "install setup",
+            "entegrasyon": "integration",
+            "yapılandırma": "configuration",
+            "ayarlama": "setup configuration",
+            "gönderim": "send",
+            "bildirim": "notification",
+            "kampanya": "campaign",
+            "segment": "segment",
+            "analitik": "analytics",
+            
+            # 🔧 NEW: Error and problem handling terms
+            "hata": "error issue problem",
+            "sorun": "problem issue trouble error",
+            "limit": "limit size payload quota restriction",
+            "boyut": "size payload limit length",
+            "aştım": "exceed over limit maximum",
+            "alıyorum": "getting receiving encountering",
+            
+            # 🔧 NEW: Network and access terms
+            "ip": "ip address network connection",
+            "adres": "address location endpoint",
+            "adresim": "my address my ip address",
+            "engel": "block blocked restrict ban",
+            "engellenmiş": "blocked restricted banned",
+            "yapabilirim": "can do solution fix resolve",
+            
+            # 🔧 NEW: Technical and integration terms
+            "modül": "module component feature",
+            "url": "url link endpoint address",
+            "onay": "consent approval permission",
+            "teslimat": "delivery send dispatch",
+            "mesaj": "message notification push",
+            "push": "push notification alert",
+            "e-posta": "email mail electronic mail",
+            "email": "email e-mail mail messaging"
+        }
+        
+        # Enhanced query expansion
+        enhanced_query = query
+        for tr_term, en_term in term_mapping.items():
+            if tr_term in q_lower:
+                enhanced_query += f" {en_term}"
+        
+        # 🔧 NEW: Pattern-based expansion for common issues
+        if "push" in q_lower and ("boyut" in q_lower or "limit" in q_lower):
+            enhanced_query += " push notification payload size maximum length restriction"
+        
+        if "ip" in q_lower and ("engel" in q_lower or "block" in q_lower):
+            enhanced_query += " ip address blocked network access denied whitelist firewall"
+            
+    else:
+        enhanced_query = query
+        
+        # 🔧 NEW: English query expansion for technical terms
+        if "integration" in q_lower and "module" in q_lower:
+            enhanced_query += " platform integration setup configuration api"
+        
+        if "email" in q_lower and "delivery" in q_lower:
+            enhanced_query += " email sending mail delivery smtp configuration"
+    
+    return enhanced_query
 
 def retrieve_node(retriever: HybridRetriever):
     def _inner(state: BotState) -> BotState:
         q = state["translated_query"]
-        items = retriever.retrieve(q, k=6)
+        lang = state["lang"]
+        
+        # Preprocess query to add English terms
+        enhanced_q = preprocess_query(q, lang)
+        
+        items = retriever.retrieve(enhanced_q, k=10)
         state["docs"] = items
-        # Basit güven: ilk dokümanın skoru normalize edilmeden 0-1'e sıkıştırılmış gibi düşünelim
-        conf = 0.6 if items else 0.0
+        
+        # Better confidence calculation based on actual scores
+        if items:
+            max_score = max(item.get("score", 0) for item in items)
+            # Normalize score to 0-1 range (scores can be > 1)
+            conf = min(max_score / 1.5, 1.0)  # Lowered divisor for better confidence
+        else:
+            conf = 0.0
+            
         state["retrieval_conf"] = conf
         return state
     return _inner
@@ -107,76 +142,184 @@ def generate_answer_node(llm: ChatOpenAI):
     def _inner(state: BotState) -> BotState:
         lang = state["lang"]
         q = state["translated_query"]
-        ctx = "\n\n---\n\n".join([d["text"] for d in state.get("docs", [])])
+        docs = state.get("docs", [])
+        
+        # Enhanced context formatting
+        formatted_contexts = []
+        for i, doc in enumerate(docs[:3], 1):  # Limit to top 3 most relevant
+            text = doc.get("text", "")
+            source = doc.get("url", "unknown")
+            
+            # Preserve code formatting if present
+            if any(indicator in text.lower() for indicator in ["gradle", "json", "xml", "implementation", "```", "curl"]):
+                text = text.replace("\n\n", "\n").strip()  # Clean up extra newlines
+            
+            formatted_contexts.append(f"=== KAYNAK {i} ===\n{text}\n(URL: {source})\n")
+        
+        ctx = "\n".join(formatted_contexts)
         sys = SYSTEM_PROMPT
-        prompt = f"Question:\n{q}\n\nContext:\n{ctx}\n\nAnswer in {lang}. Cite sources."
+        
+        # 🔧 SIMPLIFIED: No forced formatting based on question type
+        if lang == "Türkçe":
+            prompt = f"""Soru: {q}
+
+Belgeler:
+{ctx}
+
+Yukarıdaki belgeleri kullanarak TÜRKÇE cevap verin. Gerekirse adımlar halinde açıklayın."""
+        else:
+            prompt = f"""Question: {q}
+
+Documentation:
+{ctx}
+
+Answer in ENGLISH using the documentation above. Use steps if needed."""
+
         out = llm.invoke([{"role":"system","content":sys},{"role":"user","content":prompt}]).content
+        
+        # Post-process the answer
+        out = post_process_answer(out, lang)
 
         # SADECE İLK URL
-        primary = next((d.get("url") for d in state.get("docs", []) if d.get("url")), None)
+        primary = next((d.get("url") for d in docs if d.get("url")), None)
         state["citations"] = [primary] if primary else []
         state["answer"] = out
         return state
     return _inner
 
-def suggest_node(state: BotState) -> BotState:
-    lang = state["lang"]
-    if lang == "Türkçe":
-        state["suggestions"] = [
-            "Hangi SDK/platform? (iOS/Android/Web)",
-            "Hangi ekran/hatayı görüyorsun?",
-            "Konu başlığını biraz daha açar mısın?"
-        ]
-    else:
-        state["suggestions"] = [
-            "Which SDK/platform? (iOS/Android/Web)",
-            "Which screen/error do you see?",
-            "Could you expand the topic a bit?"
-        ]
+# 🔧 REMOVED: is_procedural_question function - was causing accuracy issues
+
+
+def post_process_answer(answer: str, lang: str) -> str:
+    """Answer'ı post-process et - minimal formatting"""
+    # Just clean up and return - no emoji additions
+    return answer.strip()
+
+def needs_clarification_check(state: BotState) -> BotState:
+    """Sorunun açıklayıcı soru gerekip gerekmediğini kontrol et (SIMPLIFIED)"""
+    query = state["translated_query"].lower()
+    
+    # Sadece çok belirsiz sorular için clarification iste
+    very_ambiguous = [
+        len(query.split()) < 3,  # Çok kısa sorular
+        query in ["help", "yardım", "nasıl", "how"]  # Tek kelime sorular
+    ]
+    
+    state["needs_clarification"] = any(very_ambiguous)
     return state
+
+def clarify_question_node(llm: ChatOpenAI):
+    """Açıklayıcı soru oluşturur"""
+    def _inner(state: BotState) -> BotState:
+        lang = state["lang"]
+        query = state["translated_query"]
+        
+        # Açıklayıcı soru prompt'u
+        if lang == "Türkçe":
+            clarify_prompt = f"""
+Kullanıcının sorusu: "{query}"
+
+Bu soru belirsiz bilgiler içeriyor. Kullanıcıya daha iyi yardım edebilmek için açıklayıcı bir soru sor.
+
+Açıklayıcı soru türleri:
+- Platform/SDK: "Hangi platform için? (iOS/Android/Web/React Native)"
+- Versiyon: "Hangi Android Studio versiyonu kullanıyorsunuz?"
+- Dil: "Kotlin mi Java ile mi geliştiriyorsunuz?"
+- Detay: "Hangi hata mesajını görüyorsunuz?"
+- Ortam: "Development mi production ortamında?"
+
+Kısa ve net bir açıklayıcı soru üret:
+"""
+        else:
+            clarify_prompt = f"""
+User's question: "{query}"
+
+This question contains ambiguous information. Ask a clarifying question to better help the user.
+
+Clarifying question types:
+- Platform/SDK: "Which platform? (iOS/Android/Web/React Native)"
+- Version: "Which Android Studio version are you using?"
+- Language: "Are you using Kotlin or Java?"
+- Details: "What error message do you see?"
+- Environment: "Development or production environment?"
+
+Generate a short and clear clarifying question:
+"""
+        
+        # LLM'den açıklayıcı soru al
+        response = llm.invoke([
+            {"role": "system", "content": "Sen yardımcı bir asistansın. Kullanıcıya açıklayıcı sorular sorarak daha iyi yardım ediyorsun."},
+            {"role": "user", "content": clarify_prompt}
+        ]).content.strip()
+        
+        state["clarifying_question"] = response
+        state["answer"] = response  # UI için
+        return state
+    return _inner
+
 
 def finalize_node(state: BotState) -> BotState:
-    if state.get("faq_answer"):
-        state["answer"] = state["faq_answer"]
-    elif state.get("conversational_response"):
-        state["answer"] = state["conversational_response"]
+    # Finalize işlemi - artık conversational response yok
     return state
 
-def route_after_detect(state: BotState) -> str:
-    """Dil tespitinden sonra conversational intent kontrolü yap"""
-    return "conversational" if state.get("conversational_response") else "faq"
-
-def route_after_conversational(state: BotState) -> str:
-    """Conversational response varsa finalize'a git"""
-    return "finalize" if state.get("conversational_response") else "faq"
-
-def route_after_faq(state: BotState) -> str:
-    return "finalize" if state.get("faq_answer") else "retrieve"
-
 def route_after_retrieve(state: BotState) -> str:
-    return "generate" if state.get("retrieval_conf", 0) >= 0.6 else "suggest"
+    """Retrieval'dan sonra nereye gideceğini belirle"""
+    conf = state.get("retrieval_conf", 0)
+    
+    # Yüksek confidence: direkt cevap ver
+    if conf >= 0.4:
+        return "generate"
+    # Orta/düşük confidence: clarification gerekip gerekmediğini kontrol et
+    else:
+        return "clarification_check"
 
-def build_app_graph(corpus_texts, corpus_meta, faq_path: str):
+def route_after_clarification_check(state: BotState) -> str:
+    """Clarification check'ten sonra nereye gideceğini belirle"""
+    if state.get("needs_clarification", False):
+        return "clarify"
+    else:
+        return "generate"
+
+def build_app_graph(corpus_texts, corpus_meta):
     llm = ChatOpenAI(model=CHAT_MODEL, temperature=0)
-    faq = FAQMatcher(faq_path)
     retriever = HybridRetriever(corpus_texts, corpus_meta)
 
     g = StateGraph(BotState)
+    
+    # Node'ları ekle
     g.add_node("detect", detect_lang_and_passthrough)
-    g.add_node("conversational", detect_conversational_intent)
-    g.add_node("faq", faq_check_node(faq))
     g.add_node("retrieve", retrieve_node(retriever))
-    g.add_node("decide", decide_node)
+    g.add_node("clarification_check", needs_clarification_check)
+    g.add_node("clarify", clarify_question_node(llm))
     g.add_node("generate", generate_answer_node(llm))
-    g.add_node("suggest", suggest_node)
     g.add_node("finalize", finalize_node)
 
+    # Graph flow'unu kur
     g.set_entry_point("detect")
-    g.add_edge("detect", "conversational")
-    g.add_conditional_edges("conversational", route_after_conversational, {"finalize":"finalize","faq":"faq"})
-    g.add_conditional_edges("faq", route_after_faq, {"finalize":"finalize","retrieve":"retrieve"})
-    g.add_conditional_edges("retrieve", route_after_retrieve, {"generate":"generate","suggest":"suggest"})
+    g.add_edge("detect", "retrieve")
+    
+    # Retrieve'dan sonra routing
+    g.add_conditional_edges(
+        "retrieve", 
+        route_after_retrieve, 
+        {
+            "generate": "generate",
+            "clarification_check": "clarification_check"
+        }
+    )
+    
+    # Clarification check'ten sonra routing
+    g.add_conditional_edges(
+        "clarification_check",
+        route_after_clarification_check,
+        {
+            "clarify": "clarify",
+            "generate": "generate"
+        }
+    )
+    
+    # Final edges
     g.add_edge("generate", "finalize")
-    g.add_edge("suggest", "finalize")
+    g.add_edge("clarify", "finalize")
 
     return g.compile()

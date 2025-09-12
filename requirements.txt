@@ -17,3 +17,7 @@ uvicorn[standard]
 python-dotenv
 huggingface_hub
 typing_extensions
+# Evaluation dependencies
+pandas
+matplotlib
+seaborn
