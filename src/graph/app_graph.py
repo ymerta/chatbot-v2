@@ -18,9 +18,6 @@ class BotState(TypedDict, total=False):
     citations: List[str]
     answer: Optional[str]
     retrieval_conf: float
-    conversational_response: Optional[str]  # Yeni alan: selamlama ve genel konuşma için
-    clarifying_question: Optional[str]  # Yeni alan: açıklayıcı sorular için
-    needs_clarification: bool  # Açıklayıcı soru gerekip gerekmediğini belirler
 
 def detect_lang_and_passthrough(state: BotState) -> BotState:
     q = state["query"].strip()
@@ -263,22 +260,11 @@ def finalize_node(state: BotState) -> BotState:
     return state
 
 def route_after_retrieve(state: BotState) -> str:
-    """Retrieval'dan sonra nereye gideceğini belirle"""
-    conf = state.get("retrieval_conf", 0)
-    
-    # Yüksek confidence: direkt cevap ver
-    if conf >= 0.4:
-        return "generate"
-    # Orta/düşük confidence: clarification gerekip gerekmediğini kontrol et
-    else:
-        return "clarification_check"
+    """Retrieval'dan sonra nereye gideceğini belirle - HER ZAMAN GENERATE"""
+    # Clarification özelliği kaldırıldı - her zaman direkt cevap ver
+    return "generate"
 
-def route_after_clarification_check(state: BotState) -> str:
-    """Clarification check'ten sonra nereye gideceğini belirle"""
-    if state.get("needs_clarification", False):
-        return "clarify"
-    else:
-        return "generate"
+# route_after_clarification_check fonksiyonu kaldırıldı - artık kullanılmıyor
 
 def build_app_graph(corpus_texts, corpus_meta):
     llm = ChatOpenAI(model=CHAT_MODEL, temperature=0)
@@ -286,40 +272,16 @@ def build_app_graph(corpus_texts, corpus_meta):
 
     g = StateGraph(BotState)
     
-    # Node'ları ekle
+    # Node'ları ekle (clarification node'ları kaldırıldı)
     g.add_node("detect", detect_lang_and_passthrough)
     g.add_node("retrieve", retrieve_node(retriever))
-    g.add_node("clarification_check", needs_clarification_check)
-    g.add_node("clarify", clarify_question_node(llm))
     g.add_node("generate", generate_answer_node(llm))
     g.add_node("finalize", finalize_node)
 
-    # Graph flow'unu kur
+    # Basitleştirilmiş graph flow - clarification kaldırıldı
     g.set_entry_point("detect")
     g.add_edge("detect", "retrieve")
-    
-    # Retrieve'dan sonra routing
-    g.add_conditional_edges(
-        "retrieve", 
-        route_after_retrieve, 
-        {
-            "generate": "generate",
-            "clarification_check": "clarification_check"
-        }
-    )
-    
-    # Clarification check'ten sonra routing
-    g.add_conditional_edges(
-        "clarification_check",
-        route_after_clarification_check,
-        {
-            "clarify": "clarify",
-            "generate": "generate"
-        }
-    )
-    
-    # Final edges
+    g.add_edge("retrieve", "generate")  # Direkt generate'e git
     g.add_edge("generate", "finalize")
-    g.add_edge("clarify", "finalize")
 
     return g.compile()
