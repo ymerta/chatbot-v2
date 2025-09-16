@@ -189,34 +189,92 @@ def generate_answer_node(llm: ChatOpenAI):
         ctx = "\n".join(formatted_contexts)
         sys = SYSTEM_PROMPT
         
-        # Enhanced prompting with routing context
+        # Enhanced prompting for hybrid context merging
         route_type = routing_info.get('route_type', 'vector')
+        strategy = routing_info.get('strategy', 'balanced_hybrid')
         
-        if lang == "Türkçe":
-            if route_type == "graph":
-                prompt = f"""Soru: {q}
+        # Check if we have hybrid GraphRAG context
+        if graph_context and hasattr(state.get("retriever"), "format_context_for_llm"):
+            # Use enhanced formatting from HybridGraphRAGRetriever
+            ctx = state["retriever"].format_context_for_llm(graph_context, q)
+            
+            if lang == "Türkçe":
+                if strategy == "graph_first":
+                    prompt = f"""Soru: {q}
+
+{ctx}
+
+Bu hibrit context'i kullanarak TÜRKÇE kapsamlı bir cevap verin. 
+🎯 ÖNCELİK: Knowledge graph insights'larını birincil kaynak olarak kullanın, documentation'ı destekleyici detaylar için kullanın.
+İlgili bileşenler, bağımlılıklar ve workflow'ları dahil edin."""
+                elif strategy == "vector_first":
+                    prompt = f"""Soru: {q}
+
+{ctx}
+
+Bu hibrit context'i kullanarak TÜRKÇE kapsamlı bir cevap verin.
+🎯 ÖNCELİK: Documentation'ı birincil kaynak olarak kullanın, graph insights'ları ilişkiler ve context için kullanın.
+Gerekirse adımlar halinde açıklayın."""
+                else:  # balanced_hybrid
+                    prompt = f"""Soru: {q}
+
+{ctx}
+
+Bu hibrit context'i kullanarak TÜRKÇE kapsamlı bir cevap verin.
+🎯 DENGELI: Hem knowledge graph hem documentation bilgilerini eşit şekilde entegre edin.
+İlişkiler, bağımlılıklar ve detaylı açıklamaları birlikte sunun."""
+            else:
+                if strategy == "graph_first":
+                    prompt = f"""Question: {q}
+
+{ctx}
+
+Answer in ENGLISH using this hybrid context comprehensively.
+🎯 PRIORITY: Use knowledge graph insights as primary source, documentation for supporting details.
+Include related components, dependencies, and workflows."""
+                elif strategy == "vector_first":
+                    prompt = f"""Question: {q}
+
+{ctx}
+
+Answer in ENGLISH using this hybrid context comprehensively.
+🎯 PRIORITY: Use documentation as primary source, graph insights for relationships and context.
+Use steps if needed."""
+                else:  # balanced_hybrid
+                    prompt = f"""Question: {q}
+
+{ctx}
+
+Answer in ENGLISH using this hybrid context comprehensively.
+🎯 BALANCED: Integrate both knowledge graph and documentation information equally.
+Present relationships, dependencies, and detailed explanations together."""
+        else:
+            # Fallback to traditional routing for non-GraphRAG contexts
+            if lang == "Türkçe":
+                if route_type == "graph":
+                    prompt = f"""Soru: {q}
 
 Kaynak Bilgiler:
 {ctx}
 
 Yukarıdaki bilgileri ve kavram haritasındaki ilişkileri kullanarak TÜRKÇE kapsamlı bir cevap verin. İlgili bileşenler ve bağımlılıkları da dahil edin."""
-            else:
-                prompt = f"""Soru: {q}
+                else:
+                    prompt = f"""Soru: {q}
 
 Belgeler:
 {ctx}
 
 Yukarıdaki belgeleri kullanarak TÜRKÇE cevap verin. Gerekirse adımlar halinde açıklayın."""
-        else:
-            if route_type == "graph":
-                prompt = f"""Question: {q}
+            else:
+                if route_type == "graph":
+                    prompt = f"""Question: {q}
 
 Source Information:
 {ctx}
 
 Answer in ENGLISH using the above information and knowledge graph relationships. Include related components and dependencies."""
-            else:
-                prompt = f"""Question: {q}
+                else:
+                    prompt = f"""Question: {q}
 
 Documentation:
 {ctx}

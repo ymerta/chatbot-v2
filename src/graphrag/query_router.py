@@ -15,6 +15,12 @@ class QueryType(Enum):
     GRAPH = "graph"      # Use GraphRAG
     HYBRID = "hybrid"    # Use both approaches
 
+class RetrievalStrategy(Enum):
+    """Retrieval strategy for hybrid context merging"""
+    GRAPH_FIRST = "graph_first"      # Graph primary, vector fallback
+    VECTOR_FIRST = "vector_first"    # Vector primary, graph fallback  
+    BALANCED_HYBRID = "balanced_hybrid"  # Equal weight to both
+
 class QueryRouter:
     """Routes queries to appropriate retrieval method"""
     
@@ -83,8 +89,8 @@ class QueryRouter:
         self.compiled_graph_patterns = [re.compile(pattern, re.IGNORECASE) for pattern in self.graph_patterns]
         self.compiled_vector_patterns = [re.compile(pattern, re.IGNORECASE) for pattern in self.vector_patterns]
     
-    def route_query(self, query: str) -> QueryType:
-        """Route query to appropriate retrieval method"""
+    def route_query(self, query: str) -> Dict[str, any]:
+        """Route query with hybrid context merging strategy"""
         query_lower = query.lower().strip()
         
         # Calculate scores for each approach
@@ -93,17 +99,25 @@ class QueryRouter:
         
         logger.debug(f"Query routing scores - Graph: {graph_score}, Vector: {vector_score}")
         
-        # Decision logic
-        if graph_score > vector_score + 0.2:  # Clear preference for graph
-            return QueryType.GRAPH
-        elif vector_score > graph_score + 0.2:  # Clear preference for vector
-            return QueryType.VECTOR
-        elif graph_score > 0.3 and vector_score > 0.3:  # Both have decent scores
-            return QueryType.HYBRID
-        elif graph_score > vector_score:
-            return QueryType.GRAPH
-        else:
-            return QueryType.VECTOR
+        # Determine primary strategy and context merging approach
+        if graph_score > vector_score + 0.3:  # Strong graph preference
+            strategy = RetrievalStrategy.GRAPH_FIRST
+            primary_method = QueryType.GRAPH
+        elif vector_score > graph_score + 0.3:  # Strong vector preference
+            strategy = RetrievalStrategy.VECTOR_FIRST  
+            primary_method = QueryType.VECTOR
+        else:  # Balanced or close scores - always use both
+            strategy = RetrievalStrategy.BALANCED_HYBRID
+            primary_method = QueryType.HYBRID
+        
+        return {
+            'route_type': primary_method,
+            'strategy': strategy,
+            'graph_score': graph_score,
+            'vector_score': vector_score,
+            'use_context_merging': True,  # Always true for hybrid approach
+            'reasoning': self._get_strategy_reasoning(strategy, graph_score, vector_score)
+        }
     
     def _calculate_graph_score(self, query: str) -> float:
         """Calculate graph retrieval score"""
@@ -185,9 +199,7 @@ class QueryRouter:
         """Get detailed explanation of routing decision"""
         query_lower = query.lower().strip()
         
-        graph_score = self._calculate_graph_score(query_lower)
-        vector_score = self._calculate_vector_score(query_lower)
-        route_type = self.route_query(query)
+        routing_result = self.route_query(query)
         
         # Find matching patterns
         matching_graph_patterns = []
@@ -202,23 +214,24 @@ class QueryRouter:
         
         return {
             'query': query,
-            'route_type': route_type.value,
-            'graph_score': graph_score,
-            'vector_score': vector_score,
+            'route_type': routing_result['route_type'].value,
+            'strategy': routing_result['strategy'].value,
+            'graph_score': routing_result['graph_score'],
+            'vector_score': routing_result['vector_score'],
             'matching_graph_patterns': matching_graph_patterns,
             'matching_vector_patterns': matching_vector_patterns,
             'entity_count': self._count_entities_in_query(query_lower),
-            'reasoning': self._get_routing_reasoning(route_type, graph_score, vector_score)
+            'reasoning': routing_result['reasoning']
         }
     
-    def _get_routing_reasoning(self, route_type: QueryType, graph_score: float, vector_score: float) -> str:
-        """Get human-readable reasoning for routing decision"""
-        if route_type == QueryType.GRAPH:
-            return f"Routed to Graph (score: {graph_score:.2f}) - Query involves relationships, workflows, or multi-component interactions"
-        elif route_type == QueryType.VECTOR:
-            return f"Routed to Vector (score: {vector_score:.2f}) - Query asks for definitions, simple concepts, or single-page information"
-        elif route_type == QueryType.HYBRID:
-            return f"Routed to Hybrid (Graph: {graph_score:.2f}, Vector: {vector_score:.2f}) - Query benefits from both approaches"
+    def _get_strategy_reasoning(self, strategy: RetrievalStrategy, graph_score: float, vector_score: float) -> str:
+        """Get human-readable reasoning for strategy decision"""
+        if strategy == RetrievalStrategy.GRAPH_FIRST:
+            return f"Graph-first strategy (Graph: {graph_score:.2f}, Vector: {vector_score:.2f}) - Primary focus on relationships, vector as context enrichment"
+        elif strategy == RetrievalStrategy.VECTOR_FIRST:
+            return f"Vector-first strategy (Vector: {vector_score:.2f}, Graph: {graph_score:.2f}) - Primary focus on definitions, graph as relationship context"
+        elif strategy == RetrievalStrategy.BALANCED_HYBRID:
+            return f"Balanced hybrid strategy (Graph: {graph_score:.2f}, Vector: {vector_score:.2f}) - Equal weight to both graph and vector contexts"
         else:
-            return "Unknown routing decision"
+            return "Unknown strategy"
 

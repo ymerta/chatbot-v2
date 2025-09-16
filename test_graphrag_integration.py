@@ -42,9 +42,10 @@ def test_graphrag_components():
         ]
         
         for query in test_queries:
-            route_type = router.route_query(query)
-            explanation = router.get_routing_explanation(query)
-            print(f"   Query: '{query}' -> {route_type.value} (confidence: {explanation['graph_score']:.2f})")
+            routing_result = router.route_query(query)
+            route_type = routing_result['route_type']
+            strategy = routing_result['strategy']
+            print(f"   Query: '{query}' -> {route_type.value} / {strategy.value} (graph: {routing_result['graph_score']:.2f}, vector: {routing_result['vector_score']:.2f})")
         
         # Test graph retriever
         print("3. Testing Graph Retriever...")
