@@ -31,6 +31,14 @@ BM25_WEIGHT = 0.6  # Text matching daha da artırıldı - keyword matching için
 FAISS_WEIGHT = 0.4  # Semantic search azaltıldı - daha balanced
 FUZZY_WEIGHT = 0  # Aynı kaldı
 
+# GraphRAG Configuration
+GRAPHRAG_ENABLED = True
+KNOWLEDGE_GRAPH_PATH = os.getenv("KNOWLEDGE_GRAPH_PATH", os.path.join(DATA_DIR, "graph", "netmera_knowledge_graph.pkl"))
+ENTITY_EXTRACTION_MODEL = "en_core_web_sm"
+GRAPH_EMBEDDING_DIM = 384
+MULTI_HOP_MAX_DEPTH = 2
+MAX_GRAPH_ENTITIES = 5
+
 BASE_DOC_URL = os.getenv("BASE_DOC_URL", "https://user.netmera.com")
 
 # CHUNKS_DIR is used by tooling; default under DATA_DIR unless overridden

@@ -9,12 +9,15 @@ from langchain_openai import ChatOpenAI
 from langchain_core.documents import Document
 from src.config import CHAT_MODEL, SYSTEM_PROMPT
 from src.retrievers.hybrid import HybridRetriever
+from src.retrievers.hybrid_graphrag import HybridGraphRAGRetriever
 
 class BotState(TypedDict, total=False):
     query: str
     lang: str
     translated_query: str
     docs: List[Document]            # burada string tutacağız (uyum için)
+    graph_context: Optional[dict]   # GraphRAG context
+    routing_info: Optional[dict]    # Query routing information
     citations: List[str]
     answer: Optional[str]
     retrieval_conf: float
@@ -109,7 +112,7 @@ def preprocess_query(query: str, lang: str) -> str:
     
     return enhanced_query
 
-def retrieve_node(retriever: HybridRetriever):
+def retrieve_node(retriever):
     def _inner(state: BotState) -> BotState:
         q = state["translated_query"]
         lang = state["lang"]
@@ -117,17 +120,36 @@ def retrieve_node(retriever: HybridRetriever):
         # Preprocess query to add English terms
         enhanced_q = preprocess_query(q, lang)
         
-        items = retriever.retrieve(enhanced_q, k=10)
-        state["docs"] = items
-        
-        # Better confidence calculation based on actual scores
-        if items:
-            max_score = max(item.get("score", 0) for item in items)
-            # Normalize score to 0-1 range (scores can be > 1)
-            conf = min(max_score / 1.5, 1.0)  # Lowered divisor for better confidence
-        else:
-            conf = 0.0
+        # Check if we're using the new hybrid GraphRAG retriever
+        if isinstance(retriever, HybridGraphRAGRetriever):
+            # Use new hybrid retrieval with GraphRAG
+            hybrid_context = retriever.retrieve(enhanced_q, k=10)
             
+            # Convert vector context to legacy format for compatibility
+            items = hybrid_context.vector_context
+            
+            # Store graph context and routing info
+            state["graph_context"] = hybrid_context.graph_context
+            state["routing_info"] = hybrid_context.routing_info
+            
+            # Calculate confidence from hybrid result
+            conf = hybrid_context.combined_confidence
+            
+        else:
+            # Use legacy HybridRetriever
+            items = retriever.retrieve(enhanced_q, k=10)
+            state["graph_context"] = None
+            state["routing_info"] = None
+            
+            # Better confidence calculation based on actual scores
+            if items:
+                max_score = max(item.get("score", 0) for item in items)
+                # Normalize score to 0-1 range (scores can be > 1)
+                conf = min(max_score / 1.5, 1.0)  # Lowered divisor for better confidence
+            else:
+                conf = 0.0
+        
+        state["docs"] = items
         state["retrieval_conf"] = conf
         return state
     return _inner
@@ -140,9 +162,20 @@ def generate_answer_node(llm: ChatOpenAI):
         lang = state["lang"]
         q = state["translated_query"]
         docs = state.get("docs", [])
+        graph_context = state.get("graph_context")
+        routing_info = state.get("routing_info", {})
         
-        # Enhanced context formatting
+        # Enhanced context formatting with GraphRAG integration
         formatted_contexts = []
+        
+        # Add graph context if available
+        if graph_context and graph_context.get("subgraph_info"):
+            if lang == "Türkçe":
+                formatted_contexts.append(f"=== KAVRAM HARİTASI ===\n{graph_context['subgraph_info']}\n")
+            else:
+                formatted_contexts.append(f"=== KNOWLEDGE GRAPH ===\n{graph_context['subgraph_info']}\n")
+        
+        # Add traditional document context
         for i, doc in enumerate(docs[:3], 1):  # Limit to top 3 most relevant
             text = doc.get("text", "")
             source = doc.get("url", "unknown")
@@ -156,16 +189,34 @@ def generate_answer_node(llm: ChatOpenAI):
         ctx = "\n".join(formatted_contexts)
         sys = SYSTEM_PROMPT
         
-        # 🔧 SIMPLIFIED: No forced formatting based on question type
+        # Enhanced prompting with routing context
+        route_type = routing_info.get('route_type', 'vector')
+        
         if lang == "Türkçe":
-            prompt = f"""Soru: {q}
+            if route_type == "graph":
+                prompt = f"""Soru: {q}
+
+Kaynak Bilgiler:
+{ctx}
+
+Yukarıdaki bilgileri ve kavram haritasındaki ilişkileri kullanarak TÜRKÇE kapsamlı bir cevap verin. İlgili bileşenler ve bağımlılıkları da dahil edin."""
+            else:
+                prompt = f"""Soru: {q}
 
 Belgeler:
 {ctx}
 
 Yukarıdaki belgeleri kullanarak TÜRKÇE cevap verin. Gerekirse adımlar halinde açıklayın."""
         else:
-            prompt = f"""Question: {q}
+            if route_type == "graph":
+                prompt = f"""Question: {q}
+
+Source Information:
+{ctx}
+
+Answer in ENGLISH using the above information and knowledge graph relationships. Include related components and dependencies."""
+            else:
+                prompt = f"""Question: {q}
 
 Documentation:
 {ctx}
@@ -266,9 +317,16 @@ def route_after_retrieve(state: BotState) -> str:
 
 # route_after_clarification_check fonksiyonu kaldırıldı - artık kullanılmıyor
 
-def build_app_graph(corpus_texts, corpus_meta):
+def build_app_graph(corpus_texts, corpus_meta, use_graphrag=True):
     llm = ChatOpenAI(model=CHAT_MODEL, temperature=0)
-    retriever = HybridRetriever(corpus_texts, corpus_meta)
+    
+    # Choose retriever based on flag
+    if use_graphrag:
+        retriever = HybridGraphRAGRetriever(corpus_texts, corpus_meta)
+        print("🔗 GraphRAG hybrid retriever initialized")
+    else:
+        retriever = HybridRetriever(corpus_texts, corpus_meta)
+        print("📊 Traditional hybrid retriever initialized")
 
     g = StateGraph(BotState)
     

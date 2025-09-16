@@ -59,7 +59,9 @@ for _id, d in docs.items():
     corpus_meta.append(d.metadata)  # {"source":..., "url":...}
 
 # 2) Graph compile
-graph = build_app_graph(corpus_texts, corpus_meta)
+# GraphRAG toggle option
+use_graphrag = st.sidebar.checkbox("🔗 GraphRAG Kullan", value=True, help="Knowledge Graph tabanlı hibrit arama")
+graph = build_app_graph(corpus_texts, corpus_meta, use_graphrag=use_graphrag)
 
 # --- yardımcı: URL'i okunur başlığa çevir
 def prettify(u: str) -> str:
@@ -256,6 +258,18 @@ Streamlit secrets'da Firebase service account bilgilerini kontrol edin:
         """)
 else:
     st.success("✅ Firebase bağlantısı aktif - Feedback sistemi hazır")
+
+# GraphRAG status indicator
+if use_graphrag:
+    try:
+        from src.graphrag.graph_store import NetmeraGraphStore
+        graph_store = NetmeraGraphStore()
+        stats = graph_store.get_stats()
+        st.info(f"🔗 GraphRAG aktif: {stats['total_nodes']} node, {stats['total_edges']} edge")
+    except Exception as e:
+        st.warning(f"🟡 GraphRAG başlatılamadı: {str(e)[:100]}...")
+else:
+    st.info("📊 Geleneksel FAISS+BM25 modu aktif")
 
 if "history" not in st.session_state:
     st.session_state.history = []
