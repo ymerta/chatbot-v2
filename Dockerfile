@@ -1,48 +1,31 @@
-﻿FROM python:3.11-slim
+# Python 3.11 base image
+FROM python:3.11-slim
 
-# Sistem paketleri
-RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*
-
+# Set working directory
 WORKDIR /app
 
-# Ortam değişkenleri
-ENV DATA_DIR=/data
-ENV FAISS_STORE_PATH=/data/embeddings/faiss_store
-ENV ENVIRONMENT=production
-# FAISS’i Hugging Face Hub’dan alacağız → scrape kapalı
-ENV ALLOW_SCRAPE=0
-# Hugging Face dataset repo bilgileriniz
-ENV HUB_REPO_ID=ymerta/netmerianbot-faiss
-ENV HUB_SUBFOLDER=
-# HF cache’i yazılabilir bir yere yönlendir (/.cache hatasını önler)
-ENV HF_HOME=/data/.cache/huggingface
-ENV HF_HUB_CACHE=/data/.cache/huggingface/hub
-ENV HOME=/root
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    software-properties-common \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# Python bağımlılıkları
+# Copy requirements first for better caching
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
 
-# Uygulama dosyaları
-COPY src ./src
-COPY app_server.py .
+# Install Python dependencies
+RUN pip3 install -r requirements.txt
 
-# Sabit data dosyaları (FAQ vb.)
-RUN mkdir -p ./data
-COPY data/faq_answers.json ./data/faq_answers.json
+# Copy application code
+COPY . .
 
-# data klasörünü kopyalıyoruz (FAISS dosyaları dahil olmayabilir ama sorun değil)
-COPY data ./data
+# Expose port
+EXPOSE 8501
 
-COPY static ./static
+# Health check
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
 
-# Kalıcı data ve HF cache klasörlerini oluştur + izin ver
-RUN mkdir -p /data/embeddings/faiss_store && \
-    mkdir -p /data/.cache/huggingface/hub && \
-    chmod -R 777 /data
-
-EXPOSE 7860
-
-# Uygulama başlatma
-CMD ["uvicorn", "app_server:app", "--host", "0.0.0.0", "--port", "7860"]
+# Run the application
+ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]

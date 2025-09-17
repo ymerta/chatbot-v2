@@ -1,22 +1,53 @@
-# venv & IDE
-venv/
-.env
-*.env
-.DS_Store
-.vscode/
+# Streamlit specific
+.streamlit/secrets.toml
+
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# data (çıktılar / büyük dosyalar)
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
-data/chunks/
-data/dev/
-data/raw/
-data/embeddings/
+# Data files
+data/embeddings/faiss_store_backup/
+*.faiss
+*.pkl
 
-# streamlit cache
-.streamlit/
-**/.streamlit/
+# Firebase
+firebase-service-account.json
+*-firebase-*.json
 
-# LangSmith local cache (varsa)
-.langchain/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

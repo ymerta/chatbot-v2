@@ -1,0 +1,262 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/omnichannel-engagement/whatsapp/creating-a-whatsapp-message
+Omnichannel Engagement
+WhatsApp
+Creating a WhatsApp Message
+Before creating WhatsApp campaigns in Netmera, make sure the following prerequisites are complete:
+Set up your WhatsApp connection through Meta Business Manager
+Connect your Meta Business Account to Netmera to enable campaign creation and message delivery.
+Review WhatsApp policies, limits, and content rules
+Ensure compliance with Meta’s rules regarding message frequency, opt-in requirements, and allowable content types.
+Create and approve templates in Meta
+WhatsApp campaigns must use pre-approved templates. Draft your templates in Meta Business Manager, submit them for approval, and only then will they be available for use in Netmera.
+We’re excited to introduce our new panel design! 🎉
+As part of our ongoing platform upgrade, you may already notice this refreshed look in the WhatsApp Channel. Our goal is to
+fully transition the panel to the new design guide by the end of this year
+, bringing you a cleaner layout and modern, user-friendly experience!
+WhatsApp Templates Dashboard
+Below the search, you’ll see all WhatsApp templates synced from your Meta Business account. Each row includes:
+Template Name
+: The internal name given to the template.
+Status
+: Only Approved templates can be used. If a template is Pending or Rejected, it won’t be selectable for starting a campaign but will be shown here.
+Quality
+: Displays Meta’s quality rating (e.g., High, Medium, Low, Unknown).
+Category
+: Classification, typically Marketing, Utility, or Authentication.
+Actions
+: The menu (…) where you can preview and select a template for editing.
+Template Search and Filters
+Search Template
+: Use the search bar to quickly find a template by name.
+Filter Button
+Status
+: Show only
+Approved
+Pending
+, or
+Rejected
+templates.
+Category
+: Filter by purpose such as
+Marketing
+Utility
+, or
+Authentication
+Quality Rating
+: Filter based on Meta’s quality indicators (High, Medium, Low, Unknown).
+Language
+: Select templates in specific languages (e.g., English, Turkish).
+This helps you focus only on the templates relevant to your campaign.
+Step 1: Compose
+The
+Compose
+step is where you set up the content of your WhatsApp campaign before sending it to your audience. In this stage, you will work with a pre-approved WhatsApp template and personalize its elements to match your campaign’s needs.
+Header
+You can add an
+image
+at the top of your message to capture attention.
+Click on the header area to upload a file (e.g., PNG or JPG).
+The image is displayed above the message text on users’ devices.
+Body
+This is the
+main message text
+of your campaign.
+If your template includes variables (e.g.,
+`{{1}}`
+), these placeholders can be replaced dynamically with user data.
+Variables Matching
+Variables in your template (e.g.,
+`{{1}}`
+) must be matched with a
+profile attribute
+from your user database.
+Example:
+`{{1}}`
+→ First Name.
+If no value is available for a user, a
+Default Value
+is applied instead.
+This ensures every recipient sees a complete and personalized message.
+Footer
+A short line of text appears below the main message.
+Common use cases: brand signature, disclaimer, or call-to-action reinforcement.
+Buttons
+WhatsApp templates support interactive buttons to drive engagement. You can configure multiple types:
+URL Button – Visit Website
+Define the button text (e.g., “Visit website”).
+Add a URL (e.g.,
+`https://www.google.com/{{1}}`
+You may also insert a parameter value (e.g.,
+`https://paycell.com.tr/`
+Phone Number Button – Call Phone Number
+Add a button that triggers a direct phone call when tapped.
+Useful for support lines, sales teams, or customer service.
+Quick Reply – Yes/No or Custom Responses
+Add predefined reply options (e.g., “Yes” / “No”).
+Helps guide users through a conversation flow and enables structured responses.
+Campaign Preview
+On the right-hand side, you can see a
+live preview
+of how your message will appear on both iOS and Android devices.
+This includes the header, body text (with variables applied), footer, and buttons.
+Template Details
+At the bottom, you’ll see the technical details of the template:
+Template Name
+(system identifier, e.g.,
+`whatsapp_marketing`
+Template Category
+(e.g., Marketing, Utility, Authentication)
+Template Language
+(e.g., English)
+Test on Device
+Before launching your WhatsApp campaign, it’s important to verify that your template content and personalization appear correctly on real devices.
+Choose the identifier type from the dropdown:
+External ID
+Email
+MSISDN (phone number)
+WhatsApp Number
+Enter the value in the input box (e.g., the specific External ID or phone number).
+Click
+Add
+to register this user as a test recipient and click on
+Test on Device
+Use real test accounts linked to WhatsApp to ensure accurate validation.
+Once you finalize the content, click
+Save & Continue
+to proceed to the next step in campaign setup.
+Step 2: Delivery
+The
+Delivery
+step defines
+when
+and
+how
+your WhatsApp campaign messages will be sent to your audience. You can send messages immediately, schedule them for a future date, or set expiry rules.
+Campaign Period
+The Campaign Period settings let you control the timing of your message delivery:
+Send Now
+Messages are sent immediately once the campaign is launched.
+Best for urgent or time-sensitive campaigns (e.g., flash sales, reminders).
+Schedule Your Campaign
+Allows you to set a
+specific start date and time
+for delivery.
+Useful for planned campaigns tied to events, promotions, or product launches.
+Set Message Expiry Date
+Defines an expiry time for the message on the user’s device.
+After the expiry date, the message will no longer be visible in the recipient’s WhatsApp.
+Recommended for limited-time offers or content that should not remain available indefinitely.
+Delivery Options
+These options control
+how messages are distributed
+to your selected audience:
+Send Fast
+Sends all messages immediately after launch.
+Best for smaller audiences or when rapid delivery is required.
+Ensures maximum impact for time-sensitive announcements.
+Send in Packages
+Delivers messages in
+timed batches
+rather than all at once.
+Useful for large-scale campaigns, helping manage traffic load and ensuring stable delivery performance.
+Often preferred for operational or transactional messaging where delivery pacing is important.
+Step 3: Audience
+In the
+Audience
+step, you define
+who
+will receive your WhatsApp campaign. You can either send the message to all users or create a highly targeted audience using advanced filters.
+Options for Audience Selection
+Send All Users
+Delivers the campaign to all active users who meet the WhatsApp consent requirements.
+Recommended for broad announcements, global campaigns, or general notifications.
+Create Audience
+Allows you to build a
+custom audience
+by applying filters and conditions.
+Useful for segmentation, personalization, and targeted engagement strategies.
+Building a Custom Audience
+When creating an audience, you can apply
+filter rules
+based on different user attributes and behaviors.
+Root Logic
+Choose whether rules will be combined with:
+AND
+→ All conditions must be true.
+→ At least one condition must be true.
+Filter Types Available
+You can filter users by:
+Channel (Mobile, Web, SMS, Email, WhatsApp)
+Profile Attribute (e.g., Name, Age, City, Subscription status)
+Segment (previously saved audience segments)
+Tag (manual or automated user tags)
+Platform (iOS, Android, Web)
+Response (user actions in past campaigns)
+Message Category (specific message groups)
+Device Type / Device Model
+Location Tracking (if enabled)
+App Installation (whether the app is installed or not)
+Operating System
+Installation Source
+App Tracking (Android Only)
+Advertising ID Permission (for iOS 14+)
+Android Provider
+Promotion
+Filter Groups
+You can create
+groups of conditions
+and apply
+AND/OR logic
+inside them.
+Example:
+Group A: Channel = Mobile AND Channel = WhatsApp
+Group B: Platform = iOS AND Device Model = iPhone 16,1
+This allows complex audience targeting with high flexibility.
+Rule Description Panel
+The right-hand side of the screen shows a
+summary of your applied rules
+This helps validate whether your filters match your intended targeting logic.
+Selection Criteria
+Number of Users
+→ Displays the total number of users that match the current filters.
+Ignore User Message Limits
+→ Bypasses frequency caps or messaging limits applied to users.
+Limit Target Users
+→ Restricts delivery to a maximum number of users (useful for testing or staged rollouts).
+Step 4: Go
+The
+step is the final stage of your WhatsApp campaign setup. Here, you can
+review all configurations
+made in the previous steps and confirm everything before sending your campaign.
+Campaign Summary
+Confirms campaign name, type, and total target users.
+Compose Review
+Shows header image, body message, and footer text.
+Use
+Edit Compose
+to make changes.
+Delivery Review
+Displays sending time (Now or Scheduled), speed (Fast or Packages), and expiry settings.
+Use
+Edit Delivery
+if adjustments are needed.
+Audience Review
+Summarizes targeting rules from Step 3.
+If no rules were set, all eligible users may be included.
+Use
+Edit Audience
+to refine targeting.
+Campaign Preview
+Live preview on iOS and Android with all applied content.
+Template Details
+Confirms template name, category, and language.
+Launch
+Click
+Send
+to launch immediately or at the scheduled time.
+Use
+Back
+if you need to update any step.
+WhatsApp Integration
+Widgets
+8 days ago

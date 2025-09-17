@@ -1,0 +1,53 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/customer-data/about-customer-data
+Customer Data
+About Customer Data
+Netmera is built to help you engage users in the most personal, timely, and effective ways. At the center of that promise lies
+Customer Data
+— a powerful module that enables you to capture, unify, and act on the information that defines your users.
+This is more than just user storage. Customer Data acts as a
+strategic data layer
+that connects identity, behavior, and consent — empowering every campaign, journey, and automation you run inside Netmera.
+Profile Attributes
+Profile Attributes are structured fields that describe each user. You can store anything from basic contact info to custom traits like membership level, favorite category, or device type.
+Create custom attributes tailored to your business
+Use in segmentation, personalization, and journey triggers
+Device Metadata
+Turn device data into personalized engagement and sharper insights.
+Netmera captures device metadata to power smarter engagement. With this data, you can:
+Deliver tailored content
+by adapting messages to device, OS, and location.
+Segment with precision
+using attributes like app version, region, or language.
+Gain deeper insights
+with analytics by platform, version, and manufacturer.
+Troubleshoot faster
+by identifying issues across specific devices or OS versions.
+Events
+Understand what your users do in real time.
+Events capture user actions like button clicks, logins, purchases, or onboarding steps. These signals are essential for powering behavioral targeting and automation logic across Netmera.
+Built-in and custom event tracking
+Parameter support for richer data
+Visualize user actions in Event Insight
+Tagless Data Capture
+Collect more, configure less.
+Not every product team has time for manual tagging. Tagless Data Capture lets you gather behavioral data from your website or app automatically, helping you get started faster and track more with less code.
+IYS Permission Hub
+In markets like Turkey, permission data is not optional — it’s regulated. Netmera’s IYS Permission Hub ensures your user profiles stay compliant with Ileti Yönetim Sistemi (IYS) requirements, with two flexible operational modes:
+IYS Baseline Sync
+mirrors IYS permission data into Netmera
+IYS Authority Mode
+lets Netmera manage and push consents directly to IYS
+This ensures that your outreach remains legal, ethical, and audit-ready: no extra effort required.
+Why Customer Data Powers the Whole Platform
+Customer Data isn’t a silo, it’s a shared source of truth for your entire engagement strategy.
+Every attribute, event, and permission feeds directly into Netmera’s:
+Campaign targeting
+Audience segmentation
+Journey triggers
+Personalization logic
+Message eligibility filters
+and advanced analytics
+By treating data as the starting point for engagement, not just a reporting layer. Netmera helps you create more relevant, effective, and responsible user experiences.
+Guided Videos
+Profile Attributes
+20 days ago

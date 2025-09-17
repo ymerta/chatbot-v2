@@ -1,0 +1,35 @@
+# Platform-Specific Implementation Differences
+
+
+# Platform-Specific Netmera Implementation Farkları
+
+## SDK Initialization
+**iOS**:
+```swift
+Netmera.configure(apiKey: "YOUR_API_KEY")
+```
+
+**Android**:
+```java
+Netmera.init(context, "YOUR_API_KEY")
+```
+
+## Push Token Registration
+**iOS**: Otomatik olarak APNs token alınır ve Netmera'ya gönderilir
+**Android**: FCM token alınır ve manuel olarak Netmera'ya register edilebilir
+
+## Background Processing
+**iOS**: iOS 13+ background app refresh limitations
+**Android**: Doze mode ve app standby optimizations
+
+## Deep Linking
+**iOS**: URL Schemes ve Universal Links kullanılır
+**Android**: Intent Filters ve App Links kullanılır
+
+## Media Push
+**iOS**: Notification Service Extension gerekir
+**Android**: Direkt olarak desteklenir, extra setup gerekmez
+            
+
+Source: comparison_guide
+URL: netmera-platform-implementation-differences

@@ -1,0 +1,32 @@
+# iOS Android Development Environment Differences
+
+
+# iOS ve Android Geliştirme Ortamı Farkları
+
+## IDE Requirements
+- **iOS**: Xcode (macOS gerekli), Interface Builder
+- **Android**: Android Studio (cross-platform), Layout Editor
+
+## Simulator/Emulator
+- **iOS**: iOS Simulator (push notification test sınırlı)
+- **Android**: Android Emulator (Google Play Services ile push test mümkün)
+
+## Testing
+- **iOS**: TestFlight ile beta testing, physical device push test
+- **Android**: Google Play Console internal testing, emulator push test
+
+## Deployment
+- **iOS**: App Store submission, Apple Developer Program (ücretli)
+- **Android**: Google Play Store, Google Play Console (bir kerelik ücret)
+
+## Debugging
+- **iOS**: Xcode debugger, Console.app for logs
+- **Android**: Android Studio debugger, Logcat for logs
+
+## Performance Monitoring
+- **iOS**: Instruments, Xcode Organizer
+- **Android**: Android Profiler, Firebase Performance
+            
+
+Source: comparison_guide
+URL: netmera-development-environment-differences

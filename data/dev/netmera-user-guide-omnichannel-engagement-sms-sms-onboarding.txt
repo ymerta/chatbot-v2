@@ -1,0 +1,63 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/omnichannel-engagement/sms/sms-onboarding
+Omnichannel Engagement
+SMS
+SMS Onboarding
+Quick Steps Guidelines
+Upload your users on
+Targeting -> File Transfer -> User Upload,
+Provide the necessary SMS provider details to Netmera from SMS provider you are using.
+Netmera configures the SMS channel using the gathered provider details.
+Decide whether IYS management will be handled within Netmera or by the provider directly.
+Step 1: User Import
+The first step in the SMS onboarding process is to import your user list into the Netmera platform. This allows you to have a database of recipients to whom you can send your SMS messages. Make sure to have your user list ready in a compatible format, and follow the instructions provided by Netmera to import the list successfully.
+To import your Contacts or Email List into Netmera, follow these steps:
+Targeting > File Transfer > User Upload
+Go to the Targeting section in the Netmera dashboard. Select "File Transfer" from the menu. Click on "User Upload".
+Enter a name for the file in the "File Name" field. This name will be used to identify the file in the File Transfers screen.
+Click on the "Choose File" button to select the text file that contains the user information. Text file must contain single user information on each line. Ex: token, externalId.
+Once you have selected the file, click on the "Create User List" button to start the import process.
+Step 2: SMS Provider Details
+Before setting up the SMS channel, we need to gather the necessary details from you regarding the SMS provider you are using. This includes information such as API keys, usernames, passwords, or other credentials required to establish a connection with the provider. Collect these details from your provider and keep them handy for the setup process.
+Below you may find our integrated SMS providers:
+Step 3: Setting Up SMS Channel
+In this step, we will configure the SMS channel within the Netmera platform. If you are working with an existing provider, we use the gathered information from Step 2 to set up the necessary credentials and parameters for you.
+Netmera provides connectors for various SMS providers, making the setup process streamlined and efficient. If you are working with a provider that is not already integrated, reach out to the Netmera product team for analysis and further instructions.
+Below you will see examples of Apikey and Form for different providers. The context changes according to the provider.
+Infobip
+JetSMS
+Step 4: Integrate IYS to your Netmera Panel (optional)
+When managing
+İYS (İleti Yönetim Sistemi)
+permissions for email and SMS communication, Netmera supports two key models. Each model defines how consent data is handled and synchronized with İYS.
+İYS Sync Mode
+In this mode, Netmera automatically synchronizes user consent data with İYS.
+Consent updates in Netmera (opt-ins or opt-outs) are synced with İYS.
+İYS confirmations are reflected back to Netmera.
+See full guide on İYS Sync Mode →
+IYS Sync Mode
+İYS Integrator Mode
+In this mode, Netmera acts as an
+integrator
+, meaning all permission management is led by İYS itself.
+Users’ consent status is validated directly to İYS records.
+Uploads into Netmera are matched with İYS-confirmed permissions.
+See full guide on İYS Integrator Mode →
+IYS Integrator Mode
+Uploading Email and SMS Data
+When uploading contact data for
+email and SMS campaigns
+, you must include:
+Consent status
+(e.g., opt-in / opt-out).
+Consent date
+(timestamp required by İYS).
+Consent type
+Netmera ensures that the uploaded data is validated against İYS records according to the selected mode (Sync or Integrator). Invalid or missing consent data will be rejected to maintain compliance.
+For step-by-step instructions, see:
+Uploading Data for İYS Sync →
+Contact Upload with IYS Integration
+Uploading Data for İYS Integrator →
+Step 3: Contact Upload with IYS Integration
+SMS
+Creating an SMS campaign
+15 days ago

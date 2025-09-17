@@ -1,0 +1,101 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/omnichannel-engagement/whatsapp
+Omnichannel Engagement
+WhatsApp
+WhatsApp is the most widely used messaging platform in the world, with 3 billion monthly active users in the world. With Netmera’s WhatsApp Business API integration, you can reach and engage with your customers directly on this channel.
+For businesses, this means:
+Reaching out to customers on your
+most frequently used app
+High
+click-through
+and
+conversion rates.
+A more
+personal, immediate, and trusted communication experience
+Netmera Introduces WhatsApp
+By adding WhatsApp, we are extending these capabilities into the most popular direct messaging platform, so that you can:
+Run campaigns directly from Netmera
+, without switching to external tools.
+Personalize messages
+with user data already stored in Netmera.
+Track performance
+with advanced reporting and analytics.
+Integrate WhatsApp into Journeys
+, creating seamless user experiences across all touchpoints.
+In short, WhatsApp in Netmera helps you move closer to your customers with meaningful, real-time interactions.
+What You Can Do in Netmera with WhatsApp
+Netmera turns WhatsApp into a fully manageable marketing and engagement channel. Instead of switching between different tools, everything can be done directly from your Netmera panel.
+Core Capabilities
+Access Approved Templates
+All WhatsApp templates must first be create
+d and approved in Meta Business Manager.
+Netmera automatically syncs these templates, so you can view and select them directly in the panel.
+Edit and Personalize Templates
+Customize template text, add placeholders, and personalize messages with profile attributes.
+Deliver messages that feel relevant and personal to each user.
+Target Audience & Execute Campaigns
+Define target audiences using Netmera’s audience and segmentation engine.
+Send WhatsApp campaigns directly from Netmera without leaving the platform.
+Journey Integration
+Add WhatsApp as a channel in Netmera Journeys.
+Combine with push, email, and SMS to create multi-step, cross-channel flows.
+Campaign Analytics
+Track campaign performance with real-time metrics, including:
+Sent rate
+Delivery rate
+CTRs
+WhatsApp Templates
+WhatsApp campaigns can only be sent using
+pre-approved templates
+. These templates are created in Meta Business Manager, reviewed by Meta, and then automatically synced into Netmera. Once synced, you can select, personalize, and send them directly from your Netmera panel.
+Meta
+defines four main template categories: Marketing, Utility, Authentication
+and
+Service
+Currently, Netmera supports the most widely used category — Marketing and Utility.
+Marketing Templates
+Marketing templates are the most flexible and widely used option for customer engagement. They are designed to help you to
+promote, inform, and retarget
+your audiences.
+Enable personalized, sales-driven communication.
+Allow rich formatting with headers, CTAs, and dynamic placeholders.
+Provide measurable impact with higher click and conversion rates.
+Common use cases:
+Announcing a new product or service.
+Sending discounts, promotions, or vouchers.
+Running awareness campaigns to reach large audiences.
+Retargeting users who recently visited your app or website.
+Template Structure
+Each template is made up of specific components. Netmera supports all fields available in Meta:
+Header (optional):
+Text, image, video, document, or location.
+Body (required):
+Main message, up to
+600 characters
+CTA Buttons (optional):
+Add up to
+2 buttons per template
+Supported types:
+Visit Website
+Call Phone
+Quick Reply
+Limited-Time Offer (optional):
+Title (max 16 characters)
+Optional countdown timer
+Unsubscribe Link (optional):
+Recommended for better user trust and quality score, even if not mandatory.
+Use Cases by Industry
+Industry
+Example Scenarios
+Finance
+Run credit card promotions, promote special loan rates, or target audiences with investment campaign offers.
+Insurance
+Share seasonal discount campaigns, promote new coverage packages, or upsell add-on services.
+Retail & E-commerce
+Announce flash sales, distribute exclusive discount codes, or run product launch campaigns.
+Travel & Hospitality
+Launch early-bird holiday offers, promote limited-time flight/hotel discounts, or retarget users with seasonal packages.
+Media & Entertainment
+Promote subscription campaigns, drive engagement with special program/event announcements, or share exclusive offers for premium content.
+Step 4: When
+WhatsApp Integration
+8 days ago

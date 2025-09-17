@@ -1,0 +1,28 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/customer-data/profile-attributes
+Customer Data
+Profile Attributes
+Profile Attributes are a core part of how Netmera helps you understand and engage your users. They represent structured pieces of information tied to individual customer profiles, forming the foundation of segmentation, targeting, and personalization across the platform.
+From basic identifiers to advanced behavioral traits, Profile Attributes allow you to create meaningful user models that fuel real-time decision-making and tailored communication strategies.
+What Are Profile Attributes?
+Every user profile in Netmera can include a variety of attributes. These may range from standard fields like name or email to business-specific values such as membership tier, last order amount, or preferred product category.
+This flexibility enables you to build rich, actionable customer profiles that support smarter engagement across mobile, web, email, and more.
+The Role of Profile Attributes in Netmera
+Profile Attributes serve as the backbone of Netmera’s data-driven engagement model. They bring structure to your user base and allow your team to:
+Segment audiences based on meaningful traits
+Trigger personalized journeys and campaigns
+Enrich messages with dynamic content
+Inform analytics and performance tracking
+Respect consent and privacy boundaries with greater precision
+Whether you're designing a push campaign, running A/B tests, or building complex customer journeys, Profile Attributes are what ensure those experiences are relevant, targeted, and effective.
+Flexible by Design
+Netmera gives you the flexibility to define the data that matters most to your business. You’re not limited to default fields, you can introduce your own structure and evolve it as your strategy grows.
+How Profile Attributes Work Across Netmera
+Filtered within campaign targeting
+Referenced in message templates
+Used in automation logic and journey steps
+Included in custom dashboards and reports
+Synced with external systems through integrations
+They function as the connective tissue between your customer data and your engagement decisions.
+About Customer Data
+Custom Profile Attributes
+1 month ago

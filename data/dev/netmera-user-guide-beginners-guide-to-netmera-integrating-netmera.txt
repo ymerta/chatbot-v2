@@ -1,0 +1,19 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/beginners-guide-to-netmera/integrating-netmera
+Beginner's Guide to Netmera
+Integrating Netmera
+Onboarding Process
+Our dedicated Onboarding Teams ensure that customers integrate and adopt Netmera efficiently. The process includes:
+Initial Contact & Needs Assessment
+→ Understanding customer requirements and app objectives.
+Tailored Onboarding Plan
+→ Designing a customized plan to match business goals.
+Training & Education
+→ Delivering hands-on sessions to familiarize teams with Netmera’s platform.
+Technical Integration & Testing
+Ongoing Support & Optimization
+→ Providing continuous guidance and monitoring performance to maximize results.
+This collaborative approach ensures customers achieve successful adoption and improved app engagement.
+Before starting technical integration, we encourage you to review the
+Introduction to Netmera
+App Dashboard
+13 days ago

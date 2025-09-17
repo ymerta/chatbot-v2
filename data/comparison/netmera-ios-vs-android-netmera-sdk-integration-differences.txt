@@ -1,0 +1,32 @@
+# iOS vs Android Netmera SDK Integration Differences
+
+
+# iOS ve Android Netmera SDK Entegrasyonu Arasındaki Temel Farklar
+
+## Dependency Management
+- **iOS**: CocoaPods kullanılır. Podfile'a 'pod Netmera' eklenir.
+- **Android**: Gradle kullanılır. build.gradle'a implementation 'com.netmera:netmera-android' eklenir.
+
+## Configuration Files
+- **iOS**: Info.plist dosyasında configuration yapılır
+- **Android**: AndroidManifest.xml dosyasında permissions ve configuration yapılır
+
+## Programming Languages
+- **iOS**: Swift veya Objective-C kullanılır
+- **Android**: Java veya Kotlin kullanılır
+
+## Push Notification Setup
+- **iOS**: APNs (Apple Push Notification service) certificate gerekir
+- **Android**: FCM (Firebase Cloud Messaging) server key gerekir
+
+## Permissions
+- **iOS**: iOS 10+ için UNUserNotificationCenter kullanılır
+- **Android**: INTERNET, WAKE_LOCK, RECEIVE_BOOT_COMPLETED permissions gerekir
+
+## Build Process
+- **iOS**: Xcode ile build edilir, provisioning profile gerekir
+- **Android**: Android Studio ile build edilir, signing key gerekir
+            
+
+Source: comparison_guide
+URL: netmera-ios-android-comparison

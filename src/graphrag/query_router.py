@@ -47,6 +47,11 @@ class QueryRouter:
             r'\b(?:both|her\s*ikisi|together|birlikte|combine|birleştir)\b',
             r'\b(?:between|arasında|across|boyunca|through|üzerinden)\b',
             
+            # Comparison and difference queries
+            r'\b(?:difference|fark|farklar|karşılaştır|compare|comparison)\b',
+            r'\b(?:vs|versus|ile.*arasında|.*ile.*fark)\b',
+            r'\b(?:iOS.*Android|Android.*iOS)\b',
+            
             # Error and troubleshooting with context
             r'\b(?:error|hata|problem|sorun|issue|mesele).*(?:when|zaman|while|iken|during|sırasında)\b',
             r'\b(?:fix|düzelt|solve|çöz|resolve|çözümle).*(?:by|ile|using|kullanarak)\b',

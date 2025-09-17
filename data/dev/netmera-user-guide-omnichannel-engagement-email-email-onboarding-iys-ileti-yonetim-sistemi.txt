@@ -1,0 +1,40 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/omnichannel-engagement/email/email-onboarding/iys-ileti-yonetim-sistemi
+Omnichannel Engagement
+Email
+Email Onboarding
+İYS (İleti Yönetim Sistemi)
+When managing
+İYS (İleti Yönetim Sistemi)
+permissions for email and SMS communication, Netmera supports two key models. Each model defines how consent data is handled and synchronized with İYS.
+İYS Sync Mode
+In this mode, Netmera automatically synchronizes user consent data with İYS.
+Consent updates in Netmera (opt-ins or opt-outs) are synced with İYS.
+İYS confirmations are reflected back to Netmera.
+See full guide on İYS Sync Mode →
+IYS Sync Mode
+İYS Integrator Mode
+In this mode, Netmera acts as an
+integrator
+, meaning all permission management is led by İYS itself.
+Users’ consent status is validated directly to İYS records.
+Uploads into Netmera are matched with İYS-confirmed permissions.
+See full guide on İYS Integrator Mode →
+IYS Integrator Mode
+Uploading Email and SMS Data
+When uploading contact data for
+email and SMS campaigns
+, you must include:
+Consent status
+(e.g., opt-in / opt-out).
+Consent date
+(timestamp required by İYS).
+Consent type
+Netmera ensures that the uploaded data is validated against İYS records according to the selected mode (Sync or Integrator). Invalid or missing consent data will be rejected to maintain compliance.
+For step-by-step instructions, see:
+Uploading Data for İYS Sync →
+Contact Upload with IYS Integration
+Uploading Data for İYS Integrator →
+Step 3: Contact Upload with IYS Integration
+Upload Email List
+Email Delivery Onboarding
+15 days ago

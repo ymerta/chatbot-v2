@@ -1,0 +1,33 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/customer-data/events
+Customer Data
+Events
+Great engagement isn’t built on guesswork — it’s driven by behavior. Netmera Events give you the ability to capture what users do, understand what it means, and use that insight to craft timely, relevant, and high-performing experiences.
+From the very first interaction to the smallest gesture, every user action can be meaningful. Events transform those moments into data you can work with, and more importantly, act on.
+Built for Movement, Not Static Profiles
+A user’s profile tells you who they are. Events tell you what they care about.
+Netmera lets you track the actions that matter: product views, searches, purchases, screen visits, button taps, and any other moment that reflects intent or friction. These actions become live signals that flow into your campaigns, journeys, segments, and insights.
+You’re no longer reacting after the fact — you’re engaging in the moment.
+What Can You Do With Events?
+Trigger in-the-moment messaging
+React to user actions with real-time push notifications, in-app messages, or email. Whether it’s welcoming new users, nudging inactive ones, or confirming high-value activity, events are your real-time engagement fuel.
+Create behavior-based audiences
+Go beyond static lists. Segment users based on actions they’ve taken, or haven’t. Define audiences who viewed a page but didn’t convert, opened the app three times this week, or searched without finding a result.
+Power goal tracking and funnel analysis
+Use events to define and measure key outcomes in your user journey. Analyze where users drop off, which behaviors predict conversion, and how engagement varies by cohort.
+Build journeys that adapt in real time
+Let your journeys respond to behavior. Events can start a journey, branch a path, or update user context, giving you precision without micromanagement.
+A Native Part of Your Data Stack
+In Netmera, Events are deeply connected to every other module:
+Used as triggers in
+Journey Builder
+Combined with
+Profile Attributes
+for advanced segmentation
+Included in
+Event Insight
+for campaign analysis
+Used in messaging scenarios
+They are not just something you track — they’re something you design your engagement around.
+Device Metadata
+Netmera Events
+1 month ago

@@ -1,0 +1,199 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/omnichannel-engagement/whatsapp/whatsapp-integration
+Omnichannel Engagement
+WhatsApp
+WhatsApp Integration
+Before setting up the integration, make sure you read the following requirements:
+Content rules:
+All messages must follow WhatsApp and Meta's content policies.
+Compliance:
+You must comply with all applicable Meta policies and regulations.
+Businesses
+can only start a conversation using an
+approved message template
+Requirements
+Requirement
+Description
+Meta Business Manager account
+A Meta Business account is required to manage WhatsApp Business and templates.
+WhatsApp Business account
+Needed to connect and send messages via the WhatsApp Business API.
+WhatsApp phone number
+You must acquire a phone number that meets WhatsApp’s requirements.
+Integration Steps
+Step 1: WhatsApp Business Setup
+Create or select a Meta Business account
+(if your company already has one, select the appropriate account).
+Create or select a WhatsApp Business account
+under your Meta Business Manager.
+Set up your WhatsApp Business profile
+, including display name and business information (ensure it follows Meta’s
+display name guidelines
+Verify your WhatsApp Business number
+through Meta.
+Step 2: Connect WhatsApp to Netmera
+In the Netmera panel, navigate to
+Integrations > Messaging Provider > WhatsApp
+Follow the guided setup flow to connect your Meta Business Manager account.
+Select the WhatsApp Business account you want to use.
+Assign the phone number that will be used for sending campaigns.
+Once completed, your WhatsApp account will be connected to Netmera for campaign management.
+Step 3: Create WhatsApp Templates
+Only
+approved templates
+can be used to
+start
+WhatsApp campaigns with your customers. You can see the status of your templates on Netmera Panel as well.
+To create a template on Meta:
+Log into
+Meta Business Manager
+Under
+Account Tools
+, select
+Message Templates > Marketing
+Click
+Create Template
+and design your message following
+Meta’s guidelines.
+Editing the Template
+When creating your message template, you can define:
+Header (optional):
+Text or media (image, video, document).
+Body (required):
+Main text of your message.
+Footer (optional):
+Additional supporting text.
+Buttons (optional):
+Add up to two Call-to-Action buttons (e.g., Visit Website, Call Phone).
+A live preview of your message will display in the panel as you build it.
+Using Variables
+You can insert
+variables
+into your template by selecting
++ Add Variable
+These placeholders (e.g.,
+{{1}}
+{{2}}
+) can later be mapped to
+Netmera Profile Attributes
+Example:
+Hello {{1}}
+→ becomes
+Hello Sarah
+when personalized through Netmera.
+Submit for Approval
+Submit the template to Meta for review.
+Approval may take
+up to 24 hours
+Your templates are automatically
+synced into Netmera
+, where you can further personalize them and use them in your campaigns. Once approved, you can start sending campaigns directly using
+Create WhatsApp Campaign
+in the Netmera panel.
+WhatsApp Number File Import
+The
+WhatsApp Number File Import
+allows you to upload and manage user consent records for WhatsApp campaigns through bulk files. This section explains the requirements, validation logic, and behavior of the system during import.
+File Requirements
+Mandatory Fields
+Only
+WhatsApp number (wpNumber)
+and
+consent status (permission)
+are required in the file.
+For permissions use 1 (opt_in) and 2 (opt_out) in your files.
+Other identifiers such as
+External ID (ExID)
+email
+, or
+MSISDN
+are optional.
+Number Format
+All WhatsApp numbers must include the
+country code
+(as required by Meta).
+During upload, a
+format validation
+check ensures that the number structure complies with international standards.
+How to Upload WhatsApp Users to Netmera
+Go to
+Panel → Targeting → Contact Upload
+Select your file and click
+Upload
+The system automatically validates numbers and formats.
+Sample Format
+exid
+email
+msisdn
+wpNumber
+permission
+12345
+[email protected]
+905301112233
++905301112233
+34328
+[email protected]
+442071234567
++442071234567
+78901
+[email protected]
+905112345678
++905112345678
+Always include
+`+`
+and country code in
+`wpNumber`
+Use
+`1`
+(opt_in) and
+`0`
+(opt_out) in your files. for permission values.
+`wpNumber`
+and
+`permission`
+is mandatory.
+`email`
+`msisdn`
+and
+`exid`
+is optional.
+User Matching Logic
+When the file is processed, the system checks whether the user already exists. This check follows a
+priority sequence
+ExID
+(if provided)
+Email
+(if provided)
+MSISDN
+(if provided)
+WhatsApp Number (wpNumber)
+If a user is found at any step in this sequence, that user record is used.
+If no matching user is found, a
+new user profile
+is created with the provided details.
+Consent Updates
+If a
+matching user exists
+Only the
+WhatsApp consent
+field is updated.
+Other profile information (e.g., ExID, email, MSISDN) is
+not changed
+If a
+new user is created
+All provided information in the file (ExID, email, MSISDN, wpNumber, etc.) is added to the new profile.
+Number Deduplication
+A WhatsApp number can only belong to
+one user profile
+at a time.
+If the same number is found under multiple user profiles:
+The system automatically
+removes the number
+from other users.
+The profile from the
+most recently imported file
+becomes the
+master record
+for that number.
+WhatsApp
+Creating a WhatsApp Message
+8 days ago

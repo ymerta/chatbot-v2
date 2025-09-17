@@ -1,0 +1,9 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/omnichannel-engagement/widgets/web-pop-up
+Omnichannel Engagement
+Widgets
+Web Pop-up
+The Web Widget, also referred to as a pop-up, is a versatile and interactive element that you can incorporate into your website to engage with your visitors in a more targeted and dynamic manner. It typically appears as a small window or overlay that pops up on the screen when triggered by specific conditions or user actions.
+When strategically implemented, the Web Widget can significantly enhance user experience, increase engagement, and drive conversions on your website. It allows you to deliver relevant and personalized messages directly to your visitors, making it more likely for them to respond positively to your call-to-action.
+Analyze
+Start Creating
+14 days ago

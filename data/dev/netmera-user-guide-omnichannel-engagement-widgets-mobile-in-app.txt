@@ -1,0 +1,27 @@
+[SOURCE_URL]: https://user.netmera.com/netmera-user-guide/omnichannel-engagement/widgets/mobile-in-app
+Omnichannel Engagement
+Widgets
+Mobile In-App
+The Mobile Widget functions as a small, customizable window or overlay that appears on the screen based on
+specific triggers or user actions
+With the Mobile Widget, you have the opportunity to deliver relevant and personalized content to your users, fostering a deeper connection and increasing engagement. Whether you aim to
+boost conversions, gather insights, or deliver important announcements
+, the Mobile Widget is your go-to tool.
+Let's dive in and discover the endless possibilities of the Mobile Widget!
+Before we start, you may refer to the following
+Netmera Blog Posts
+about
+Mobile Widgets
+. These blog posts delve into different scenarios and demonstrate how Netmera features can be utilized effectively to enhance various aspects of your goals.
+Boost Your App Performance & User Engagement with In-App Widgets
+Netmera - Omni channel marketing solution
+In-App Widgets
+Get Valuable Customer Feedback With Feedback Widgets - Netmera
+Netmera - Omni channel marketing solution
+Customer Feedback
+How to Use In-App Messaging to Retain Customers - Netmera
+Netmera - Omni channel marketing solution
+In-App Messaging to Retain Customers
+Widgets
+Start Creating
+14 days ago
