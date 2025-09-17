@@ -35,8 +35,8 @@ venv.bak/
 
 # Data files
 data/embeddings/faiss_store_backup/
-*.faiss
-*.pkl
+# *.faiss  # Commented out for deployment
+# *.pkl    # Commented out for deployment
 
 # Firebase
 firebase-service-account.json
