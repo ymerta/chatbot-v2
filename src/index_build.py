@@ -77,46 +77,13 @@ def get_all_sidebar_links(start_page: str, path_prefix: str) -> list[str]:
 
 def get_main_content(html: str) -> str:
     """
-    Extracts main content while preserving code block formatting.
-    Handles <pre>, <code>, and other code elements specially to maintain structure.
+    Extract main content with simple text extraction.
     """
     soup = BeautifulSoup(html, "html.parser")
     main = soup.find("main") or soup.find("article") or soup
     
-    # Find all code blocks and preserve their formatting
-    code_blocks = main.find_all(['pre', 'code'])
-    code_placeholders = {}
-    
-    # Replace code blocks with placeholders to preserve their formatting
-    for i, code_block in enumerate(code_blocks):
-        placeholder = f"__CODE_BLOCK_{i}__"
-        
-        # Extract text from code block while preserving whitespace and structure
-        if code_block.name == 'pre':
-            # For <pre> blocks, preserve all whitespace and line breaks
-            code_text = code_block.get_text()
-            # Ensure proper indentation (add 4 spaces to each line for readability)
-            indented_lines = []
-            for line in code_text.splitlines():
-                if line.strip():  # Don't indent empty lines
-                    indented_lines.append("    " + line)
-                else:
-                    indented_lines.append("")
-            code_placeholders[placeholder] = "\n".join(indented_lines)
-        else:
-            # For inline <code> elements, preserve content but make it stand out
-            code_text = code_block.get_text()
-            code_placeholders[placeholder] = f"`{code_text}`"
-        
-        # Replace the code block with placeholder
-        code_block.replace_with(placeholder)
-    
-    # Extract text normally from the rest of the content
+    # Simple text extraction
     text = main.get_text(separator="\n").strip()
-    
-    # Restore code blocks with preserved formatting
-    for placeholder, formatted_code in code_placeholders.items():
-        text = text.replace(placeholder, formatted_code)
     
     return text
 

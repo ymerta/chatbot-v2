@@ -68,42 +68,13 @@ def get_all_sidebar_links(start_page: str, path_prefix: str) -> List[str]:
 
 def get_main_content(html: str) -> str:
     """
-    Ana içeriği çıkar - kod formatını koru
+    Ana içeriği çıkar - basit metin çıkarma
     """
     soup = BeautifulSoup(html, "html.parser")
     main = soup.find("main") or soup.find("article") or soup
     
-    # Kod bloklarını özel olarak işle
-    code_blocks = main.find_all(['pre', 'code'])
-    code_placeholders = {}
-    
-    for i, code_block in enumerate(code_blocks):
-        placeholder = f"__CODE_BLOCK_{i}__"
-        
-        if code_block.name == 'pre':
-            # <pre> blokları için whitespace'i koru
-            code_text = code_block.get_text()
-            # Her satırın başına 4 space ekle (okunabilirlik için)
-            indented_lines = []
-            for line in code_text.splitlines():
-                if line.strip():
-                    indented_lines.append("    " + line)
-                else:
-                    indented_lines.append("")
-            code_placeholders[placeholder] = "\n".join(indented_lines)
-        else:
-            # Inline <code> için
-            code_text = code_block.get_text()
-            code_placeholders[placeholder] = f"`{code_text}`"
-        
-        code_block.replace_with(placeholder)
-    
-    # Normal metin çıkarma
+    # Basit metin çıkarma
     text = main.get_text(separator="\n").strip()
-    
-    # Kod bloklarını geri yerleştir
-    for placeholder, formatted_code in code_placeholders.items():
-        text = text.replace(placeholder, formatted_code)
     
     return text
 

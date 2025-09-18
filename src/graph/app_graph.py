@@ -180,9 +180,8 @@ def generate_answer_node(llm: ChatOpenAI):
             text = doc.get("text", "")
             source = doc.get("url", "unknown")
             
-            # Preserve code formatting if present
-            if any(indicator in text.lower() for indicator in ["gradle", "json", "xml", "implementation", "```", "curl"]):
-                text = text.replace("\n\n", "\n").strip()  # Clean up extra newlines
+            # Basic text cleanup
+            text = text.strip()
             
             formatted_contexts.append(f"=== KAYNAK {i} ===\n{text}\n(URL: {source})\n")
         

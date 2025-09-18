@@ -156,8 +156,6 @@ def split_docs_optimized(texts: List[Dict],
     separators = [
         "\n\n\n",      # Major section breaks
         "\n\n",        # Paragraph breaks
-        "\n```\n",     # Code block endings
-        "```\n",       # Code block starts  
         "\n### ",      # H3 headers
         "\n## ",       # H2 headers
         "\n# ",        # H1 headers

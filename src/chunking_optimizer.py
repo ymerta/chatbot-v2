@@ -36,8 +36,6 @@ class OptimizedChunker:
         self.separators = [
             "\n\n\n",      # Major section breaks
             "\n\n",        # Paragraph breaks
-            "\n```\n",     # Code block endings
-            "```\n",       # Code block starts
             "\n### ",      # H3 headers
             "\n## ",       # H2 headers
             "\n# ",        # H1 headers
@@ -66,7 +64,6 @@ class OptimizedChunker:
         # API documentation
         if ("api" in text_lower or 
             "endpoint" in text_lower or
-            "curl" in text_lower or
             "http" in text_lower):
             return "api"
         
@@ -241,7 +238,7 @@ class ChunkAnalyzer:
         
         if "```" in text or "gradle" in text_lower:
             return "code"
-        elif "api" in text_lower or "curl" in text_lower:
+        elif "api" in text_lower:
             return "api"
         elif re.search(r'\n\d+\.', text):
             return "tutorial"
