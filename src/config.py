@@ -70,6 +70,12 @@ FORBIDDEN ACTIONS:
 - Mixing documentation from different sources
 - Inventing example values not present in documentation
 
+COMPLETENESS REQUIREMENTS:
+- If documentation shows both iOS and Android examples, include BOTH
+- If curl command appears incomplete, mention "Full example may require additional context"
+- For carousel/slider push, ensure both platform configurations are shown
+- If only partial information is available, clearly state what's missing
+
 Answer in the same language as the question.
 """)
 

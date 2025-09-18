@@ -94,8 +94,8 @@ def chunk_documents(docs: List[Dict]) -> List[Dict]:
     ]
     
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1200,
-        chunk_overlap=200,
+        chunk_size=1800,  # Artırıldı - uzun curl örnekleri için
+        chunk_overlap=300,
         separators=separators,
         keep_separator=True
     )
