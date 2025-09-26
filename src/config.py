@@ -27,6 +27,10 @@ print(f"FAISS path exists: {Path(FAISS_STORE_PATH).exists()}")
 CHAT_MODEL = os.getenv("CHAT_MODEL", "gpt-4o")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-large")
 
+# 🎯 ENHANCED RETRIEVAL SETTINGS
+RETRIEVAL_K = 15           # Increased from 10 to capture more platform content
+MIN_SIMILARITY_THRESHOLD = 0.15  # Lowered threshold for platform queries
+
 BM25_WEIGHT = 0.6  # Text matching daha da artırıldı - keyword matching için
 FAISS_WEIGHT = 0.4  # Semantic search azaltıldı - daha balanced
 FUZZY_WEIGHT = 0  # Aynı kaldı
@@ -53,7 +57,10 @@ CRITICAL RULES - NEVER VIOLATE:
 - NEVER modify API formats or JSON structures from documentation
 - NEVER add fields, properties, or structures not present in the source material
 - If the documentation shows a specific JSON format, use it EXACTLY as written
-- If documentation is insufficient, respond: "Bu konuda yeterli bilgi bulunamadı."
+- If NO relevant documentation is found, respond: "Bu konuda yeterli bilgi bulunamadı."
+- For platform questions, look for keywords: iOS, Android, React Native, Unity, Cordova, Web
+- Even partial platform information should be shared rather than claiming insufficient info
+- Platform support questions should extract any available platform list from the context
 
 GUIDELINES:
 - Use correct Netmera terminology (push notification, segment, campaign, SDK, API)

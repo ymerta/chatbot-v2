@@ -1,0 +1,43 @@
+{
+  "evaluation_timestamp": 1758698293.1235037,
+  "strategies_evaluated": [
+    "Traditional_Optimized",
+    "Enhanced_No_Summaries",
+    "Enhanced_With_Summaries",
+    "Large_Chunks_1600"
+  ],
+  "individual_results": {
+    "Traditional_Optimized": {
+      "strategy_name": "Traditional_Optimized",
+      "timestamp": 1758698283.3807244,
+      "basic_metrics": {
+        "total_chunks": 108,
+        "avg_chunk_size": 1348.1759259259259,
+        "std_chunk_size": 473.69172325437376,
+        "min_chunk_size": 96,
+        "max_chunk_size": 1799,
+        "median_chunk_size": 1521.5,
+        "size_consistency": 0.6486424997323381
+      },
+      "content_metrics": {
+        "content_type_distribution": {
+          "code": 105,
+          "api": 3
+        },
+        "code_preservation_ratio": 0.0,
+        "step_preservation_ratio": 0.009259259259259259,
+        "avg_tech_terms_per_chunk": 1.2314814814814814,
+        "content_diversity_score": 0.3333333333333333
+      },
+      "coherence_metrics": {
+        "error": "scikit-learn not available for coherence evaluation"
+      },
+      "enhancement_metrics": {
+        "enhancement_ratio": 0.0,
+        "prev_summary_ratio": 0.0,
+        "next_summary_ratio": 0.0,
+        "avg_size_increase": 0,
+        "enhancement_effectiveness": 0.0
+      },
+      "retrieval_metrics": {
+        "avg_retrieval_score": 

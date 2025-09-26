@@ -37,78 +37,53 @@ def detect_conversational_intent(state: BotState) -> BotState:
 
 
 def preprocess_query(query: str, lang: str) -> str:
-    """Enhanced query preprocessing - Better Turkish-English mapping + error handling"""
-    q_lower = query.lower()
+    """
+    Enhanced query preprocessing with platform-specific expansion
+    """
+    enhanced_query = query
     
-    # Enhanced Turkish -> English term mapping
+    # Platform query expansion
+    platform_keywords = {
+        "türkçe": ["platform", "destekl", "hangi", "platfor"],
+        "english": ["platform", "support", "which", "what platforms"]
+    }
+    
+    query_lower = query.lower()
+    
+    # Check if this is a platform-related query
+    is_platform_query = False
     if lang == "Türkçe":
-        term_mapping = {
-            # Existing terms
-            "güncellenir": "update",
-            "güncelleme": "update", 
-            "kullanıcı": "user",
-            "özellik": "attribute",
-            "özellikler": "attributes",
-            "nasıl": "how",
-            "kurulum": "install setup",
-            "entegrasyon": "integration",
-            "yapılandırma": "configuration",
-            "ayarlama": "setup configuration",
-            "gönderim": "send",
-            "bildirim": "notification",
-            "kampanya": "campaign",
-            "segment": "segment",
-            "analitik": "analytics",
-            
-            # 🔧 NEW: Error and problem handling terms
-            "hata": "error issue problem",
-            "sorun": "problem issue trouble error",
-            "limit": "limit size payload quota restriction",
-            "boyut": "size payload limit length",
-            "aştım": "exceed over limit maximum",
-            "alıyorum": "getting receiving encountering",
-            
-            # 🔧 NEW: Network and access terms
-            "ip": "ip address network connection",
-            "adres": "address location endpoint",
-            "adresim": "my address my ip address",
-            "engel": "block blocked restrict ban",
-            "engellenmiş": "blocked restricted banned",
-            "yapabilirim": "can do solution fix resolve",
-            
-            # 🔧 NEW: Technical and integration terms
-            "modül": "module component feature",
-            "url": "url link endpoint address",
-            "onay": "consent approval permission",
-            "teslimat": "delivery send dispatch",
-            "mesaj": "message notification push",
-            "push": "push notification alert",
-            "e-posta": "email mail electronic mail",
-            "email": "email e-mail mail messaging"
-        }
-        
-        # Enhanced query expansion
-        enhanced_query = query
-        for tr_term, en_term in term_mapping.items():
-            if tr_term in q_lower:
-                enhanced_query += f" {en_term}"
-        
-        # 🔧 NEW: Pattern-based expansion for common issues
-        if "push" in q_lower and ("boyut" in q_lower or "limit" in q_lower):
-            enhanced_query += " push notification payload size maximum length restriction"
-        
-        if "ip" in q_lower and ("engel" in q_lower or "block" in q_lower):
-            enhanced_query += " ip address blocked network access denied whitelist firewall"
-            
+        is_platform_query = any(keyword in query_lower for keyword in platform_keywords["türkçe"])
     else:
-        enhanced_query = query
-        
-        # 🔧 NEW: English query expansion for technical terms
-        if "integration" in q_lower and "module" in q_lower:
-            enhanced_query += " platform integration setup configuration api"
-        
-        if "email" in q_lower and "delivery" in q_lower:
-            enhanced_query += " email sending mail delivery smtp configuration"
+        is_platform_query = any(keyword in query_lower for keyword in platform_keywords["english"])
+    
+    # Add platform-specific terms for better retrieval
+    if is_platform_query:
+        platform_terms = ["iOS", "Android", "React Native", "Unity", "Cordova", "Web", "Swift", "Kotlin"]
+        enhanced_query += " " + " ".join(platform_terms)
+        print(f"🎯 Platform query detected, enhanced: {enhanced_query}")
+    
+    # Original enhancement logic
+    turkish_to_english = {
+        "nasıl": "how",
+        "nerede": "where", 
+        "ne": "what",
+        "hangi": "which",
+        "kurulum": "setup installation",
+        "entegrasyon": "integration",
+        "platform": "platform iOS Android",
+        "bildirim": "notification push",
+        "segment": "segment user",
+        "kampanya": "campaign message",
+        "analitik": "analytics report",
+        "otomasyon": "automation journey",
+        "ayar": "settings configuration"
+    }
+    
+    if lang == "Türkçe":
+        for tr_word, en_equivalent in turkish_to_english.items():
+            if tr_word in enhanced_query.lower():
+                enhanced_query += f" {en_equivalent}"
     
     return enhanced_query
 
