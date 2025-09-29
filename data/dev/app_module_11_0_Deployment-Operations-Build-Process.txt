@@ -1,0 +1,12 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```bash
+# Build the module
+./gradlew :modules:app:build
+
+# Run tests
+./gradlew :modules:app:test
+
+# Create distribution
+./gradlew :modules:app:distTar
+```

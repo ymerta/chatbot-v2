@@ -1,0 +1,13 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```javascript
+// Primary collections
+db.user                    // User profiles and tracking
+db.installation           // Device installations
+db.appTag                 // User tags and segments
+
+// Retry collections
+db.setSourceRetryRecords  // Source setting retries
+db.installationRemove     // Installation removal retries
+db.migration              // User migration retries
+```

@@ -1,0 +1,25 @@
+[METADATA]
+Source: app_module_5_3_System-Integrations-External-APIs.txt
+URL: https://docs.netmera.com/app-module
+Content Type: api
+Language: turkish
+Char Count: 586
+Has Code: False
+Tech Terms: segment, api, analytics
+Headers: **Adobe Analytics**, **Google Geofence**, **Product Catalogs**
+
+============================================================
+
+#### **Adobe Analytics**
+- **Marketing ID Retrieval**: Batch processing of segment data
+- **Date Range Queries**: Configurable time windows for data extraction
+- **Parallel Processing**: Multi-threaded processing for large datasets
+
+#### **Google Geofence**
+- **Reverse Geocoding**: Coordinate to location conversion
+- **Administrative Boundaries**: Country, city, county, district information
+- **API Key Management**: Secure API key handling
+
+#### **Product Catalogs**
+- **Synchronization**: Scheduled catalog updates
+- **Error Handling**: Retry mechanisms for failed synchronizations

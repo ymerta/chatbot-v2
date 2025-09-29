@@ -1,0 +1,41 @@
+[METADATA]
+Source: app_module_5_0_System-Integrations-Kafka-Integration.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 1153
+Has Code: True
+Tech Terms: sdk, api, analytics
+Headers: **Consumer Groups & Configuration**, **Key Topics**
+
+============================================================
+
+#### **Consumer Groups & Configuration**
+```java
+// High-throughput consumers
+APP_SDK_CMDS (100 threads, AT_LEAST_ONCE_BULK)
+APP_REST_CMDS (30 threads, AT_MOST_ONCE_BULK)
+
+// Internal processing
+APP_INTERNAL_CMDS (10 threads, AT_LEAST_ONCE_BULK)
+APP_USER_ANALYTIC (10 threads, AT_LEAST_ONCE_BULK, batch size: 500)
+
+// Bulk operations
+APP_USER_UPDATE_BATCH (15 threads, AT_MOST_ONCE_BULK)
+APP_USER_UPLOAD_REGISTER (5 threads, AT_LEAST_ONCE_BULK)
+APP_PROFILE_ATTRIBUTE (10 threads, AT_LEAST_ONCE_BULK)
+
+// Event processing
+APP_SDK_EVENT (10 threads, AT_LEAST_ONCE_BULK)
+APP_EVENT_LOCATION (3 threads, AT_LEAST_ONCE_BULK)
+```
+
+#### **Key Topics**
+- **`CMD_SDK_*`**: SDK commands (device registration, token updates, user operations)
+- **`CMD_REST`**: REST API commands with ordered processing
+- **`CMD_INTERNAL`**: Internal system commands (device tokens, uninstalls)
+- **`USER_BATCH_UPDATE`**: Bulk profile attribute updates
+- **`USER_UPLOAD`**: User upload processing and file transfer management
+- **`EVENT_SDK`**: SDK events (push opens, rich push actions)
+- **`EVENT_LOCATION`**: Location update events
+- **`CMD_USER_ANALYTIC`**: User analytics events

@@ -1,0 +1,15 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+#### **Adobe Analytics**
+- **Marketing ID Retrieval**: Batch processing of segment data
+- **Date Range Queries**: Configurable time windows for data extraction
+- **Parallel Processing**: Multi-threaded processing for large datasets
+
+#### **Google Geofence**
+- **Reverse Geocoding**: Coordinate to location conversion
+- **Administrative Boundaries**: Country, city, county, district information
+- **API Key Management**: Secure API key handling
+
+#### **Product Catalogs**
+- **Synchronization**: Scheduled catalog updates
+- **Error Handling**: Retry mechanisms for failed synchronizations

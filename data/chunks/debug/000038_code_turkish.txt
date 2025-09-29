@@ -1,0 +1,72 @@
+[METADATA]
+Source: app_module_9_0_Best-Practices-Development-Guidelines.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 1515
+Has Code: True
+Tech Terms: sdk, implementation
+Headers: **Command Processing**, **Database Operations**, **Job Implementation**
+
+============================================================
+
+#### **Command Processing**
+```java
+// Always validate input
+@Override
+public void handleCommand(SdkRegisterDeviceCmd cmd) {
+    if (!isValidAppKey(cmd.getAppKey())) {
+        logger.warn("Invalid app key: {}", cmd.getAppKey());
+        return;
+    }
+    
+    // Process with proper error handling
+    try {
+        processDeviceRegistration(cmd);
+    } catch (Exception e) {
+        logger.error("Registration failed for device: {}", cmd.getDeviceId(), e);
+        // Implement appropriate error handling
+    }
+}
+```
+
+#### **Database Operations**
+```java
+// Use transactions for multi-step operations
+@Transactional
+public void migrateUserData(String oldUserId, String newUserId) {
+    // All operations succeed or fail together
+    userDao.updateUserId(oldUserId, newUserId);
+    installationDao.updateUserId(oldUserId, newUserId);
+    tagDao.updateUserId(oldUserId, newUserId);
+}
+
+// Implement proper retry logic
+@Retryable(value = {MongoException.class}, maxAttempts = 3)
+public void saveUserProfile(User user) {
+    userDao.save(user);
+}
+```
+
+#### **Job Implementation**
+```java
+// Design for idempotency
+@Override
+public void execute() {
+    // Check if job already completed
+    if (isJobAlreadyCompleted()) {
+        logger.info("Job already completed, skipping");
+        return;
+    }
+    
+    // Process with proper state management
+    markJobInProgress();
+    try {
+        executeJobLogic();
+        markJobCompleted();
+    } catch (Exception e) {
+        markJobFailed();
+        throw e;
+    }
+}
+```

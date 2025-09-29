@@ -1,0 +1,29 @@
+[METADATA]
+Source: app_module_12_0_Quick-Reference-Critical-Service-Methods.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 490
+Has Code: True
+Tech Terms: sdk
+Headers: 
+
+============================================================
+
+```java
+// Device Management
+InternalDeviceService.handleCommand(SdkRegisterDeviceCmd)
+InternalDeviceService.handleLocationEvent(NmSdkEvent)
+InternalDeviceService.untrackUser(String, String)
+
+// Tag Management
+InternalTagService.setUserCount(String, int, int)
+TagUsersByQueryJob.execute()
+
+// Subscription Management
+InternalSubscriptionService.renewSubscriptions()
+
+// Coupon Management
+InternalCouponService.handleCommand(CouponAssignedCmd)
+InternalCouponService.expireCoupons(String)
+```

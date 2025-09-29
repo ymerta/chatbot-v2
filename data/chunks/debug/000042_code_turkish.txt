@@ -1,0 +1,122 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-error-responses.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/error-responses
+Content Type: code
+Language: turkish
+Char Count: 1761
+Has Code: False
+Tech Terms: segment, api
+Headers: 
+
+============================================================
+
+5014
+400
+An error occurred while uploading your file
+5015
+500
+The user with given identifier is not found
+5016
+400
+The file token is invalid
+5017
+400
+The external id is not found in the current application
+5016
+400
+The geofence with given id could not be found
+5018
+400
+Message performance profile attribute cannot be null
+5019
+400
+Event Definition Code can not be null
+5018
+400
+Unexpected Error Occurred
+5019
+400
+An error occurred while uploading icon
+5020
+500
+Service usage is not allowed
+5021
+400
+Service usage quota is exceeded
+5022
+400
+App schema not defined
+5023
+400
+Geofence name must be unique
+5024
+400
+Segment name must be unique
+5025
+400
+List name must be unique
+5026
+400
+Certificate password error
+5027
+400
+Event is not found
+5028
+400
+Message category name must be unique
+5029
+400
+Event with same event code already exists in this application
+5030
+400
+Profile attribute with same attribute name already exists in this application
+5030
+400
+Android api key is not valid
+5031
+400
+The dynamic template with given id could not be found
+5032
+400
+Product with given id could not be found
+5033
+400
+There is already a funnel with that name
+5034
+400
+There is already an event insight with that name
+5035
+400
+Notification Channel with given id could not be found
+5036
+400
+Web push domain not valid
+5037
+400
+The mail template with given id could not be found
+5038
+400
+There is already a screen view mapping with that screen id
+5039
+400
+Uploaded file is empty
+5040
+400
+Mail content is empty
+5041
+400
+Segment not found
+5042
+400
+There is already an ui action with this pretty name or with this page item id pair in this platform
+5042
+400
+File cannot be created
+5100
+400
+File cannot be renamed
+5101
+400
+Business unit must be selected for business unit roles
+5102
+400

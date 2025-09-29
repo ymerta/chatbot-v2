@@ -1,0 +1,23 @@
+[METADATA]
+Source: app_module_12_3_Quick-Reference-Database-Collections.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 383
+Has Code: True
+Tech Terms: segment
+Headers: 
+
+============================================================
+
+```javascript
+// Primary collections
+db.user                    // User profiles and tracking
+db.installation           // Device installations
+db.appTag                 // User tags and segments
+
+// Retry collections
+db.setSourceRetryRecords  // Source setting retries
+db.installationRemove     // Installation removal retries
+db.migration              // User migration retries
+```

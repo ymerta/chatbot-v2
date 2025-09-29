@@ -1,0 +1,135 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-error-responses.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/error-responses
+Content Type: code
+Language: turkish
+Char Count: 1784
+Has Code: False
+Tech Terms: api
+Headers: 
+
+============================================================
+
+API Documentation
+REST API
+Error Responses
+ERROR
+NETMERA ERROR CODE
+RESPONSE CODE
+Internal server error
+2001
+500
+Invalid JSON
+2009
+400
+API key is invalid
+2010
+403
+Invalid configuration
+2018
+400
+Missing required parameter
+2020
+400
+Your IP is not allowed
+2021
+403
+You are not authorized to do this action
+2022
+403
+Push message size exceed limit
+2101
+400
+Dist list not found
+2102
+400
+Status of this message is not draft
+2103
+400
+App settings not found
+2104
+500
+Message is not intelligent
+2105
+500
+Due to time restriction settings message can not be sent
+2106
+400
+No such role
+2410
+403
+Role name must be unique
+2411
+400
+You are not allowed for this action
+4000
+403
+Application name has been reserved
+5000
+400
+Application name cannot be empty
+5001
+400
+Application name must be unique
+5002
+400
+Message with given messageId could not be found
+5003
+400
+Tracking App with given id could not be found
+5004
+400
+Deeplink with given id could not be found
+5004
+400
+WebHook with given id could not be found
+5004
+400
+Sound file with given id could not be found
+5004
+400
+Invalid message state
+5005
+400
+The button set with given id could not be found
+5006
+400
+Please login
+5007
+401
+The application is not configured for message approval mechanism
+5008
+400
+A user with this email address already exists
+5009
+400
+Role with the given name does not exist
+5010
+400
+The email verification token is invalid
+5011
+400
+The user is already active
+5012
+400
+Invalid reset password token
+5013
+400
+There must be at least one application admin user
+5014
+400
+An error occurred while uploading your file
+5015
+500
+The user with given identifier is not found
+5016
+400
+The file token is invalid
+5017
+400
+The external id is not found in the current application
+5016
+400
+The geofence with given id could not be found
+5018
+400

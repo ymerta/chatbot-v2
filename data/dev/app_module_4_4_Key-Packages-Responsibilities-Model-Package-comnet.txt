@@ -1,0 +1,6 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+- **`GeofenceServiceResponse`**: Location data response model with hierarchical location information
+- **`MigrationRecord`**: User migration tracking between installations
+- **`RemoveInstallationRecord`**: Installation removal operations with retry support
+- **`SetSourceRetryRecord`**: Source setting retry operations with advertising ID tracking

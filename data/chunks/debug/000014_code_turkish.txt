@@ -1,0 +1,34 @@
+[METADATA]
+Source: app_module_3_0_Architecture-Overview.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 1134
+Has Code: True
+Tech Terms: sdk, api
+Headers: 
+
+============================================================
+
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Kafka Topics  │    │   MongoDB       │    │   Hazelcast     │
+│   (Commands &   │    │   (User Data)   │    │   (Locks &      │
+│    Events)      │    │                 │    │    Cache)       │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌─────────────────┐
+                    │   App Module    │
+                    │   (Spring Boot) │
+                    └─────────────────┘
+                                 │
+         ┌───────────────────────┼───────────────────────┐
+         │                       │                       │
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   External APIs │    │   Job Engine    │    │   REST/SDK      │
+│   (Adobe, Google)│    │   (Background   │    │   Endpoints     │
+│                 │    │    Processing)  │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```

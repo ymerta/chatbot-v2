@@ -24,8 +24,40 @@ class BotState(TypedDict, total=False):
 
 def detect_lang_and_passthrough(state: BotState) -> BotState:
     q = state["query"].strip()
-    # Basit sezgi: Türkçe karakter içeriyorsa TR
-    lang = "Türkçe" if any(ch in "çğıöşü" for ch in q.lower()) else "English"
+    q_lower = q.lower()
+    
+    # Türkçe karakterler kontrolü
+    has_turkish_chars = any(ch in "çğıöşü" for ch in q_lower)
+    
+    # Türkçe kelimeler kontrolü (sadece belirgin Türkçe kelimeler)
+    turkish_words = [
+        'nasıl', 'nedir', 'neden', 'hangi', 'için', 'yapılır', 'kullanım', 
+        'kurulum', 'ayar', 'sorun', 'hata', 'nerede', 'mi', 'mu', 'mı', 'mü'
+    ]
+    has_turkish_words = any(f' {word} ' in f' {q_lower} ' or q_lower.startswith(word) or q_lower.endswith(word) or
+                           q_lower.endswith(f' {word}?') or q_lower.endswith(f' {word}.')
+                           for word in turkish_words)
+    
+    # İngilizce kelimeler kontrolü (güçlü İngilizce göstergeleri)
+    english_words = [
+        'how', 'what', 'where', 'when', 'why', 'which', 'the', 'and', 'or', 'is',
+        'are', 'can', 'will', 'should', 'would', 'could', 'setup', 'install',
+        'configuration', 'error', 'problem', 'issue', 'with', 'from', 'to'
+    ]
+    has_english_words = any(f' {word} ' in f' {q_lower} ' or q_lower.startswith(word) or q_lower.endswith(word)
+                           for word in english_words)
+    
+    # Dil belirleme mantığı (öncelik sırası önemli)
+    if has_turkish_chars:
+        lang = "Türkçe"
+    elif has_turkish_words and not has_english_words:
+        lang = "Türkçe"
+    elif has_english_words:
+        lang = "English"
+    else:
+        # Varsayılan olarak İngilizce (teknik terimler için)
+        lang = "English"
+    
     state.update({"lang": lang, "translated_query": q})
     return state
 
@@ -164,8 +196,13 @@ def generate_answer_node(llm: ChatOpenAI):
         sys = SYSTEM_PROMPT
         
         # Enhanced prompting for hybrid context merging
-        route_type = routing_info.get('route_type', 'vector')
-        strategy = routing_info.get('strategy', 'balanced_hybrid')
+        # Handle case when routing_info is None (GraphRAG disabled)
+        if routing_info is not None:
+            route_type = routing_info.get('route_type', 'vector')
+            strategy = routing_info.get('strategy', 'balanced_hybrid')
+        else:
+            route_type = 'vector'
+            strategy = 'traditional_hybrid'
         
         # Check if we have hybrid GraphRAG context
         if graph_context and hasattr(state.get("retriever"), "format_context_for_llm"):

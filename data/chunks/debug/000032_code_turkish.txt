@@ -1,0 +1,41 @@
+[METADATA]
+Source: app_module_7_2_For-New-Developers-Development-Patterns.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 957
+Has Code: True
+Tech Terms: implementation
+Headers: **Job Implementation Pattern**
+
+============================================================
+
+#### **Job Implementation Pattern**
+```java
+public class TagUsersByQueryJob extends NmJob {
+    
+    private String appKey;
+    private String tagName;
+    private Conditions conditions;
+    
+    @Override
+    public boolean prepareAndValidate() {
+        JobParameters params = jobExecution.getParameters();
+        appKey = params.getString(JOB_PARAM_KEY_APP_KEY);
+        tagName = params.getString(JOB_PARAM_KEY_TAG_NAME);
+        conditions = params.readObject(JOB_PARAM_KEY_CONDITIONS_BINARY, Conditions.class);
+        
+        return appKey != null && tagName != null && conditions != null;
+    }
+    
+    @Override
+    public void execute() {
+        logger.info("Starting job: appKey={}, tagName={}", appKey, tagName);
+        
+        AppTag tag = tagService.findTagByName(appKey, tagName, null);
+        targetingService.assignTag(appKey, tag.getId(), conditions.asList());
+        
+        logger.info("Job completed successfully");
+    }
+}
+```

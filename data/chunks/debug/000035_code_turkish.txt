@@ -1,0 +1,45 @@
+[METADATA]
+Source: app_module_8_0_Common-Failure-Scenarios-Debugging-High-Priority-I.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 794
+Has Code: True
+Tech Terms: 
+Headers: **4. Job Execution Failures**, Monitor job execution, Check job queue status, Monitor job engine metrics
+
+============================================================
+
+**Common Causes**:
+- Network partitions
+- Long-running operations holding locks
+- Cluster member failures
+- Configuration mismatches
+
+**Solutions**:
+- Verify network connectivity
+- Implement lock timeouts
+- Monitor cluster member health
+- Review Hazelcast configuration
+
+#### **4. Job Execution Failures**
+**Symptoms**: Jobs stuck, high failure rates, resource exhaustion
+```bash
+# Monitor job execution
+grep "Job execution" /var/log/app/*.log | grep -E "(FAILED|ERROR)"
+
+# Check job queue status
+# Monitor job engine metrics
+```
+
+**Common Causes**:
+- Invalid job parameters
+- External service failures
+- Resource constraints
+- Database lock contention
+
+**Solutions**:
+- Validate job parameters thoroughly
+- Implement retry mechanisms
+- Monitor resource usage
+- Use appropriate isolation levels

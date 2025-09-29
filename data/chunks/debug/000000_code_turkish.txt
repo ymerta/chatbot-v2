@@ -1,0 +1,27 @@
+[METADATA]
+Source: app_module_10_0_Testing-Strategy-Unit-Tests.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 378
+Has Code: True
+Tech Terms: sdk
+Headers: 
+
+============================================================
+
+```java
+@Test
+public void testDeviceRegistration() {
+    // Given
+    SdkRegisterDeviceCmd cmd = createValidCommand();
+    when(deviceDao.findByDeviceId(cmd.getDeviceId())).thenReturn(null);
+    
+    // When
+    deviceService.handleCommand(cmd);
+    
+    // Then
+    verify(deviceDao).saveDevice(argThat(device -> 
+        device.getDeviceId().equals(cmd.getDeviceId())));
+}
+```

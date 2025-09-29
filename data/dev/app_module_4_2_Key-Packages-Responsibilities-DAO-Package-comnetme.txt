@@ -1,0 +1,7 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+- **`InternalDeviceMongoDao`**: Comprehensive device and user data access with retry mechanisms, migration support, and live activity token management
+- **`InternalAppMongoDao`**: Application-specific data access operations
+- **`InternalTagMongoDao`**: Tag data access and management
+- **`InternalAppJpaDao`**: JPA-based data access for relational operations
+- **`InternalAdmCdnDomainsDao`**: CDN domain configuration data access

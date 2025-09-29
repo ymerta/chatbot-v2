@@ -1,0 +1,16 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```java
+// High-volume consumers
+SdkCommandConsumer     → CMD_SDK_*        (100 threads)
+RestCommandConsumer    → CMD_REST         (30 threads)
+SdkEventConsumer       → EVENT_SDK        (10 threads)
+
+// Batch processing
+UserBatchUpdateConsumer → USER_BATCH_UPDATE (15 threads)
+AppUserAnalyticConsumer → CMD_USER_ANALYTIC (10 threads)
+
+// Specialized processing
+LocationEventConsumer   → EVENT_LOCATION   (3 threads)
+UpdateProfileAttributeConsumer → CMD_PROFILE_ATTR_* (10 threads)
+```

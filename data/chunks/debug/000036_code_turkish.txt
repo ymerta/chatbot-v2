@@ -1,0 +1,53 @@
+[METADATA]
+Source: app_module_8_1_Common-Failure-Scenarios-Debugging-Debugging-Tools.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 1031
+Has Code: True
+Tech Terms: sdk
+Headers: **Log Analysis Patterns**, Device registration flow, Tag processing issues, Subscription renewal problems, Consumer lag issues, **Database Debugging**, **Performance Monitoring**, Memory usage, Thread analysis, Database connection monitoring
+
+============================================================
+
+#### **Log Analysis Patterns**
+```bash
+# Device registration flow
+grep -A 5 -B 5 "SdkRegisterDeviceCmd" /var/log/app/*.log
+
+# Tag processing issues
+grep -E "(TagUsersByQueryJob|TagAdobeUsersJob)" /var/log/app/*.log
+
+# Subscription renewal problems
+grep "renewSubscriptions" /var/log/app/*.log | grep -E "(ERROR|WARN)"
+
+# Consumer lag issues
+grep "consumer lag" /var/log/app/*.log
+```
+
+#### **Database Debugging**
+```javascript
+// Check user registration status
+db.user.findOne({"_id": "user_id"}, {"profile": 1, "untracked": 1})
+
+// Monitor tag assignments
+db.appTag.find({"appKey": "app_key"}).sort({"updateDate": -1})
+
+// Check retry operations
+db.setSourceRetryRecords.find({"ak": "app_key", "retry": {"$gt": 5}})
+
+// Monitor installation status
+db.installation.find({"appKey": "app_key", "installed": true}).count()
+```
+
+#### **Performance Monitoring**
+```bash
+# Memory usage
+jstat -gc <pid> 5s
+
+# Thread analysis
+jstack <pid> | grep -A 10 -B 10 "BLOCKED"
+
+# Database connection monitoring
+netstat -an | grep :27017 | wc -l
+```

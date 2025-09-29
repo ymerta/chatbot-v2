@@ -1,0 +1,4 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+- **`AppConstants`**: Database keys, Hazelcast locks, configuration constants, and timing values
+- **`AppUtil`**: ID generation, token validation, ASCII checking, and string utilities

@@ -1,0 +1,3 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+The **App Module** is the core Spring Boot application module of the Netmera platform, serving as the central hub for device management, user operations, messaging, and analytics processing. This module acts as the primary entry point for SDK commands, REST API calls, and various internal operations across the Netmera ecosystem.

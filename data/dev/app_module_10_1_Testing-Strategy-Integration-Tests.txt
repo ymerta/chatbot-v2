@@ -1,0 +1,26 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```java
+@SpringBootTest
+@TestPropertySource(properties = {
+    "spring.kafka.bootstrap-servers=${spring.embedded.kafka.brokers}"
+})
+public class DeviceRegistrationIntegrationTest {
+    
+    @Test
+    public void testCompleteRegistrationFlow() {
+        // Test SDK command → Consumer → Service → DAO → Database
+        SdkRegisterDeviceCmd cmd = createTestCommand();
+        
+        // Send command to Kafka
+        kafkaTemplate.send("cmd-sdk-register", cmd);
+        
+        // Verify database state
+        await().untilAsserted(() -> {
+            Device device = deviceDao.findByDeviceId(cmd.getDeviceId());
+            assertThat(device).isNotNull();
+            assertThat(device.isRegistered()).isTrue();
+        });
+    }
+}
+```

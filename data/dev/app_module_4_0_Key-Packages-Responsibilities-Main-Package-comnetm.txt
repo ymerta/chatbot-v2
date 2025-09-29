@@ -1,0 +1,4 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+- **`AppMain.java`**: Spring Boot application entry point with Hazelcast client configuration
+- **`AppConfiguration.java`**: Core Spring configuration with bean definitions, thread pool executors, and async processing setup

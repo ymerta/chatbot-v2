@@ -1,0 +1,36 @@
+[METADATA]
+Source: app_module_5_1_System-Integrations-MongoDB-Integration.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 956
+Has Code: True
+Tech Terms: segment
+Headers: **Collections**, **Key Operations**
+
+============================================================
+
+#### **Collections**
+```javascript
+// User Management
+COLLECTION_USER: User profiles, attributes, and tracking status
+COLLECTION_INSTALLATION: Device installations and tokens
+
+// Tag Management
+COLLECTION_APP_TAG: User tags and segments with user counts
+
+// Retry & Migration
+COLLECTION_SET_SOURCE_RETRY_RECORDS: Source setting retry operations
+COLLECTION_INSTALLATION_REMOVE: Installation removal operations
+COLLECTION_MIGRATION: User migration records
+
+// Completed Operations
+COLLECTION_INSTALLATION_REMOVE_DONE: Completed removal operations
+COLLECTION_MIGRATION_DONE: Completed migration operations
+```
+
+#### **Key Operations**
+- **Profile Updates**: Atomic updates with set, increment, push, and pull operations
+- **Device Management**: Installation tracking, token updates, and uninstall handling
+- **Retry Mechanisms**: Automatic retry for failed operations with configurable limits
+- **Migration Support**: User data migration between installations

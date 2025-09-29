@@ -1,0 +1,19 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```java
+// Device Management
+InternalDeviceService.handleCommand(SdkRegisterDeviceCmd)
+InternalDeviceService.handleLocationEvent(NmSdkEvent)
+InternalDeviceService.untrackUser(String, String)
+
+// Tag Management
+InternalTagService.setUserCount(String, int, int)
+TagUsersByQueryJob.execute()
+
+// Subscription Management
+InternalSubscriptionService.renewSubscriptions()
+
+// Coupon Management
+InternalCouponService.handleCommand(CouponAssignedCmd)
+InternalCouponService.expireCoupons(String)
+```

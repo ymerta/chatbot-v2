@@ -1,0 +1,25 @@
+[METADATA]
+Source: app_module_12_4_Quick-Reference-Hazelcast-Locks.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 531
+Has Code: True
+Tech Terms: 
+Headers: 
+
+============================================================
+
+```java
+// Scheduled operation locks
+HZ_LOCK_APP_SUBS_RENEW           // Subscription renewal
+HZ_LOCK_APP_EXPIRE_COUPONS       // Coupon expiration
+HZ_LOCK_APP_PRODUCT_CATALOGUE    // Product catalog sync
+
+// Batch operation locks
+HZ_LOCK_APP_INST_REMOVE          // Installation removal
+HZ_LOCK_APP_DELETE_BULK_PROFILE  // Bulk profile deletion
+HZ_LOCK_APP_RETRY_MIGRATION      // Migration retry
+```
+
+For additional support, refer to the comprehensive JavaDoc documentation in each class or contact the platform engineering team.

@@ -1,0 +1,21 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+#### **System Health**
+- [ ] All Kafka consumers processing (lag < 1000)
+- [ ] MongoDB connections healthy (< 80% pool utilization)
+- [ ] Hazelcast cluster fully connected
+- [ ] Memory usage stable (< 80% heap)
+- [ ] No critical errors in logs
+
+#### **Business Logic Health**
+- [ ] Device registration success rate > 95%
+- [ ] Tag processing completing successfully
+- [ ] Subscription renewals running daily
+- [ ] Coupon expiration processing
+- [ ] External API calls succeeding
+
+#### **Performance Metrics**
+- [ ] Average response time < 100ms
+- [ ] Database query performance acceptable
+- [ ] Job execution success rate > 95%
+- [ ] No deadlocks or long-running locks

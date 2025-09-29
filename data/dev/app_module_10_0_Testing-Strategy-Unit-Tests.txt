@@ -1,0 +1,17 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```java
+@Test
+public void testDeviceRegistration() {
+    // Given
+    SdkRegisterDeviceCmd cmd = createValidCommand();
+    when(deviceDao.findByDeviceId(cmd.getDeviceId())).thenReturn(null);
+    
+    // When
+    deviceService.handleCommand(cmd);
+    
+    // Then
+    verify(deviceDao).saveDevice(argThat(device -> 
+        device.getDeviceId().equals(cmd.getDeviceId())));
+}
+```

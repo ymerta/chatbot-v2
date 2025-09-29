@@ -1,0 +1,14 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+#### **Commands vs Events**
+- **Commands**: Modify system state (device registration, profile updates)
+- **Events**: Notifications of state changes (push opens, location updates)
+
+#### **Ordered vs Unordered Processing**
+- **Ordered**: Location events, subscription operations (consistency required)
+- **Unordered**: Profile updates, analytics events (performance optimized)
+
+#### **Retry Mechanisms**
+- **Automatic**: Failed operations stored in retry collections
+- **Configurable**: Maximum retry counts and intervals
+- **Monitoring**: Retry queue health and success rates

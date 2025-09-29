@@ -59,9 +59,27 @@ for _id, d in docs.items():
     corpus_meta.append(d.metadata)  # {"source":..., "url":...}
 
 # 2) Graph compile
-# GraphRAG toggle option
+# Toggle options
 use_graphrag = st.sidebar.checkbox("🔗 GraphRAG Kullan", value=True, help="Knowledge Graph tabanlı hibrit arama")
-graph = build_app_graph(corpus_texts, corpus_meta, use_graphrag=use_graphrag)
+use_app_module = st.sidebar.checkbox("📱 App Module Dahil Et", value=True, help="Netmera App Module dokümantasyonunu aramaya dahil et")
+
+# Filter corpus based on App Module toggle
+if not use_app_module:
+    # App Module chunk'larını filtrele
+    filtered_texts = []
+    filtered_meta = []
+    
+    for i, meta in enumerate(corpus_meta):
+        # App Module chunk'larını atla
+        if 'app-module' not in meta.get('url', '').lower() and 'app_module' not in meta.get('source', '').lower():
+            filtered_texts.append(corpus_texts[i])
+            filtered_meta.append(meta)
+    
+    print(f"📊 App Module kapalı: {len(corpus_texts)} → {len(filtered_texts)} chunk")
+    graph = build_app_graph(filtered_texts, filtered_meta, use_graphrag=use_graphrag)
+else:
+    print(f"📊 App Module açık: {len(corpus_texts)} chunk")
+    graph = build_app_graph(corpus_texts, corpus_meta, use_graphrag=use_graphrag)
 
 # --- yardımcı: URL'i okunur başlığa çevir
 def prettify(u: str) -> str:
@@ -259,17 +277,30 @@ Streamlit secrets'da Firebase service account bilgilerini kontrol edin:
 else:
     st.success("✅ Firebase bağlantısı aktif - Feedback sistemi hazır")
 
-# GraphRAG status indicator
-if use_graphrag:
-    try:
-        from src.graphrag.graph_store import NetmeraGraphStore
-        graph_store = NetmeraGraphStore()
-        stats = graph_store.get_stats()
-        st.info(f"🔗 GraphRAG aktif: {stats['total_nodes']} node, {stats['total_edges']} edge")
-    except Exception as e:
-        st.warning(f"🟡 GraphRAG başlatılamadı: {str(e)[:100]}...")
-else:
-    st.info("📊 Geleneksel FAISS+BM25 modu aktif")
+# System status indicators
+col1, col2 = st.columns(2)
+
+with col1:
+    # GraphRAG status indicator
+    if use_graphrag:
+        try:
+            from src.graphrag.graph_store import NetmeraGraphStore
+            graph_store = NetmeraGraphStore()
+            stats = graph_store.get_stats()
+            st.info(f"🔗 GraphRAG aktif: {stats['total_nodes']} node, {stats['total_edges']} edge")
+        except Exception as e:
+            st.warning(f"🟡 GraphRAG başlatılamadı: {str(e)[:100]}...")
+    else:
+        st.info("📊 Geleneksel FAISS+BM25 modu aktif")
+
+with col2:
+    # App Module status indicator
+    if use_app_module:
+        app_module_count = sum(1 for meta in corpus_meta 
+                              if 'app-module' in meta.get('url', '').lower() or 'app_module' in meta.get('source', '').lower())
+        st.success(f"📱 App Module aktif: {app_module_count} chunk dahil")
+    else:
+        st.warning("📱 App Module kapalı: Sadece User & Developer Guide")
 
 if "history" not in st.session_state:
     st.session_state.history = []

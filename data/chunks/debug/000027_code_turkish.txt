@@ -1,0 +1,25 @@
+[METADATA]
+Source: app_module_6_1_Configuration-Application-Properties.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 280
+Has Code: True
+Tech Terms: api, analytics
+Headers: Skip subscription renewal (for specific servers), Retry configuration, External API configuration
+
+============================================================
+
+```properties
+# Skip subscription renewal (for specific servers)
+skipRenew=false
+
+# Retry configuration
+app.setSource.maxRetry=10
+app.refresh.rate.localCubes=60000
+app.time.oneHour=3600000
+
+# External API configuration
+adobe.analytics.apiKey=<key>
+google.geofence.apiKey=<key>
+```

@@ -1,0 +1,51 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-inbox-feature.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/inbox-feature
+Content Type: code
+Language: turkish
+Char Count: 922
+Has Code: False
+Tech Terms: push notification, api
+Headers: 
+
+============================================================
+
+API Documentation
+REST API
+Inbox Feature
+Netmera’s REST Inbox API allows you to fetch, display, and manage push notifications stored on the server. It supports pagination, filtering by status or time range, and updating message states (e.g., read, deleted).
+Parameters in the Request Body
+Parameter
+Description
+Required
+Type
+`extId`
+The unique external ID of the user.
+✅ Yes
+`String`
+`status`
+Filters the messages based on read status.
+✅ Yes
+`Integer`
+Accepted values:
+1 = Read
+2 = Unread
+3 = Read & Unread
+4 = Deleted
+7 = All
+`numberOfNotification`
+Defines the number of messages to return per page. Defaults to 20 if not provided.
+❌ No
+`Integer`
+`prms.index`
+Used for pagination. Represents the
+`pushInstanceId`
+of the last message received in the previous response.
+❌ No
+`Long`
+`startDate`
+Filters messages starting from this date. Epoch timestamp in milliseconds.
+❌ No
+`Long`
+`endDate`
+Filters messages until this date

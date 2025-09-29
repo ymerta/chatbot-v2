@@ -1,0 +1,27 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+#### **Core Services**
+- **`InternalDeviceService`**: Device registration, user management, profile updates, location handling
+- **`InternalSubscriptionService`**: Subscription lifecycle management and automatic renewals
+- **`InternalTagService`**: User tagging, segmentation, and tag user count management
+- **`InternalCouponService`**: Coupon assignment, expiration processing, and notification handling
+- **`InternalApplicationService`**: Application-level operations and SDK device registration
+
+#### **Integration Services**
+- **`InternalAdobeService`**: Adobe Analytics integration for marketing ID retrieval and user segmentation
+- **`GoogleGeofenceService`**: Location-based services and reverse geocoding using Google APIs
+- **`ProductCatalogueService`**: E-commerce product catalog synchronization and management
+
+#### **Kafka Consumers**
+- **`SdkCommandConsumer`**: Processes SDK commands (device registration, token updates, user operations)
+- **`RestCommandConsumer`**: Handles REST API commands with ordered processing
+- **`AppInternalCommandConsumer`**: Internal command processing for device tokens and uninstalls
+- **`SdkEventConsumer`**: SDK event processing (push opens, rich push actions, location events)
+- **`LocationEventConsumer`**: Dedicated location update event processing
+- **`UserBatchUpdateConsumer`**: Bulk user profile attribute updates
+- **`UserUploadRegisterConsumer`**: User upload registration and file transfer management
+- **`UpdateProfileAttributeConsumer`**: Individual profile attribute updates with error handling
+- **`AppUserAnalyticConsumer`**: User analytics events with bulk processing
+
+#### **Scheduled Tasks**
+- **`AppTasks.java`**: Scheduled maintenance operations including subscription renewals, installation cleanup, coupon expiration, and product catalog synchronization

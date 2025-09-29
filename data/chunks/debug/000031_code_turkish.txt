@@ -1,0 +1,61 @@
+[METADATA]
+Source: app_module_7_2_For-New-Developers-Development-Patterns.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 1286
+Has Code: True
+Tech Terms: sdk, implementation
+Headers: **Service Implementation Pattern**, **Consumer Pattern**
+
+============================================================
+
+#### **Service Implementation Pattern**
+```java
+@Service
+public class InternalDeviceServiceImpl implements InternalDeviceService {
+    
+    @Autowired
+    private InternalDeviceMongoDao deviceDao;
+    
+    @Override
+    public void handleCommand(SdkRegisterDeviceCmd cmd) {
+        // 1. Validate command parameters
+        if (!isValidCommand(cmd)) {
+            logger.warn("Invalid command: {}", cmd);
+            return;
+        }
+        
+        // 2. Execute business logic
+        Device device = processDeviceRegistration(cmd);
+        
+        // 3. Persist changes
+        deviceDao.saveDevice(device);
+        
+        // 4. Publish events if needed
+        publishDeviceRegisteredEvent(device);
+    }
+}
+```
+
+#### **Consumer Pattern**
+```java
+@Component
+public class SdkCommandConsumer extends OrderedQueueConsumer {
+    
+    public SdkCommandConsumer() {
+        super(CONSUMER_GROUP, TOPIC_PATTERN, PARALLELISM, OFFSET_STRATEGY);
+    }
+    
+    @Override
+    public void process(SdkRegisterDeviceCmd cmd) {
+        logger.info("Processing command: {}", cmd);
+        try {
+            deviceService.handleCommand(cmd);
+        } catch (Exception e) {
+            logger.error("Command processing failed", e);
+            // Handle error appropriately
+        }
+    }
+}
+```

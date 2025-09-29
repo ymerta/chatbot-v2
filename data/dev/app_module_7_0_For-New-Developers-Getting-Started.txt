@@ -1,0 +1,8 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+1. **Entry Point**: Start with `AppMain.java` to understand the application bootstrap
+2. **Configuration**: Review `AppConfiguration.java` for Spring bean setup and integrations
+3. **Data Flow**: Follow a device registration flow:
+   ```
+   SDK → SdkCommandConsumer → InternalDeviceService → InternalDeviceMongoDao → MongoDB
+   ```

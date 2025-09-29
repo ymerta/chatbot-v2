@@ -1,0 +1,6 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+- **Database**: MongoDB connection strings and pool settings
+- **Kafka**: Broker configurations and topic settings
+- **Hazelcast**: Cluster configuration and client settings
+- **External APIs**: API keys and endpoint configurations

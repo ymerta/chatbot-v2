@@ -1,0 +1,14 @@
+[METADATA]
+Source: app_module_4_0_Key-Packages-Responsibilities-Main-Package-comnetm.txt
+URL: https://docs.netmera.com/app-module
+Content Type: general
+Language: english
+Char Count: 223
+Has Code: False
+Tech Terms: 
+Headers: 
+
+============================================================
+
+- **`AppMain.java`**: Spring Boot application entry point with Hazelcast client configuration
+- **`AppConfiguration.java`**: Core Spring configuration with bean definitions, thread pool executors, and async processing setup

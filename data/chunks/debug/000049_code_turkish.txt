@@ -1,0 +1,54 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-notifications.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/notifications
+Content Type: code
+Language: turkish
+Char Count: 1508
+Has Code: False
+Tech Terms: push notification, campaign, api
+Headers: 
+
+============================================================
+
+API Documentation
+REST API
+Notifications
+Managing Devices and Notifications with Netmera Rest API
+Welcome to the REST API documentation for managing devices and notifications in our system. This section provides comprehensive information on how to seamlessly register, unregister devices, send notifications, and retrieve essential device and notification details through our REST API.
+Mobile Bulk Notification
+Web Bulk Notification
+Transactional Notification
+Push Stats
+Get Push Result
+Specific Send Bulk Notification
+Transactional Notification
+Create Geofence
+Email
+SMS
+Inbox Feature
+Mobile Bulk Notification
+Send Bulk Notification
+Following request is the minimal required parameters to send push notification.
+curl -X POST \
+-H "X-netmera-api-key: your_rest_api_key" \
+-H "Content-Type: application/json" \
+-d '{
+"message": {
+"title": "Push Notification Title",
+"platforms": ["IOS", "ANDROID"],
+"text": "This is the push notification text!"
+"target": {
+"sendToAll": true
+}' \
+https://restapi.netmera.com/rest/3.0/sendBulkNotification
+Parameters
+title (Required):
+The campaign's name, aiding in the identification of notifications on the panel.
+platforms (Required):
+Specifies the platforms for push notification delivery.
+text (Required):
+The message content of the push notification displayed to the user.
+target (Required):
+The designated recipients for the push notification. If the
+`sendToAll`
+value is set to true, the notification will be dispatched to all users selected for the specified platform

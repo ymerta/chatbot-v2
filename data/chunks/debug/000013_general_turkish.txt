@@ -1,0 +1,21 @@
+[METADATA]
+Source: app_module_2_0_What-This-Module-Does.txt
+URL: https://docs.netmera.com/app-module
+Content Type: general
+Language: turkish
+Char Count: 651
+Has Code: False
+Tech Terms: push notification, segment, analytics
+Headers: 
+
+============================================================
+
+The App Module handles:
+
+- **Device & User Management**: Registration, tracking, profile updates, and lifecycle management
+- **Tag Management**: User segmentation and tagging operations with Adobe Analytics integration
+- **Subscription Management**: Trial-to-paid conversions and subscription renewals
+- **Coupon Management**: Assignment, expiration, and notification processing
+- **Event Processing**: Location events, push notifications, and analytics events
+- **Background Jobs**: Scheduled tasks for maintenance, data processing, and external integrations
+- **External Integrations**: Adobe Analytics, Google Geofence, and product catalog services

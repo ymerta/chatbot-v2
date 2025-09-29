@@ -1,0 +1,23 @@
+[METADATA]
+Source: app_module_4_1_Key-Packages-Responsibilities-Service-Package-comn.txt
+URL: https://docs.netmera.com/app-module
+Content Type: api
+Language: turkish
+Char Count: 822
+Has Code: False
+Tech Terms: segment, sdk, api, analytics
+Headers: **Core Services**, **Integration Services**
+
+============================================================
+
+#### **Core Services**
+- **`InternalDeviceService`**: Device registration, user management, profile updates, location handling
+- **`InternalSubscriptionService`**: Subscription lifecycle management and automatic renewals
+- **`InternalTagService`**: User tagging, segmentation, and tag user count management
+- **`InternalCouponService`**: Coupon assignment, expiration processing, and notification handling
+- **`InternalApplicationService`**: Application-level operations and SDK device registration
+
+#### **Integration Services**
+- **`InternalAdobeService`**: Adobe Analytics integration for marketing ID retrieval and user segmentation
+- **`GoogleGeofenceService`**: Location-based services and reverse geocoding using Google APIs
+- **`ProductCatalogueService`**: E-commerce product catalog synchronization and management

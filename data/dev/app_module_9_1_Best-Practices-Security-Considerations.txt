@@ -1,0 +1,7 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+1. **Input Validation**: Always validate and sanitize external input
+2. **Authentication**: Verify API keys and tokens
+3. **Rate Limiting**: Implement limits for expensive operations
+4. **Data Privacy**: Handle PII according to regulations
+5. **Logging**: Avoid logging sensitive information

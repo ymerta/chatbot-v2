@@ -1,0 +1,81 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+#### **Service Implementation Pattern**
+```java
+@Service
+public class InternalDeviceServiceImpl implements InternalDeviceService {
+    
+    @Autowired
+    private InternalDeviceMongoDao deviceDao;
+    
+    @Override
+    public void handleCommand(SdkRegisterDeviceCmd cmd) {
+        // 1. Validate command parameters
+        if (!isValidCommand(cmd)) {
+            logger.warn("Invalid command: {}", cmd);
+            return;
+        }
+        
+        // 2. Execute business logic
+        Device device = processDeviceRegistration(cmd);
+        
+        // 3. Persist changes
+        deviceDao.saveDevice(device);
+        
+        // 4. Publish events if needed
+        publishDeviceRegisteredEvent(device);
+    }
+}
+```
+
+#### **Consumer Pattern**
+```java
+@Component
+public class SdkCommandConsumer extends OrderedQueueConsumer {
+    
+    public SdkCommandConsumer() {
+        super(CONSUMER_GROUP, TOPIC_PATTERN, PARALLELISM, OFFSET_STRATEGY);
+    }
+    
+    @Override
+    public void process(SdkRegisterDeviceCmd cmd) {
+        logger.info("Processing command: {}", cmd);
+        try {
+            deviceService.handleCommand(cmd);
+        } catch (Exception e) {
+            logger.error("Command processing failed", e);
+            // Handle error appropriately
+        }
+    }
+}
+```
+
+#### **Job Implementation Pattern**
+```java
+public class TagUsersByQueryJob extends NmJob {
+    
+    private String appKey;
+    private String tagName;
+    private Conditions conditions;
+    
+    @Override
+    public boolean prepareAndValidate() {
+        JobParameters params = jobExecution.getParameters();
+        appKey = params.getString(JOB_PARAM_KEY_APP_KEY);
+        tagName = params.getString(JOB_PARAM_KEY_TAG_NAME);
+        conditions = params.readObject(JOB_PARAM_KEY_CONDITIONS_BINARY, Conditions.class);
+        
+        return appKey != null && tagName != null && conditions != null;
+    }
+    
+    @Override
+    public void execute() {
+        logger.info("Starting job: appKey={}, tagName={}", appKey, tagName);
+        
+        AppTag tag = tagService.findTagByName(appKey, tagName, null);
+        targetingService.assignTag(appKey, tag.getId(), conditions.asList());
+        
+        logger.info("Job completed successfully");
+    }
+}
+```

@@ -1,0 +1,33 @@
+[METADATA]
+Source: app_module_11_1_Deployment-Operations-Environment-Configuration.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 491
+Has Code: True
+Tech Terms: sdk
+Headers: **Development**, Reduced parallelism for debugging, Verbose logging, **Production**, Optimized settings, Performance logging
+
+============================================================
+
+#### **Development**
+```properties
+# Reduced parallelism for debugging
+kafka.consumer.app.sdk.parallelism=1
+kafka.consumer.app.rest.parallelism=1
+
+# Verbose logging
+logging.level.com.netmera.app=DEBUG
+logging.level.org.springframework.kafka=DEBUG
+```
+
+#### **Production**
+```properties
+# Optimized settings
+kafka.consumer.app.sdk.parallelism=100
+kafka.consumer.app.rest.parallelism=30
+
+# Performance logging
+logging.level.com.netmera.app=INFO
+logging.level.org.springframework.kafka=WARN
+```

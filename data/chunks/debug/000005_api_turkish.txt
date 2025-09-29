@@ -1,0 +1,29 @@
+[METADATA]
+Source: app_module_11_2_Deployment-Operations-Deployment-Strategy.txt
+URL: https://docs.netmera.com/app-module
+Content Type: api
+Language: turkish
+Char Count: 516
+Has Code: False
+Tech Terms: api
+Headers: 
+
+============================================================
+
+1. **Pre-deployment Checks**:
+    - Verify database connectivity
+    - Check Kafka cluster health
+    - Validate configuration files
+    - Review recent error logs
+
+2. **Rolling Deployment**:
+    - Deploy to single instance
+    - Monitor consumer lag and error rates
+    - Gradually expand to all instances
+    - Monitor system health metrics
+
+3. **Post-deployment Validation**:
+    - Verify all consumers are processing
+    - Check database operations
+    - Monitor external API calls
+    - Validate scheduled tasks

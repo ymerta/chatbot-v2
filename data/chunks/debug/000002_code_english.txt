@@ -1,0 +1,31 @@
+[METADATA]
+Source: app_module_10_2_Testing-Strategy-Performance-Tests.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: english
+Char Count: 573
+Has Code: True
+Tech Terms: sdk
+Headers: 
+
+============================================================
+
+```java
+@Test
+public void testHighThroughputProcessing() {
+    // Generate load and measure performance
+    int messageCount = 10000;
+    List<SdkRegisterDeviceCmd> commands = generateTestCommands(messageCount);
+    
+    long startTime = System.currentTimeMillis();
+    
+    commands.parallelStream().forEach(cmd -> {
+        deviceService.handleCommand(cmd);
+    });
+    
+    long duration = System.currentTimeMillis() - startTime;
+    double throughput = messageCount / (duration / 1000.0);
+    
+    assertThat(throughput).isGreaterThan(100); // messages per second
+}
+```

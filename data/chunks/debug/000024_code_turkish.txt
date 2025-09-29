@@ -1,0 +1,30 @@
+[METADATA]
+Source: app_module_5_2_System-Integrations-Hazelcast-Integration.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 683
+Has Code: True
+Tech Terms: 
+Headers: **Distributed Locks**, **Configuration**
+
+============================================================
+
+#### **Distributed Locks**
+```java
+// Scheduled Operations
+HZ_LOCK_APP_SUBS_RENEW: Subscription renewal (daily at 00:00)
+HZ_LOCK_APP_EXPIRE_COUPONS: Coupon expiration processing
+HZ_LOCK_APP_PRODUCT_CATALOGUE: Product catalog synchronization
+
+// Batch Operations
+HZ_LOCK_APP_INST_REMOVE: Installation removal processing
+HZ_LOCK_APP_INST_SET_SOURCE: Source setting operations
+HZ_LOCK_APP_DELETE_BULK_PROFILE: Bulk profile deletion
+HZ_LOCK_APP_RETRY_MIGRATION: Migration retry processing
+```
+
+#### **Configuration**
+- **Client Modes**: MAIN_CLIENT and TARGETING_CLIENT
+- **Lock Timeout**: Configurable per operation
+- **Cluster Integration**: Multi-node coordination for scheduled tasks

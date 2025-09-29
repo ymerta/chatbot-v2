@@ -1,0 +1,56 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-inbox-feature.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/inbox-feature
+Content Type: code
+Language: turkish
+Char Count: 1262
+Has Code: False
+Tech Terms: api
+Headers: 
+
+============================================================
+
+. },
+{ "msgId": 12939, "pushInstanceId": 10758002, "title": "msgtitle", ... },
+{ "msgId": 12941, "pushInstanceId": 10742004, "title": "msgtitle", ... }
+"cnts": { "1": 2, "2": 3, "4": 0 },
+"prms": { "index": 10742004 }
+The
+`prms.index`
+value (
+`10742004`
+) will be used in the second request to fetch the next page.
+Page 2 – Request
+"extId": "externalid",
+"status": 7,
+"startDate": 1738405578000,
+"endDate": 1740997578000,
+"numberOfNotification": 3,
+"prms": {
+"index": 10742004
+Page 2 – Response
+"msgs": [
+{ "msgId": 12942, "pushInstanceId": 10734004, "title": "msgtitle", ... },
+{ "msgId": 12941, "pushInstanceId": 10734003, "title": "msgtitle", ... }
+"cnts": { "1": 2 }
+Retrieve a Single Inbox Message
+Endpoint
+GET /rest/3.0/inbox/get?piid={pushInstanceId}
+Sample Request
+curl -X GET 'https://restapi.netmera.com/rest/3.0/inbox/get?piid=3103726' \
+-H 'X-netmera-api-key: your_rest_api_key' \
+-H 'Content-Type: application/json'
+Change Message Status
+Endpoint
+POST /rest/3.0/inbox/statusChange
+Sample Request
+curl -X POST 'https://restapi.netmera.com/rest/3.0/inbox/statusChange' \
+-H 'X-netmera-api-key: your_rest_api_key' \
+-H 'Content-Type: application/json' \
+-d '{
+"extId": "your_extId",
+"piids": [2584151],
+"st": 4
+User & Device Management
+GDPR
+21 days ago

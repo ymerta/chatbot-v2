@@ -1,0 +1,17 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+#### **Key Metrics**
+- Consumer lag per topic
+- Database connection pool utilization
+- Job execution success rates
+- Memory and CPU usage
+- External API response times
+
+#### **Alert Thresholds**
+- Consumer lag > 5000 messages
+- Database connection pool > 90%
+- Job failure rate > 5%
+- Memory usage > 85%
+- Error rate > 1%
+
+---

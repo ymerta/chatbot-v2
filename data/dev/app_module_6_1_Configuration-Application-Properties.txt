@@ -1,0 +1,15 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```properties
+# Skip subscription renewal (for specific servers)
+skipRenew=false
+
+# Retry configuration
+app.setSource.maxRetry=10
+app.refresh.rate.localCubes=60000
+app.time.oneHour=3600000
+
+# External API configuration
+adobe.analytics.apiKey=<key>
+google.geofence.apiKey=<key>
+```

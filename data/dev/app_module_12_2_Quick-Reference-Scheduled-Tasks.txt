@@ -1,0 +1,15 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```java
+// Daily at 00:00 UTC
+@Scheduled(cron = "0 0 0 * * ?")
+public void executeRenewSubscriptionsTask()
+
+// Every 10 minutes
+@Scheduled(fixedDelay = 600000)
+public void executeInstallationRemovalTask()
+
+// Every hour
+@Scheduled(fixedRate = 3600000)
+public void executeExpireCouponsTask()
+```

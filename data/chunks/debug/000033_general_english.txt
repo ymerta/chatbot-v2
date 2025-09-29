@@ -1,0 +1,24 @@
+[METADATA]
+Source: app_module_7_3_For-New-Developers-Key-Concepts.txt
+URL: https://docs.netmera.com/app-module
+Content Type: general
+Language: english
+Char Count: 574
+Has Code: False
+Tech Terms: analytics
+Headers: **Commands vs Events**, **Ordered vs Unordered Processing**, **Retry Mechanisms**
+
+============================================================
+
+#### **Commands vs Events**
+- **Commands**: Modify system state (device registration, profile updates)
+- **Events**: Notifications of state changes (push opens, location updates)
+
+#### **Ordered vs Unordered Processing**
+- **Ordered**: Location events, subscription operations (consistency required)
+- **Unordered**: Profile updates, analytics events (performance optimized)
+
+#### **Retry Mechanisms**
+- **Automatic**: Failed operations stored in retry collections
+- **Configurable**: Maximum retry counts and intervals
+- **Monitoring**: Retry queue health and success rates

@@ -1,0 +1,68 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-error-responses.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/error-responses
+Content Type: code
+Language: turkish
+Char Count: 859
+Has Code: False
+Tech Terms: segment
+Headers: 
+
+============================================================
+
+400
+Mail content is empty
+5041
+400
+Segment not found
+5042
+400
+There is already an ui action with this pretty name or with this page item id pair in this platform
+5042
+400
+File cannot be created
+5100
+400
+File cannot be renamed
+5101
+400
+Business unit must be selected for business unit roles
+5102
+400
+Multiple business unit can not be assigned a user
+5103
+400
+Mono service unreachable
+5104
+400
+Business unit id is not specified
+5105
+400
+Mono business unit not found
+5106
+400
+Crash symbol not found
+5107
+400
+This placeholder key is already in use
+5108
+400
+Exceeds per placeholder limit
+5109
+400
+An error occurred while symbolicating stack trace
+5110
+400
+An error occurred while uploading crash symbol file
+5111
+400
+There is already an event mapping with that name
+5112
+400
+Invalid address
+6000
+400
+Delivery error
+6001
+500
+You cannot edit an active recommendation

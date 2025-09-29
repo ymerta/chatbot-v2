@@ -1,0 +1,33 @@
+[METADATA]
+Source: app_module_7_1_For-New-Developers-Code-Reading-Path.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 1071
+Has Code: False
+Tech Terms: sdk, implementation
+Headers: **Phase 1: Foundation**, **Phase 2: Core Services**, **Phase 3: Message Processing**, **Phase 4: Background Processing**
+
+============================================================
+
+#### **Phase 1: Foundation**
+1. **`AppMain.java`** - Application entry point and Hazelcast configuration
+2. **`AppConfiguration.java`** - Spring configuration and bean definitions
+3. **`AppConstants.java`** - System constants and configuration values
+
+#### **Phase 2: Core Services**
+1. **`InternalDeviceService.java`** - Service interface (160 methods)
+2. **`InternalDeviceServiceImpl.java`** - Core implementation (3,398 lines)
+3. **`InternalDeviceMongoDao.java`** - Data access interface
+4. **`InternalDeviceMongoDaoImpl.java`** - MongoDB operations implementation
+
+#### **Phase 3: Message Processing**
+1. **`SdkCommandConsumer.java`** - SDK command processing
+2. **`OrderedQueueConsumer`** vs **`InternalUnOrderedQueueConsumer`** patterns
+3. **`AppInternalCommandConsumer.java`** - Internal command handling
+
+#### **Phase 4: Background Processing**
+1. **`AppJobFactory.java`** - Job creation patterns
+2. **`TagUsersByQueryJob.java`** - Query-based tagging
+3. **`TagAdobeUsersJob.java`** - Complex parallel processing
+4. **`AppTasks.java`** - Scheduled task management

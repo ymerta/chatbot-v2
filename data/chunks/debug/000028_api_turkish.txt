@@ -1,0 +1,16 @@
+[METADATA]
+Source: app_module_6_2_Configuration-Environment-Variables.txt
+URL: https://docs.netmera.com/app-module
+Content Type: api
+Language: turkish
+Char Count: 231
+Has Code: False
+Tech Terms: api
+Headers: 
+
+============================================================
+
+- **Database**: MongoDB connection strings and pool settings
+- **Kafka**: Broker configurations and topic settings
+- **Hazelcast**: Cluster configuration and client settings
+- **External APIs**: API keys and endpoint configurations

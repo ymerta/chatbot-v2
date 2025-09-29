@@ -1,0 +1,78 @@
+[METADATA]
+Source: app_module_8_0_Common-Failure-Scenarios-Debugging-High-Priority-I.txt
+URL: https://docs.netmera.com/app-module
+Content Type: code
+Language: turkish
+Char Count: 1640
+Has Code: True
+Tech Terms: sdk, api
+Headers: **1. Kafka Consumer Lag**, Check consumer lag, Monitor processing rates, **2. MongoDB Performance Issues**, Check slow queries, Monitor connection pool, **3. Hazelcast Cluster Issues**, Check cluster health, Monitor lock acquisition
+
+============================================================
+
+#### **1. Kafka Consumer Lag**
+**Symptoms**: Delayed processing, accumulating messages
+```bash
+# Check consumer lag
+kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group APP_SDK_CMDS
+
+# Monitor processing rates
+grep "Processing command" /var/log/app/*.log | tail -1000
+```
+
+**Common Causes**:
+- Database connection issues
+- Slow external API calls
+- Memory pressure
+- Thread pool exhaustion
+
+**Solutions**:
+- Increase consumer parallelism
+- Optimize database queries
+- Implement circuit breakers for external calls
+- Monitor memory usage and GC patterns
+
+#### **2. MongoDB Performance Issues**
+**Symptoms**: Slow queries, connection timeouts, high CPU usage
+```bash
+# Check slow queries
+db.setProfilingLevel(2, { slowms: 100 })
+db.getProfilingData().limit(5).sort({ $natural: -1 })
+
+# Monitor connection pool
+grep "connection pool" /var/log/app/*.log
+```
+
+**Common Causes**:
+- Missing indexes
+- Large collection scans
+- Connection pool exhaustion
+- Write conflicts
+
+**Solutions**:
+- Add appropriate indexes
+- Optimize query patterns
+- Increase connection pool size
+- Use bulk operations for large updates
+
+#### **3. Hazelcast Cluster Issues**
+**Symptoms**: Lock timeouts, cluster partition, service unavailability
+```bash
+# Check cluster health
+hz-cluster-admin -o cluster-state
+
+# Monitor lock acquisition
+grep "HZ_LOCK_APP" /var/log/app/*.log
+```
+
+**Common Causes**:
+- Network partitions
+- Long-running operations holding locks
+- Cluster member failures
+- Configuration mismatches
+
+**Solutions**:
+- Verify network connectivity
+- Implement lock timeouts
+- Monitor cluster member health
+- Review Hazelcast configuration

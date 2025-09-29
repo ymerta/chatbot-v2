@@ -1,0 +1,16 @@
+[METADATA]
+Source: app_module_4_4_Key-Packages-Responsibilities-Model-Package-comnet.txt
+URL: https://docs.netmera.com/app-module
+Content Type: general
+Language: turkish
+Char Count: 347
+Has Code: False
+Tech Terms: 
+Headers: 
+
+============================================================
+
+- **`GeofenceServiceResponse`**: Location data response model with hierarchical location information
+- **`MigrationRecord`**: User migration tracking between installations
+- **`RemoveInstallationRecord`**: Installation removal operations with retry support
+- **`SetSourceRetryRecord`**: Source setting retry operations with advertising ID tracking

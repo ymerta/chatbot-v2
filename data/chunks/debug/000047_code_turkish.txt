@@ -1,0 +1,83 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-inbox-feature.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/inbox-feature
+Content Type: code
+Language: turkish
+Char Count: 1741
+Has Code: False
+Tech Terms: api
+Headers: 
+
+============================================================
+
+. Represents the
+`pushInstanceId`
+of the last message received in the previous response.
+❌ No
+`Long`
+`startDate`
+Filters messages starting from this date. Epoch timestamp in milliseconds.
+❌ No
+`Long`
+`endDate`
+Filters messages until this date. Epoch timestamp in milliseconds.
+❌ No
+`Long`
+`category`
+Filters messages by categories.
+❌ No
+`Array<Integer>`
+`piids`
+Used in
+`/statusChange`
+to define the messages whose statuses will be updated.
+✅ Yes (for
+`/statusChange`
+`Array<Integer>`
+Inbox Retrieval
+Endpoint
+POST /rest/3.0/inbox/getAllInbox
+Sample Request
+curl -X POST https://restapi.netmera.com/rest/3.0/inbox/getAllInbox \
+-H "X-netmera-api-key: your_rest_api_key" \
+-H "Content-Type: application/json" \
+-d '{
+"extId": "your_extId",
+"status": 2,
+"startDate": 1681635178000,
+"endDate": 1684227178000,
+"numberOfNotification": 3
+Sample Response
+"msgs": [
+"msgId": 25965,
+"pushInstanceId": 3101819,
+"title": "test",
+"message": "Test",
+"status": "UNREAD",
+"sts": 1681635178000,
+"subText": "test"
+"cnts": {
+"2": 1
+"prms": {
+"index": 3101819
+Using Pagination (via
+`prms.index`
+Pagination allows you to retrieve messages in batches. After the first call, the response returns a
+`prms.index`
+value – which is the
+`pushInstanceId`
+of the last message in that batch. To fetch the
+next page
+, you must pass this index value in the next request.
+Pagination Flow Example
+Page 1 – Request
+"extId": "externalid",
+"status": 7,
+"startDate": 1738405578000,
+"endDate": 1740997578000,
+"numberOfNotification": 3
+Page 1 – Response
+"msgs": [
+{ "msgId": 12941, "pushInstanceId": 10758003, "title": "msgtitle", ... },
+{ "msgId": 12939, "pushInstanceId": 10758002, "title": "msgtitle", ... },
+{ "msgId": 12941, "pushInstanceId": 10742004, "title": "msgtitle", ..

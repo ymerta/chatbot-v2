@@ -1,0 +1,14 @@
+[METADATA]
+Source: app_module_4_5_Key-Packages-Responsibilities-Util-Package-comnetm.txt
+URL: https://docs.netmera.com/app-module
+Content Type: general
+Language: turkish
+Char Count: 183
+Has Code: False
+Tech Terms: 
+Headers: 
+
+============================================================
+
+- **`AppConstants`**: Database keys, Hazelcast locks, configuration constants, and timing values
+- **`AppUtil`**: ID generation, token validation, ASCII checking, and string utilities

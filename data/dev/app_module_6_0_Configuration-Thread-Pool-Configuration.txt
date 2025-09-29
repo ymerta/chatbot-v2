@@ -1,0 +1,20 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```java
+// Batch Scheduler (10 threads)
+@Bean(name = "batchScheduler")
+public Executor taskExecutor() {
+    return Executors.newScheduledThreadPool(10);
+}
+
+// Batch Executor (5-10 threads, CallerRunsPolicy)
+@Bean(name = "batchExecutor")
+public Executor batchExecutor() {
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    executor.setCorePoolSize(5);
+    executor.setMaxPoolSize(10);
+    executor.setQueueCapacity(10);
+    executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+    return executor;
+}
+```

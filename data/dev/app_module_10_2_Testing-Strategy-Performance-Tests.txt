@@ -1,0 +1,21 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+```java
+@Test
+public void testHighThroughputProcessing() {
+    // Generate load and measure performance
+    int messageCount = 10000;
+    List<SdkRegisterDeviceCmd> commands = generateTestCommands(messageCount);
+    
+    long startTime = System.currentTimeMillis();
+    
+    commands.parallelStream().forEach(cmd -> {
+        deviceService.handleCommand(cmd);
+    });
+    
+    long duration = System.currentTimeMillis() - startTime;
+    double throughput = messageCount / (duration / 1000.0);
+    
+    assertThat(throughput).isGreaterThan(100); // messages per second
+}
+```

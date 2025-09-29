@@ -1,0 +1,41 @@
+[METADATA]
+Source: netmera-developer-guide-api-documentation-rest-api-gdpr.txt
+URL: https://user.netmera.com/netmera-developer-guide/api-documentation/rest-api/gdpr
+Content Type: code
+Language: turkish
+Char Count: 784
+Has Code: False
+Tech Terms: api
+Headers: 
+
+============================================================
+
+API Documentation
+REST API
+GDPR
+Delete User
+The
+`deleteUsersPermanently`
+endpoint is used to
+permanently delete all user data
+from the Netmera system. This includes all associated events, attributes, and records for the specified user(s). Once deleted, the data cannot be recovered.
+This endpoint is only available to accounts with
+data deletion access
+, which must be requested through the Netmera panel.
+Endpoint
+POST /rest/3.0/deleteUsersPermanently
+Request Headers
+`X-netmera-api-key`
+: Your REST API key
+`Content-Type`
+`application/json`
+Example Request
+curl -X POST https://restapi.netmera.com/rest/3.0/deleteUsersPermanently \
+-H "X-netmera-api-key: your_rest_api_key" \
+-H "Content-Type: application/json" \
+-d '{
+"extIds": [
+"123456"
+Inbox Feature
+Error Responses
+1 month ago

@@ -1,0 +1,7 @@
+[SOURCE_URL]: https://docs.netmera.com/app-module
+
+- **`AppJobFactory`**: Factory for creating background job instances based on job type
+- **`TagUsersByQueryJob`**: Tags users based on targeting conditions with special report support
+- **`TagUserCountRefreshJob`**: Refreshes cached tag user counts
+- **`TagAdobeUsersJob`**: Complex parallel processing job for tagging Adobe Analytics users
+- **`TagProcessor`**: Interface for batch processing of marketing IDs
